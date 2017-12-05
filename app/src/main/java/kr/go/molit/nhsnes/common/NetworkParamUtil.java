@@ -54,6 +54,11 @@ public class NetworkParamUtil {
       String encData = magic.getEncData(jsonData);
 
       jsonParams.put("sessionId", imei);     // 세션키
+
+      if (encData == null) {
+        encData = "";
+      }
+
       jsonParams.put("data", encData);              // 암호화된 데이터
 
       entity = new StringEntity(jsonParams.toString(), "UTF-8");

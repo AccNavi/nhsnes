@@ -135,15 +135,19 @@ public class NetworkProcess extends Handler {
             client.setTimeout(this.timeout);
 
             if (this.isSecurity) {
+
+                String data = " ";
+
                 if (this.param != null) {
 
                     // 파라미터를 가져온다.
-                    String data = new String(inputStreamToByteArray(this.param.getContent()));
-
-                    // 암호화 인코딩한다.
-                    this.param = new NetworkParamUtil().encData(this.context, data);
-
+                    data = new String(inputStreamToByteArray(this.param.getContent()));
                 }
+
+                // 암호화 인코딩한다.
+                this.param = new NetworkParamUtil().encData(this.context, data);
+
+
             }
 
             client.post(this.context, this.direction, this.param, this.contentType, new JsonHttpResponseHandler() {

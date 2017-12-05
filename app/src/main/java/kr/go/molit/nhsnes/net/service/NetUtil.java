@@ -70,6 +70,19 @@ public class NetUtil {
 
         String json = jsonObj.toString();
 
+        // 파라미터가 없으면 공백으로 암호화해서 보내야한다.
+        if (json != null) {
+
+            if (json.isEmpty()) {
+                json = " ";
+            }
+
+        } else {
+
+           json = " ";
+
+        }
+
         // 암호화 인코딩한다.
         StringEntity param = new NetworkParamUtil().encData(context, json);
 
