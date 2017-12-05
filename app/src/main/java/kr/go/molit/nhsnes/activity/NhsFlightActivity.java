@@ -620,9 +620,16 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
      * @author FIESTA
      * @since 오전 12:36
      **/
-    private void checkTestMode(String callsign) {
+    private void checkTestMode(final String callsign) {
 
-        if (callsign.equals("fplccw")) {
+        /**
+            콜사인이 fplccw 이면 input1.txt 를 호출
+            콜사인이 fplwon 이면 input1.txt 를 거꾸로 읽어서 호출
+            콜사인이 fplkdw 이면 input2.txt 를 호출
+            콜사인이 fplnow 이면 input3.txt 를 호출
+         **/
+        if (callsign.equals("fplccw") || callsign.equals("fplwon") ||
+                callsign.equals("fplkdw") ||callsign.equals("fplnow")) {
 
             // 현재 상태, 테스트 주행 중
             this.isTestDrive = true;
@@ -630,10 +637,19 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             // 좌표 값을 읽어온다.
             try {
-//                testDrivePointList = Util.readAssetsToStrings(NhsFlightActivity.this, "test_drive.txt");
-                testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input.txt", " ");
-//                testDrivePointList = Util.readFileTextToJsonArray(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input.txt");
 
+                if (callsign.equals("fplccw") || callsign.equals("fplwon")) {
+
+                    if (callsign.equals("fplccw")) {
+                        testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1.txt", " ", true);
+                    } else {
+                        testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1.txt", " ", false);
+                    }
+                } else if (callsign.equals("fplkdw")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input2.txt", " ", true);
+                } else if (callsign.equals("fplnow")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input3.txt", " ", true);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -649,34 +665,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         mNlvView.clearRoutePosition();
 
-                        // 시작 위치
-                        mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 35.894373,
-                                "start name", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                        // 시나리오 좌표를 설정한다.
+                       setTestRoute(callsign);
 
-                                    }
-                                });
-
-//                            // 종료 위치
-                        mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 128.344745, 36.118153,
-                                "goal name", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                    }
-                                });
-
-
-                        mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 128.736786, 35.592056,
-                                "waypoint name1", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                    }
-                                });
-
-
+                       // 경로 확정
                         int result = mNlvView.executeRP(NhsFlightActivity.this, 0, 0, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -726,15 +718,17 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                             AirGPSData airGPSData = new AirGPSData();
 
-                                            airGPSData.uLat = (float) Double.parseDouble(pos[1]);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  airGPSData.uLat = (float) Double.parseDouble(pos[1]);
                                             airGPSData.uLon = (float) Double.parseDouble(pos[0]);
 
                                             airGPSData.uBear = Float.parseFloat(pos[3]);
                                             airGPSData.uAltitude = Integer.parseInt(pos[2]);
+                                            airGPSData.uSpeed = Float.parseFloat(pos[4]);
 
 
                                             Log.d("step", testDriveIndex + "");
 
+                                            /**
                                             // 고도가 3000 을 넘으면 자동 줌레벨을 시작한다.
                                             if (airGPSData.uAltitude > 2900) {
                                                 if (testDriveToggle == -1)
@@ -753,9 +747,16 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 }
                                             }
 
+                                             **/
+
                                             // 해발값 표시
                                             updateAtltitude(airGPSData.uAltitude);
+
+                                            // 고도 표시
                                             updateDirection(airGPSData.uBear);
+
+                                            // 속도 표시
+                                            updateSpeed(airGPSData.uSpeed);
 
                                             // 자이로값 전달
                                             if (gyroValues != null) {
@@ -764,12 +765,19 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 airGPSData.fGyroZ = gyroValues[2];
                                             }
 
-                                            // 1초에 한번씩 gps 정보를 맵에게 전달한다.
-                                            lanReceiveGPSData(airGPSData);
-                                            lanExceuteGuide();
+                                            boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
+                                            boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
-                                            int lvl = getZoomLevel((int) airGPSData.uAltitude, (int) airGPSData.uSpeed);
-                                            LanStorage.mNative.lanZoomByPositionWrapper(lvl, -1, -1);
+                                            // TODO: 2017-09-20 테스트폰이 wifi용이라서.. wifi만 우선 체크한다. 빌드할때 아래 주석 풀것
+                                            if (isMobileDataEnabled || isWifiConnected) {
+//                                            if (isWifiConnected) {
+                                                // 1초에 한번씩 gps 정보를 맵에게 전달한다.
+                                                lanReceiveGPSData(airGPSData);
+                                                lanExceuteGuide();
+                                            }
+
+//                                            int lvl = getZoomLevel((int) airGPSData.uAltitude, (int) airGPSData.uSpeed);
+//                                            LanStorage.mNative.lanZoomByPositionWrapper(lvl, -1, -1);
 
                                         } catch (Exception ex) {
 
@@ -868,6 +876,143 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             }, 500);
 
         }
+
+    }
+    /**
+     * 시나리오 경로를 지정한다.
+     *
+     * @author FIESTA
+     * @since 오전 00:25
+     **/
+    private void setTestRoute(String callsign){
+
+        if (callsign.equals("fplccw")) {    // 시나리오 1
+
+            // 시작 위치 (인천)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 126.794442, 37.558825,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            /// 종료 위치 (수원)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 127.013864, 37.281467,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+            // 경유지 (인천공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 126.440696, 37.460310,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+        }else if (callsign.equals("fplwon")) {  // 시나리오 2
+
+            // 시작 위치 (수원)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 127.013864, 37.281467,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (인천공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 126.794442, 37.558825,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+            // 경유지 (인천공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 126.440696, 37.460310,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+        }else if (callsign.equals("fplkdw")) {  // 시나리오 3
+
+            // 시작 위치 (춘천 시청)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 127.733290, 37.882018,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (묵호항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 129.117326, 37.553725,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+            // 경유지 (하조대)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 128.726984, 38.022287,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+        }else if (callsign.equals("fplnow")) {  // 시나리오 4
+
+            // 시작 위치 (대구항공교통본부)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 35.894373,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (포항공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 129.433929, 35.984843,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+            // 경유지 (영천시청)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 128.938619, 35.973368,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+
+        }
+
+
 
     }
 

@@ -792,6 +792,61 @@ public class Util {
     }
 
     /**
+     * text 파일을 읽어서 jsonArray로 반환한다.
+     * 해당 기능은 비행 종료시 보내는 데이터용으로 쓰인다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 2017-09-13 오후 6:34
+     **/
+    public static String[] readFileTexts(String path, String name, String splitTxt, boolean isForward) throws IOException {
+
+        File file = new File(path, name);
+        StringBuilder sb = new StringBuilder();
+
+        // 파일이 없으면 빈 값을 보낸다.
+        if (!file.exists()) {
+
+            return new String[0];
+
+        } else {
+            BufferedReader br = null;
+
+            try {
+
+                br = new BufferedReader(new FileReader(file));
+
+                String line = br.readLine();
+                JSONObject jsonData = null;
+
+                while (line != null) {
+
+                    if (isForward) {    // 정방향
+                        sb.append(line + splitTxt);
+                    } else { // 역방향
+                        sb.insert(0, line + splitTxt); // 역방향
+                    }
+
+                    line = br.readLine();
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+
+                br.close();
+
+                return sb.toString().split(splitTxt);
+
+            }
+
+        }
+
+    }
+
+
+    /**
      * text 파일을 읽어서 문자들로 반환한다.
      * 해당 기능은 비행 종료시 보내는 데이터용으로 쓰인다.
      *

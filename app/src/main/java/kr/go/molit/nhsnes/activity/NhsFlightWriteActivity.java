@@ -1076,11 +1076,13 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                 // 임시저장 데이터라면 새로 업로드한다.
                 if (this.viewType == VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP) {
                     mFlightPlanInfo.setMessageType(FlightPlanInfo.TYPE_MESSAGE_FPL);
+                    mFlightPlanInfo.setCallsign(((EditTextEx) findViewById(R.id.et_1_1)).getText().toString());
                 } else {
                     if (this.isEditMode) {
                         mFlightPlanInfo.setMessageType(FlightPlanInfo.TYPE_MESSAGE_CHG);
                     } else {
                         mFlightPlanInfo.setMessageType(FlightPlanInfo.TYPE_MESSAGE_FPL);
+                        mFlightPlanInfo.setCallsign(((EditTextEx) findViewById(R.id.et_1_1)).getText().toString());
                     }
                 }
             }
