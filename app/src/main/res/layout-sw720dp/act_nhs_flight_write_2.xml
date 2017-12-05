@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_bg3"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.ActionBarEx
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:text="비행계획서 작성"
+        app:titleIcon="@drawable/icon_list" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layout_contents"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_1_1" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_1_1"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="6" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_1_2" />
+
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_1_2"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_1_3" />
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:spinnerMode="dialog" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_2_1" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_2_1"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="6" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_2_2" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_2_2"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_2_3" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_2_3"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_3_1" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        android:id="@+id/et_3_1"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="6" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/flight_plan_3_2" />
+
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_3_3" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_4_1" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_4_2" />
+
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_4_3" />
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        style="@style/SpinnerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:spinnerMode="dialog" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/flight_plan_5_1" />
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        android:id="@+id/ed_route"
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:lines="2" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/flight_plan_6_1" />
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="6" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/flight_plan_6_2" />
+
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_super_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="invisible"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:button="@drawable/selector_checkbox"
+                        android:text="초경량"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flight_plan_7_1" />
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/flight_plan_7_2" />
+
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                </View>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        style="@style/textViewTitleWhiteSmallAppearance2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/flight_plan_8_1" />
+
+                    <kr.go.molit.nhsnes.widget.EditTextEx
+                        style="@style/editTextBoxAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:lines="2" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="E/" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="P/" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical"
+                    android:text="R/" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="UHF"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="VHF"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="ELT"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical"
+                    android:text="S/" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Polar"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Desert"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Maritime"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Jungle"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical"
+                    android:text="J/" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Light"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="Fluores"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="UHF"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox"
+                    android:gravity="center_vertical"
+                    android:text="VHF"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="D/" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Capacity"
+                    android:textSize="10sp" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/textViewEx"
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Numbers"
+                    android:textSize="10sp" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Cover"
+                    android:textSize="10sp" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Color"
+                    android:textSize="10sp" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
+                    android:text="A/" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="N/" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    style="@style/textViewTitleWhiteSmallAppearance2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="C/" />
+
+                <kr.go.molit.nhsnes.widget.EditTextEx
+                    style="@style/editTextBoxSmallAppearance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/layout_send"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_type2_btn"
+                android:clickable="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:background="@drawable/icon_request2" />
+
+                    <kr.go.molit.nhsnes.widget.TextViewEx
+                        android:id="@+id/tv_menu2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_marginLeft="5dp"
+                        android:text="Send"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <FrameLayout
+                    android:id="@+id/bt_edit"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/selector_type2_btn"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|left"
+                            android:background="@drawable/icon_request2" />
+
+                        <kr.go.molit.nhsnes.widget.TextViewEx
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|left"
+                            android:layout_marginLeft="5dp"
+                            android:text="Edit"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/bt_list"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/selector_type2_btn"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|left"
+                            android:background="@drawable/icon_request2" />
+
+                        <kr.go.molit.nhsnes.widget.TextViewEx
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|left"
+                            android:layout_marginLeft="5dp"
+                            android:text="List"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

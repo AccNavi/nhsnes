@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 저장매체 선택 팝업 --><!-- 로컬공간, 외부저장매체 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/dialogBg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_title_type1">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="비행계획서 수정"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_content_type1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="현재 비행계획서를\n수정하시겠습니까?"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_botton_type1"
+        android:orientation="horizontal">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="취소"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp" />
+
+
+    </LinearLayout>
+</LinearLayout>
+

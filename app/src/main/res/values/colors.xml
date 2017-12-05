@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="textColorBlue">#69A5FF</color>
+    <color name="textColorTransparentBlack">#9a000000</color>
+    <color name="textColorTransparentWhite">#9aFFFFFF</color>
+    <color name="listDivider">#7d8087</color>
+
+    <color name="destinationListBg">#5682c4</color>
+
+    <color name="dialogBg">#EF000000</color>
+
+    <color name="spinnerBgPressed">#33415C</color>
+    <color name="spinnerBgNormal">#252833</color>
+
+    <color name="default_bg_color">#161721</color>
+
+
+    <color name="rgb_191b22">#191b22</color>
+    <color name="rgb_343b48">#343b48</color>
+    <color name="rgb_3fd0101">#fd0101</color>
+
+
+
+
+</resources>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="경로이탈 버퍼존"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_path_exit_buffer_zone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="장애물 경보존"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_preservation_of_obstacles"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="공역 경보존"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_space_conservation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="비행금지구역 접근가능 거리"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_flying_distance"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="안전고도정보"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="2dp"
+      android:gravity="left"
+      android:text="최고비행 고도"
+      android:textColor="@color/textColorBlue"
+      android:textSize="10sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_highest_flight_altitude"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="최저비행 고도"
+      android:textColor="@color/textColorBlue"
+      android:textSize="10sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_lowest_flight_altitude"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="지도 다운로드 범위설정"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.SelectButton
+      android:id="@+id/sb_set_the_map_download_scope"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="경로이탈 재탐색"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_exploring_path_exits"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="켬"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="안전정보 경보메시지"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_alert_message_set"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="경보설정"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_alarm_message_voice"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="음성"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="줌 레벨"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_autozoom_level_setting"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="줌 레벨 자동 설정"
+      app:textColor="@color/white" />
+  </LinearLayout>
+
+</ScrollView>

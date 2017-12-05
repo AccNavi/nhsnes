@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="동기화"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/img_shadow1"
+            android:padding="5dp">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="동기화"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_sync"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_btn_sync" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tve_sync_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/bt_sync"
+                android:text="12월 07일 18:00"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="계기판 정보 표출 설정"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+            android:id="@+id/ttb_tts_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="음성 기능"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.SettingSeekBar
+            android:id="@+id/ssb_tts_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:progressIcon="@drawable/icon_vol" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="화면 설정"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.SettingSeekBar
+            android:id="@+id/ssb_screen_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:progressIcon="@drawable/icon_brightness" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="화면 꺼짐 방지"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_auto_screen_brightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="자동 화면 밝기"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_change_color_automatically"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="주간/야간 색상 자동 변경"
+            app:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_type7_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/layout_weekly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_type7_nor"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/icon_brightness"/>
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_weekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="주간"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_nightly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/icon_night_nor"/>
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_nightly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="야간"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="항공정보 저장 위치"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_type7_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:id="@+id/layout_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/icon_local_nor"/>
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="로컬"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+              android:id="@+id/layout_ext"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:gravity="center"
+              android:background="@drawable/btn_type7_nor"
+              android:orientation="horizontal">
+
+                <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/icon_memory2_nor"/>
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                  android:id="@+id/tv_ext"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="5dp"
+                  android:text="외부"
+                  android:textColor="@color/white"
+                  android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="ADS-B/UAT"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+            android:id="@+id/ttb_ads_interlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="ADS-B/UAT 연동"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_ads_link_wifi"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="2dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="2dp"
+          app:text="ADS-B/UAT 연동 Wi-Fi"
+          app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_ads_link_bluetooth"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="2dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="2dp"
+          app:text="ADS-B/UAT 연동 Bluetooth"
+          app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_ads_info_expression"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="ADS-B/UAT 정보 표출"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_ads_around_aircraft_info_expression"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="2dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="2dp"
+          app:text="ADS-B/UAT 주변 항공기 정보 표출"
+          app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="기타"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_send_and_receive_flight_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="관리시스템과 비행정보 송수신"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_connect_with_system"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="지상 관리시스템과 연계"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_provide_aircraft_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="관리시스템으로 항공기 위치 제공"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_auto_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            app:text="과거 비행데이터 자동 삭제"
+            app:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextToggleButton
+          android:id="@+id/ttb_use_utc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="2dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="2dp"
+          app:text="UTC 시간 사용"
+          app:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>

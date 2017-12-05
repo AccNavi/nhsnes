@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 저장매체 선택 팝업 -->
+<!-- 로컬공간, 외부저장매체 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_title_type1">
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/img_pop_content_type1">
+        <FrameLayout
+            android:id="@+id/bt_menu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_type1_pre">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/iv_icon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:background="@drawable/icon_localmemory_dis"/>
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_menu1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"
+                    android:text="로컬 공간"
+                    android:textColor="#5682c4"/>
+            </LinearLayout>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/bt_menu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_type1_pre">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/iv_icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:background="@drawable/icon_memory_dis"/>
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_menu2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"
+                    android:text="외부 저장 매체"
+                    android:textColor="#5682c4"/>
+            </LinearLayout>
+        </FrameLayout>
+        <!--kr.go.molit.nhsnes.widget.ButtonIconSelector
+            android:id="@+id/bt_dialog_menu_1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            custom:btn_text="로컬 공간"
+            custom:btn_text_color="@color/selector_storage_dialog_btn"
+            custom:btn_icon="@drawable/selector_icon_localmemory"
+            custom:btn_back="@drawable/selector_type1_btn"/>
+        <kr.go.molit.nhsnes.widget.ButtonIconSelector
+            android:id="@+id/bt_dialog_menu_2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            custom:btn_text="외부 저장 매체"
+            custom:btn_text_color="@color/selector_storage_dialog_btn"
+            custom:btn_icon="@drawable/selector_icon_memory"
+            custom:btn_back="@drawable/selector_type1_btn"/-->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/img_pop_botton_type1">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp"/>
+    </LinearLayout>
+</LinearLayout>
+

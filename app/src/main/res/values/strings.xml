@@ -1,0 +1,148 @@
+<resources>
+    <string name="app_name">AccAirNav</string>
+
+    <string name="btn_agree">동의</string>
+
+    <string name="btn_confirm">확인</string>
+    <string name="btn_cancel">취소</string>
+    <string name="btn_delete">삭제</string>
+
+    <!-- 개인정보 수집, 이용 동의 -->
+    <string name="dialog_agree_title">개인정보 수집, 이용 동의</string>
+    <string name="dialog_agree_msg">내비게이션 서비스를 이용하는 과정에서 사용자의 개인정보와 위치정보를 수집할 수 있습니다. 수집한 정보는 내비게이션 서비스 이용외 용도로 사용하지 않습니다.</string>
+    <!-- GPS 오차범위 안내 -->
+    <string name="dialog_gps_notice_title">GPS오차범위 및\n정보활용책임한계 동의</string>
+    <string name="dialog_gps_notice_msg">내비게이션에서 제공하는 GPS위치 및 고도정보는 오차범위가 존재할 수 있습니다. 또한 제공하는 정보는 운항 시 참고 하는 보조수단임을 유의하시기 바랍니다. 내비게이션 프로그램은 위치 안내를 위하여 GPS기능을 자동으로 ON 할 수 있습니다.</string>
+    <string name="dialog_select_storage_title">기록 데이터 저장 매체 설정</string>
+    <!-- 데이터요금 부과 안내 -->
+    <string name="dialog_data_notice_title">데이터 요금 청구 알림</string>
+    <string name="dialog_data_notice_msg">데이터 네트워크 접속을 허용합니다. Wi-Fi 데이터를 사용하지 않고 LTE를 사용하실 경우 가입하신 요금제에 따라 데이터 네트워크 접속 및 GPS 정보 전송 등으로 인한 데이터 통화료가 발생할 수 있습니다.</string>
+    <!-- notam 정보 -->
+    <string name="dialog_notam_title">NOTAM 정보</string>
+    <string name="dialog_notam_msg">D7022/15 NOTAMN\nQ)RKRR/QRTCA/IV/BO/W/000/300\nA)RKRR\nB)1512160130\nC)1512170600\nD)0130-0600E)\nTEMPO RESTRICTED AREA ACT AREA</string>
+    <!-- notam 정보 -->
+    <string name="dialog_weather_title">기상 정보</string>
+    <string name="dialog_weather_msg">METAR\nMETAR RKSS 211025Z\n31015G27KT 280V350 3000\n1400N R24/P2000\n+SHRA FEW005 FEW010CB\nSCT018 BKN025 10/03 Q0995\nRETS WS RWY24</string>
+    <!-- 로그인 실패 메시지 -->
+    <string name="error_login">&lt;font color=\'#d5d5d5\'&gt;현재 입력하신 아이디가 등록되어 있지 않거나,입력하신 아이디와 비밀번호가 일치하지 않습니다.\n&lt;/font&gt;&lt;br&gt;&lt;font color=\'#ff0000\'&gt;아이디/비밀번호 확인 후 재시도 하시기 바랍니다.&lt;/font&gt;</string>
+
+
+    <string name="zero_dot_five"><font size="7">0.5</font><font size="5">mm</font></string>
+
+    <string name="prompt">Select</string>
+
+    <string name="flight_plan_0_1">Priority</string>
+    <string name="flight_plan_0_2">Filing Time</string>
+    <string name="flight_plan_0_3">Originator</string>
+    <string name="flight_plan_0_4">Message Type</string>
+
+
+    <string name="flight_plan_1_1">Flight Identity</string>
+    <string name="flight_plan_1_2">Flight Rules</string>
+    <string name="flight_plan_1_3">Flight Type</string>
+
+    <string name="flight_plan_2_1">Number</string>
+    <string name="flight_plan_2_2">Aircraft Type</string>
+    <string name="flight_plan_2_3">Wake Turb. Cat.</string>
+
+    <string name="flight_plan_3_1">Equipment</string>
+    <string name="flight_plan_3_2">Departure Aerodrome</string>
+    <string name="flight_plan_3_3">Time</string>
+
+    <string name="flight_plan_4_1">Crusing Speed</string>
+    <string name="flight_plan_4_2">Flight level</string>
+    <string name="flight_plan_4_3">Purpose</string>
+
+    <string name="flight_plan_5_1">Route</string>
+
+    <string name="flight_plan_6_1">Arrival\nAerodrome</string>
+    <string name="flight_plan_6_2">Total EET</string>
+
+    <string name="flight_plan_7_1">1st ANTN\n Aerodrome</string>
+    <string name="flight_plan_7_2">2nd ALTN\n Aerodrome</string>
+
+    <string name="flight_plan_8_1">Other Information</string>
+
+    <string name="ams_message_1">Priority</string>
+    <string name="ams_message_2">Addresses</string>
+    <string name="ams_message_3">Msg. Type</string>
+    <string name="ams_message_4">Filing Time</string>
+    <string name="ams_message_5">Originator</string>
+
+    <string name="fpl_title">경고 메시지</string>
+    <string name="fpl_message_1">수정하실 비행계획서를\n 선택하셔야 합니다.</string>
+    <string name="fpl_message_2">삭제하실 비행계획서를\n 선택하셔야 합니다.</string>
+
+    <string name="fpl_message_3">현재 비행계획서를\n 삭제하시겠습니까?</string>
+    <string name="fpl_message_4">선택하신 비행계획서를\n 수정하시겠습니까?</string>
+    <string name="fpl_message_5">선택하신 임시저장 비행계획서를\n 삭제하시겠습니까?</string>
+
+
+    <string name="err_title">오류 메시지</string>
+    <string name="err_message_1">정확한 위치 좌표를 입력하여 주세요.</string>
+    <string name="err_message_2">지정된 경로가 없습니다.\n확정할 경로를 선택해 주세요.</string>
+    <string name="err_message_3">검색한 좌표가 없어\n별칭을 지정할 수 없습니다.</string>
+    <string name="err_message_4">삭제 하고자 하는\n좌표를 선택해 주세요.</string>
+    <string name="err_message_5">즐겨찾기 정보를\n삭제하시겠습니까?</string>
+    <string name="err_message_6">경로확정을 눌러주세요.</string>
+
+    <string name="find_id_name">%s님의 아이디 찾기 결과입니다</string>
+    <string name="find_pwd_msg" formatted="false">%s님의 아이디 \"%s\"</string>
+
+    <string name="n_data" formatted="false">N : %s</string>
+    <string name="e_data" formatted="false">E : %s</string>
+
+
+    <!-- tag id -->
+    <string name="tag_holder">holder</string>
+    <string name="tag_data">data</string>
+
+
+    <string name="wait_message">잠시만 기다려주세요.</string>
+    <string name="error_network">네트워크 에러입니다. \n관리자에게 문의해주세요.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- gps 관련 -->
+    <string name="GPS_TURN_ON">GPS를 활성화해주세요</string>
+    <string name="GPS_PERMISSION_ERROR">권한을 설정해주세요</string>
+    <string name="GPS_TIMEOUT">시간 초과로 위치를 얻을 수 없습니다!</string>
+    <string name="GPS_PERMISSION_DENIED">사용자가 권한을 부여하지 않았으므로 위치를 찾을 수 없습니다!</string>
+    <string name="GPS_NETWORK_NOT_AVAILABLE">네트워크에 액세스 할 수 없으므로 위치를 찾을 수 없습니다!</string>
+    <string name="GPS_GOOGLE_PLAY_SERVICES_NOT_AVAILABLE">Google Play 서비스를 사용할 수 없기 때문에 위치를 찾을 수 없습니다</string>
+    <string name="GPS_GOOGLE_PLAY_SERVICES_CONNECTION_FAIL">Google Play 서비스 연결이 실패했기 때문에 위치를 찾을 수 없습니다.</string>
+    <string name="GPS_GOOGLE_PLAY_SERVICES_SETTINGS_DIALOG">settingsApi 대화 상자를 표시 할 수 없습니다!</string>
+    <string name="GPS_GOOGLE_PLAY_SERVICES_SETTINGS_DENIED">사용자가 settingsApi를 통해 공급자를 활성화하지 않았으므로 위치를 찾을 수 없습니다!</string>
+    <string name="GPS_VIEW_DETACHED">프로세스 뷰에서 분리되었으므로 위치를 찾을 수 없습니다!</string>
+    <string name="GPS_VIEW_NOT_REQUIRED_TYPE">보기가 주어진 구성을 충족시키기에 충분하지 않기 때문에 위치를 찾을 수 없습니다!</string>
+    <string name="GPS_UNKNOWN">알수 없는 문제가 발생했습니다.</string>
+    <string name="GPS_GETTING_LOCATION_FROM_GOOGLE_PLAY_SERVICES">Google Play 서비스에서 위치 정보를 얻는 중...</string>
+    <string name="GPS_GETTING_LOCATION_FROM_GPS_PROVIDER">GPS에서 위치를 찾는 중...</string>
+    <string name="GPS_GETTING_LOCATION_FROM_NETWORK_PROVIDER">네트워크에서 위치 정보를 가져오는 중...</string>
+    <string name="GPS_GETTING_LOCATION">위치 정보를 얻는 중...</string>
+
+    <array name="dummy_items">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+        <item>Ten</item>
+    </array>
+
+    <string name="save_favorite">즐겨찾기가 저장되었습니다.</string>
+
+    <string name="rp_error_msg_1">RP_TOO_CLOSE</string>
+    <string name="rp_error_msg_2">RP_TOO_CLOSE_0(시작지가 목적지 부근)</string>
+    <string name="rp_error_msg_3">RP_TOO_CLOSE_1(시작지가 경유지 부근)</string>
+    <string name="rp_error_msg_4">RP_TOO_CLOSE_2(경유지가 목적지 부근)</string>
+    <string name="rp_error_msg_5">RP_START_MATCHING_FAIL</string>
+    <string name="rp_error_msg_6">RP_START_MATCHING_FAIL_0(시작지 시작 링크 설정 실패)</string>
+    <string name="rp_error_msg_7">RP_START_MATCHING_FAIL_1(경유지 시작 링크 설정 실패)</string>
+
+    <string name="ete">ETE : %s Hour</string>
+</resources>

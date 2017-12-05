@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 저장매체 선택 팝업 --><!-- 로컬공간, 외부저장매체 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:background="@color/dialogBg"
+  android:orientation="vertical">
+
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_pop_title_type1">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/tv_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="5dp"
+      android:text="승인 요청"
+      android:textColor="#ffffff"
+      android:textSize="20sp" />
+  </FrameLayout>
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_pop_content_type1"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="승인을 요청중입니다."
+      android:textColor="@color/white"
+      android:textSize="20sp" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      android:layout_marginTop="30dp"
+      android:orientation="horizontal"
+      android:padding="5dp">
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.4"
+        android:gravity="center"
+        android:text="날짜"
+        android:textColor="@color/white" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="출발지"
+        android:textColor="@color/white" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="도착지"
+        android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      android:orientation="horizontal"
+      android:padding="4dp">
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.4"
+        android:gravity="center"
+        android:text="2017.06.25"
+        android:textColor="@color/white" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:id="@+id/tv_msg1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="상암동"
+        android:textColor="@color/white" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:id="@+id/tv_msg2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="삼성동"
+        android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_pop_botton_type1"
+    android:orientation="horizontal">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/btn_cancel"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="확인"
+      android:textColor="@drawable/selector_dialog_btn"
+      android:textSize="16.67sp" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/btn_ok"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="취소"
+      android:textColor="@drawable/selector_dialog_btn"
+      android:textSize="16.67sp" />
+
+
+  </LinearLayout>
+</LinearLayout>
+

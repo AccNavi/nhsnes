@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg3"
+  android:orientation="vertical">
+
+  <kr.go.molit.nhsnes.widget.ActionBarEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    app:text="GPS 정보"
+    app:titleIcon="@drawable/icon_gpsinfo" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    android:text="GPS 위성정보"
+    android:textColor="@color/white"
+    android:textSize="20sp" />
+
+  <ImageView
+    android:id="@+id/iv_gps_state"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:src="@drawable/img_gps_good" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:id="@+id/tve_gps_state"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:text="GPS 통신 상태 좋음"
+    android:textColor="@color/textColorBlue"
+    android:textSize="12sp" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    android:text="WiFi 신호감도"
+    android:textColor="@color/white"
+    android:textSize="20sp" />
+
+  <ImageView
+    android:id="@+id/iv_wifi_state"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:src="@drawable/img_gps_signal_2" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:gravity="center_horizontal"
+    android:text="무선통신체계의 신호감도에 따른 통신망 변경 선택"
+    android:textColor="@color/textColorBlue"
+    android:textSize="12sp" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:gravity="center_horizontal"
+    android:text="(자동으로 하면 LTE 데이터 통신료가 부과됩니다.)"
+    android:textColor="@android:color/holo_red_dark"
+    android:textSize="12sp" />
+
+  <android.support.v7.widget.SwitchCompat
+      android:id="@+id/sc_gps"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="15dp"
+    android:textOff="자동"
+    android:textOn="수동"
+    android:thumb="@drawable/btn_type7_nor"
+    app:showText="true"
+    app:switchTextAppearance="@style/switchTextAppearance"
+    app:track="@drawable/selector_type7_btn" />
+
+  <android.support.v7.widget.SwitchCompat
+    android:id="@+id/sc_bluetooth"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="15dp"
+    android:textOff="Bluetooth OFF"
+    android:textOn="Bluetooth ON"
+    android:thumb="@drawable/btn_type7_nor"
+    app:showText="true"
+    app:switchTextAppearance="@style/switchTextAppearance"
+    app:track="@drawable/selector_type7_btn" />
+
+</LinearLayout>

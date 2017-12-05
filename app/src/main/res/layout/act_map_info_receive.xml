@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_bg3"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.ActionBarEx
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:text="지도 정보 수신" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:text="지도 다운로드"
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="left"
+            android:text="벡터지도와 수치지형도는 자동으로 다운로드되어 OFF할 수 없습니다."
+            android:textColor="@color/textColorBlue"
+            android:textSize="9.33sp" />
+
+        <!--<kr.go.molit.nhsnes.widget.TextToggleButton-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--app:text="백터지도 다운로드" />-->
+
+        <LinearLayout
+            android:id="@+id/layoutVectorMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="위성지도 다운로드 범위 설정"
+                android:textColor="@color/textColorBlue"
+                android:textSize="9.33sp" />
+
+            <kr.go.molit.nhsnes.widget.SelectButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+
+        <!--<kr.go.molit.nhsnes.widget.TextToggleButton-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--app:text="위성지도 다운로드" />-->
+
+        <!--<kr.go.molit.nhsnes.widget.TextToggleButton-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--app:text="수치지형도 다운로드" />-->
+    </LinearLayout>
+
+
+</LinearLayout>

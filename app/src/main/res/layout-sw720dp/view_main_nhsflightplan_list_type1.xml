@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?><!--main 비행계획 리스트 즐겨찾기 어댑터-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="16.06.16"
+                android:visibility="visible"
+                android:textColor="#ffffff"
+                android:textSize="13.33sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="2.5"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="수원 비행장 > 수원 비행장"
+                android:textColor="#ffffff"
+                android:textSize="13.33sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="#7d8087" />
+
+
+</LinearLayout>

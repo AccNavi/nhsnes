@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_bg1"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.23">
+
+        <FrameLayout
+          android:layout_width="150dp"
+          android:id="@+id/fl_my_info"
+          android:layout_height="match_parent"></FrameLayout>
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="85dp"
+            android:text="춘향이"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_name_sir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_name"
+            android:layout_gravity="center|left"
+            android:layout_toRightOf="@+id/tv_name"
+            android:text=" 님"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_name"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/tv_name_sir"
+            android:text="로그아웃"
+            android:textColor="#ffffff"
+            android:textSize="8sp" />
+
+        <ImageView
+            android:id="@+id/bt_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/selector_info"
+            android:layout_toLeftOf="@+id/bt_flight"/>
+        <ImageView
+            android:id="@+id/bt_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/selector_navi" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="0.36"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bt_nhsflightplanlist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main1_btn" />
+
+            <ImageView
+                android:id="@+id/bt_nhswaypoint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main2_btn" />
+
+            <ImageView
+                android:id="@+id/bt_nhsflighthistory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main3_btn" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="비행계획서"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="경로탐색"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="비행이력 조회"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bt_nhsweatherinfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main4_btn" />
+
+            <ImageView
+                android:id="@+id/bt_nhsgpsinfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main5_btn" />
+
+            <ImageView
+                android:id="@+id/bt_nhsconfig"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_main6_btn" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="기상정보"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="GPS"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="설정"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.41"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <kr.go.molit.nhsnes.widget.CheckableButtonEx
+                android:id="@+id/bt_recent"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/selector_type1_tab"
+                android:gravity="center"
+                android:text="최근 경로"
+                android:textColor="#ffffff"
+                android:textSize="14.67sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|right"
+                android:textSize="11sp"
+                android:layout_marginBottom="7dp"
+                android:textColor="@color/white"
+                android:text="UTC : 19:00:00 Mar 11 2017"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_main_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

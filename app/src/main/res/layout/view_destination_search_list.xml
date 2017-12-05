@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_destination_search_bg"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/layout_new_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_search3" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_search_icon"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tool:text="남양주 비행장" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_destination_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_destination"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/iv_search_icon"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            tool:text="경기도 남양주시 진건읍 배양리" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="#BFBFBF"
+            android:textSize="9sp"
+            tool:text="2017.03.01" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:textColor="#7d8087" />
+
+
+</LinearLayout>

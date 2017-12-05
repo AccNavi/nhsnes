@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="지도형태 설정"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/btn_type8_bg"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:id="@+id/layout_2d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/btn_type8_nor"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/iv_2d"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon_2dmap_nor" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_2d"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="2D지도"
+          android:textColor="@color/white"
+          android:textSize="20sp" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/layout_3d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/iv_3d"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon_3dmap_nor" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_3d"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="3D지도"
+          android:textColor="@color/white"
+          android:textSize="20sp" />
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="디지털 수치 지도 종류 선택"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/btn_type8_bg"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:id="@+id/layout_map1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/btn_type8_nor"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/iv_map1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon_map1_nor" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_map1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="벡터지도"
+          android:textColor="@color/white"
+          android:textSize="15sp" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/layout_map2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/iv_map2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon_map2_nor" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_map2"
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="위성지도"
+          android:textColor="@color/white"
+          android:textSize="15sp" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/layout_map3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/iv_map3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/icon_map3_nor" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_map3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="수치지형도"
+          android:textColor="@color/white"
+          android:textSize="15sp" />
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="계기판 정보 표출 설정"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_display_aircraft_speed"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="속도 표시"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_display_distance"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="거리 표시"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_display_direction"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="방향 표시"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_display_altitude"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="고도 표시"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="15dp"
+      android:gravity="left"
+      android:text="레이어 표시 설정"
+      android:textColor="@color/textColorBlue"
+      android:textSize="12sp" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_display_nw"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="가상 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_aircraft_positioning_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="항공기 위치 표시 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_notam_info_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="NOTAM 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+        android:id="@+id/ttb_wather_info_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        app:text="기상 레이어"
+        app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_airspace_information_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="공역 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_obstacle_information_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="장애물 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_landing_information_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="이착륙장 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_map_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="지도 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_expressway_display_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="고속도로 표시 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_river_information_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="강 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_mountain_information_layer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="산악 정보 레이어"
+      app:textColor="@color/white" />
+
+    <kr.go.molit.nhsnes.widget.TextToggleButton
+      android:id="@+id/ttb_kml_data"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="2dp"
+      app:text="KML 데이터"
+      app:textColor="@color/white" />
+  </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_bg3"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.ActionBarEx
+        android:id="@+id/abe_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:text="비밀번호 찾기"
+        app:titleIcon="@null" />
+
+    <LinearLayout
+        android:id="@+id/ll_input_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/abe_title"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="아이디:"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:text="moon123"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="이름:"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:text="문은경"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="휴대폰 번호"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:hint="-를 제외한 숫자만 입력"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:text="010-4568-1237"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_request_auth_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bg_button_none"
+                android:gravity="center"
+                android:text="인증번호 요청"
+                android:textColor="#aed3fe"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="인증번호:"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_auth_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_auth_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bg_button_none"
+                android:gravity="center"
+                android:text="인증번호 확인"
+                android:textColor="#aed3fe"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/abe_title"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="30dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_pwd_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="홍길동님의 아이디 찾기 결과입니다"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginTop="40dp"
+            android:text="·변경하실 비밀번호를 입력해주세요."
+            android:textColor="@color/textColorBlue"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="비밀번호:"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="비밀번호 확인:"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ed_pwd_re"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="#333b48"
+                android:gravity="left|center_vertical"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="#9d9d9d"
+                android:textColorHint="#9d9d9d"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_find_user_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_type3_btn"
+        android:clickable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tv_find_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="5dp"
+                android:text="비밀번호 변경"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

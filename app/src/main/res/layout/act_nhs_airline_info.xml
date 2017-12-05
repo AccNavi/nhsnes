@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_bg3"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.ActionBarEx
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:text="항공 정보"
+        app:titleIcon="@drawable/icon_airinfo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/action_bar"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_flight_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="항공정보 조회" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_aip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="AIP 정보 조회" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_flight_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="항공 Chart 정보 조회" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_ngii_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="국토지리정보원 데이터" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_weather_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="항공 기상 정보 조회" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_kml_import"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_next_nor"
+                app:text="KML Import" />
+
+            <kr.go.molit.nhsnes.widget.CustomViewListType1
+                android:id="@+id/layout_map_receive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:postIcon="@drawable/icon_download_nor"
+                app:text="지도정보 수신" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bt_start_flight_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/selector_type3_btn"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_airplane3" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tve_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="비행시작 보고"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

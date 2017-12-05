@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- 버튼 type1 배경색 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#aed3fe" android:state_checked="true" />
+    <item android:color="#9d9d9d" android:state_checked="false" />
+</selector>

@@ -1,0 +1,244 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="textViewTitleWhiteSmallAppearance2">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="textViewTitleWhiteSmallAppearance2_1">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="textViewTitleWhiteSmallAppearance3">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="textViewTitleWhiteSmallAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">bottom|center</item>
+        <item name="android:layout_marginTop">13dp</item>
+
+    </style>
+
+    <style name="textViewTitleWhiteSmallBoxAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+
+
+    </style>
+
+
+    <style name="textViewTitleWhiteAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:gravity">bottom|center</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="editTextBlueBoxAppearance">
+        <item name="android:textColor">#69A5FF</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="editTextBoxSmallAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+    <style name="editTextBoxAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:inputType">textNoSuggestions</item>
+    </style>
+
+    <!-- inputType을 사용하면 클릭 리스너가 안먹힌다. -->
+    <style name="editTextBoxAppearanceWithClick">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="editTextBoxWhiteAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_edittext_not_editable</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:inputType">textNoSuggestions</item>
+    </style>
+
+    <style name="editTextBoxAppearance2">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_edittext_foc</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="editTextAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+
+    </style>
+
+    <style name="switchTextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- 인디케이터 다이얼로그 style -->
+    <style name="indicatorDialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="MainSelectorTabButtonSel">
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/img_tab1_foc</item>
+    </style>
+
+    <style name="MainSelectorTabButtonNor">
+        <item name="android:layout_height">28.67dp</item>
+        <item name="android:background">@drawable/img_tab1_nor</item>
+        <item name="android:alpha">40</item>
+    </style>
+
+
+    <!-- TextView style -->
+    <declare-styleable name="FontIds">
+        <attr name="font">
+            <!-- 폰트 Nanum Bold -->
+            <enum name="none" value="0" />
+            <!-- 폰트 Nanum Extra Bold -->
+            <enum name="bold" value="1" />
+            <!-- 폰트 Nanum Barun Bold -->
+            <enum name="barun" value="2" />
+        </attr>
+        <attr name="style">
+            <!-- 폰트 지정 없음 -->
+            <enum name="none" value="0" />
+            <!-- 폰트 언더라인 -->
+            <enum name="under" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- EditText style -->
+    <declare-styleable name="EditIds">
+        <attr name="type">
+            <!-- 숫자 -->
+            <enum name="number" value="0" />
+            <!-- 전화번호 -->
+            <enum name="phone" value="1" />
+            <!-- 한글 -->
+            <enum name="kor" value="2" />
+            <!-- 영어 -->
+            <enum name="eng" value="3" />
+            <!-- 비밀번호 -->
+            <enum name="pass" value="4" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BtnIconIds">
+        <attr name="btn_back" format="integer" />
+        <attr name="btn_text" format="string" />
+        <attr name="btn_text_color" format="integer" />
+        <attr name="btn_icon" format="integer" />
+    </declare-styleable>
+
+    <!-- You can also inherit from NNF_BaseTheme.Light -->
+    <style name="FilePickerTheme" parent="NNF_BaseTheme">
+        <!-- Set these to match your theme -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Setting a divider is entirely optional -->
+        <item name="nnf_list_item_divider">?android:attr/listDivider</item>
+
+        <!-- Need to set this also to style create folder dialog -->
+        <item name="alertDialogTheme">@style/FilePickerAlertDialogTheme</item>
+
+        <!-- If you want to set a specific toolbar theme, do it here -->
+        <!-- <item name="nnf_toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
+    </style>
+
+    <style name="FilePickerAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>

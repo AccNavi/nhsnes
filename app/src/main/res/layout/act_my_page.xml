@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg3"
+  android:orientation="vertical">
+
+  <kr.go.molit.nhsnes.widget.ActionBarEx
+    android:id="@+id/abe_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    app:text="마이 페이지"
+    app:titleIcon="@null" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/ll_bottom"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/abe_title"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+      android:id="@+id/ll_input_info"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="10dp"
+      android:orientation="vertical"
+      android:padding="15dp"
+      android:visibility="visible">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="아이디"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_id"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="소속"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_company"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="이름"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_name"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="등록기호"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_acrftcd"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="이메일"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_email"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="휴대폰"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_phone_number"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="80dp"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical"
+          android:text="주소"
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+
+        <TextView
+          android:id="@+id/tv_address"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+          android:gravity="center_vertical"
+          android:text=""
+          android:textColor="#ffffff"
+          android:textSize="14sp" />
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <LinearLayout
+    android:id="@+id/ll_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+      android:id="@+id/fl_modify"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_marginTop="10dp"
+      android:layout_weight="1"
+      android:background="@drawable/selector_type3_btn"
+      android:clickable="true">
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:src="@drawable/sig_icon_edit" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_modify"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center|left"
+          android:layout_marginLeft="5dp"
+          android:text="회원정보 수정"
+          android:textColor="@color/white"
+          android:textSize="16sp" />
+      </LinearLayout>
+
+    </FrameLayout>
+
+
+    <FrameLayout
+      android:id="@+id/fl_leave"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_marginTop="10dp"
+      android:layout_weight="1"
+      android:background="@drawable/selector_type3_btn"
+      android:clickable="true">
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:src="@drawable/sig_icon_out" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_leave"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center|left"
+          android:layout_marginLeft="5dp"
+          android:text="회원탈퇴"
+          android:textColor="@color/white"
+          android:textSize="16sp" />
+      </LinearLayout>
+
+    </FrameLayout>
+
+  </LinearLayout>
+
+</RelativeLayout>

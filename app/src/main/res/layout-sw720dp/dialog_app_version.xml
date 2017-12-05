@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 저장매체 선택 팝업 --><!-- 로컬공간, 외부저장매체 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/dialogBg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_title_type1">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="앱 버전 정보"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_content_type1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="현재 버전 "
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1.0.0"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/already_update_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="\n\n현재 최신 버전입니다.\n\n"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/img_pop_botton_type1">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/btn_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="닫기"
+                    android:textColor="@drawable/selector_dialog_btn"
+                    android:textSize="16.67sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/not_updated_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="\n\n최신 버전이 존재합니다. \n다운로드하시겠습니까?\n\n"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/img_pop_botton_type1"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/btn_yes"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="예"
+                    android:textColor="@drawable/selector_dialog_btn"
+                    android:textSize="16.67sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/btn_no"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="아니요"
+                    android:textColor="@drawable/selector_dialog_btn"
+                    android:textSize="16.67sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+

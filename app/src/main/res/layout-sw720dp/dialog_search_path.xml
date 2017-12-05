@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/dialogBg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_title_type1">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="경로 확정"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@drawable/img_pop_content_type1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="비행일자"
+
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_plandate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="총 비행거리"
+
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_total_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="139 miles"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="평균 속도"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_avg_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="80 Knotd"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="총 비행시간"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_total_flight_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="136 Min"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="평균고도"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_avg_altitue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="12,000 ft"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="출발시간"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="10:20:35"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="도착시간"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="11:05:30"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="출발지"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_departureAerodrome"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="ZZZZ"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="도착지"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_planArrival"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="ZZZZ"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="경유지"
+                    android:textColor="#aeb2b7"
+                    android:textSize="16sp" />
+
+                <kr.go.molit.nhsnes.widget.TextViewEx
+                    android:id="@+id/tv_waypoint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="경유지"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_pop_botton_type1"
+        android:orientation="horizontal">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_simulation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="모의주행"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+            android:id="@+id/btn_close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="닫기"
+            android:textColor="@drawable/selector_dialog_btn"
+            android:textSize="16.67sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
+

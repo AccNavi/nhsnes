@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 팝업 하단 버튼 배경색 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#69a5ff" android:state_pressed="true"/>
+    <item android:color="@color/white"/>
+
+</selector>

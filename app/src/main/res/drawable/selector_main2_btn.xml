@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 버튼 main tab2 배경색 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/btn_main_2_pre" android:state_pressed="true"/>
+    <item android:drawable="@drawable/btn_main_2_nor"/>
+
+</selector>

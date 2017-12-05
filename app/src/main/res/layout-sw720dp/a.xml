@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:text="나눔고딕 레귤러 글씨"
+        android:textColor="#ffffff" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:text="나눔고딕 볼드 글씨"
+        android:textColor="#ffffff"
+        custom:font="bold" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:text="나눔바른고딕 볼드 글씨"
+        android:textColor="#ffffff"
+        custom:font="barun" />
+
+</LinearLayout>

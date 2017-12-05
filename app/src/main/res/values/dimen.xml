@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="select_button_number_size">24sp</dimen>
+    <dimen name="select_button_unit_size">10sp</dimen>
+
+    <dimen name="dimen_tab_height_sel">32dp</dimen>
+    <dimen name="dimen_tab_height_nor">28.68dp</dimen>
+
+    <dimen name="dimen_tab_text_small_nor">10.67sp</dimen>
+    <dimen name="dimen_tab_text_small_sel">12sp</dimen>
+
+    <dimen name="dimen_margin_default">7dp</dimen>
+
+</resources>

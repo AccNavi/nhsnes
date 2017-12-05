@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:background="@color/dialogBg"
+  android:orientation="vertical">
+
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_pop_title_type1">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/tv_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="5dp"
+      android:text="비행 완료"
+      android:textColor="#ffffff"
+      android:textSize="20sp" />
+  </FrameLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:orientation="vertical">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="도착시간 : 2016/08/16   10:25"
+          android:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="총 비행시간 02:00:25"
+          android:textColor="@color/white" />
+
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="출발지 WYPT"
+          android:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="도착지 HTYU"
+          android:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="총 비행 거리 130 mile"
+          android:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="평균 속도 85 kn"
+          android:textColor="@color/white" />
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="10dp"
+          android:gravity="center"
+          android:text="평균 고도 200 m"
+          android:textColor="@color/white" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+          android:id="@+id/fl_favorites"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/selector_type1_btn"
+          android:clickable="true">
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center|left"
+              android:layout_marginLeft="5dp"
+              android:text="즐겨찾기 추가"
+              android:textColor="@color/white"
+              android:textSize="16sp" />
+          </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+          android:id="@+id/fl_finish_flight"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_weight="1"
+          android:background="@drawable/selector_type1_btn"
+          android:clickable="true">
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <kr.go.molit.nhsnes.widget.TextViewEx
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center|left"
+              android:layout_marginLeft="5dp"
+              android:text="비행완료 보고"
+              android:textColor="@color/white"
+              android:textSize="16sp" />
+          </LinearLayout>
+        </FrameLayout>
+
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:layout_marginTop="20dp"
+      android:gravity="center"
+      android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_pop_botton_type1"
+    android:orientation="horizontal">
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/btn_cancel"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="확인"
+      android:textColor="@drawable/selector_dialog_btn"
+      android:textSize="16.67sp" />
+
+  </LinearLayout>
+
+
+</LinearLayout>
+

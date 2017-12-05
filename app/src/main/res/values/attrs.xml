@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text" format="reference|string" />
+    <attr name="subText" format="reference|string" />
+    <attr name="textColor" format="reference|integer" />
+    <attr name="textSize" format="dimension" />
+    <declare-styleable name="ActionBarEx">
+        <attr name="text" />
+        <attr name="textColor" />
+        <attr name="textSize" />
+        <attr name="titleIcon" format="reference|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomViewListType1">
+        <attr name="bg" format="reference|integer"/>
+        <attr name="text" />
+        <attr name="subText" />
+        <attr name="preIcon" format="reference|integer" />
+        <attr name="postIcon" format="reference|integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomButtonIcon">
+        <attr name="text" />
+        <attr name="symbol" format="reference|integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="TextToggleButton">
+        <attr name="text" />
+        <attr name="textColor" />
+        <attr name="textSize" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingSeekBar">
+        <attr name="progress" format="reference|integer" />
+        <attr name="textColor" />
+        <attr name="textSize" />
+        <attr name="progressIcon" format="reference" />
+    </declare-styleable>
+
+</resources>

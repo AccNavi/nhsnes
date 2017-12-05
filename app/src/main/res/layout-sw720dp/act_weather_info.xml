@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg3"
+  android:orientation="vertical">
+
+  <kr.go.molit.nhsnes.widget.ActionBarEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    app:text="기상정보"
+    app:titleIcon="@drawable/icon_weatherinfo" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:id="@+id/tve_now_date"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    android:text="2017년 02월 10일"
+    android:textColor="@color/white"
+    android:textSize="20sp" />
+
+  <kr.go.molit.nhsnes.widget.ScaleImageView
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:src="@drawable/icon_weather_1" />
+
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:gravity="center"
+    android:text="대구 : 맑음"
+    android:textColor="@color/white"
+    android:textSize="18sp" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="right"
+      android:orientation="vertical"
+      android:paddingRight="15dp">
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="풍향"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="풍속"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="시정"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="기온"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="운고"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="left"
+
+      android:orientation="vertical"
+      android:paddingLeft="15dp">
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="남남동풍"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="3.2m/s"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="2km"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="20.6C"
+
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+      <kr.go.molit.nhsnes.widget.TextViewEx
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="정보없음"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/ll_go_to_kma"
+    android:layout_width="wrap_content"
+    android:layout_height="45dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/selector_type3_btn"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center|left"
+      android:background="@drawable/icon_info1" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:id="@+id/tv_routing"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center|left"
+      android:layout_marginLeft="5dp"
+      android:text="항공기상청 바로가기"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/ll_go_to_windy"
+    android:layout_width="wrap_content"
+    android:layout_height="45dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/selector_type3_btn"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center|left"
+      android:background="@drawable/icon_info1" />
+
+    <kr.go.molit.nhsnes.widget.TextViewEx
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center|left"
+      android:layout_marginLeft="5dp"
+      android:text="Windy 바로가기"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+  </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/default_bg_color"
+  android:orientation="vertical">
+
+  <kr.go.molit.nhsnes.widget.ActionBarEx
+    android:id="@+id/abe_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_title"
+    app:text="경로 확정"
+    app:titleIcon="@drawable/icon_navi" />
+
+  <com.modim.lan.lanandroid.NhsLanView
+    android:id="@+id/nlv_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="100dp">
+
+    <TextView
+      android:id="@+id/tv_waypoints"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:gravity="center"
+      android:text=""
+      android:textColor="@color/white"
+      android:textSize="15dp">
+
+
+    </TextView>
+
+  </ScrollView>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <FrameLayout
+      android:id="@+id/btn_complate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_weight="1"
+      android:background="@drawable/selector_type3_btn"
+      android:clickable="true">
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_complate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center|left"
+          android:layout_marginLeft="5dp"
+          android:text="출발지 확정"
+          android:textColor="@color/white"
+          android:textSize="16sp" />
+      </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+      android:id="@+id/btn_cancel"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_weight="1"
+      android:background="@drawable/selector_type3_btn"
+      android:clickable="true">
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <kr.go.molit.nhsnes.widget.TextViewEx
+          android:id="@+id/tv_cancel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center|left"
+          android:layout_marginLeft="5dp"
+          android:text="취소"
+          android:textColor="@color/white"
+          android:textSize="16sp" />
+      </LinearLayout>
+    </FrameLayout>
+
+  </LinearLayout>
+</LinearLayout>

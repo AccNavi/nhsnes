@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg3"
+  android:orientation="vertical">
+
+  <kr.go.molit.nhsnes.widget.ActionBarEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    app:text="앱 정보"
+    app:titleIcon="@drawable/icon_appinfo" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="70dp"
+    android:gravity="center"
+    android:text="지도 업데이트 정보"
+    android:textColor="@color/white"
+    android:textSize="20sp" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:gravity="center"
+    android:text="업데이트 : 2017.02.25\n지도 버전 : 2.1.1"
+    android:textColor="@color/textColorBlue"
+    android:textSize="12sp" />
+
+  <LinearLayout
+    android:layout_marginTop="10dp"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+      android:id="@+id/ll_map_update"
+    android:background="@drawable/border_corner_gray"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/tv_map_update"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/listDivider"
+      android:textSize="12sp"
+      android:text="지도 업데이트" />
+
+  </LinearLayout>
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    android:text="App 버전 정보"
+    android:textColor="@color/white"
+    android:textSize="20sp" />
+
+  <kr.go.molit.nhsnes.widget.TextViewEx
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:gravity="center"
+    android:text="업데이트 : 2017.05.27\n버전 : 6.4.4 (Build 1309)"
+    android:textColor="@color/textColorBlue"
+    android:textSize="12sp" />
+
+  <LinearLayout
+    android:id="@+id/ll_bg_new_app"
+    android:layout_marginTop="10dp"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/border_corner_white"
+    android:orientation="horizontal">
+
+
+    <TextView
+      android:id="@+id/tv_new_app"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      android:text="App 업데이트" />
+
+  </LinearLayout>
+
+</LinearLayout>

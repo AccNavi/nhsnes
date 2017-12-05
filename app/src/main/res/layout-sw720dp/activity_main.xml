@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/activity_main"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingTop="10dp">
+
+  <Button
+    android:id="@+id/buttonPlus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:clickable="true"
+    android:text="DEM"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/buttonVector"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_toEndOf="@+id/buttonPOI"
+    android:layout_toRightOf="@+id/buttonPOI"
+    android:text="Vector"
+    android:visibility="gone" />
+
+  <!--
+  <Button
+      android:id="@+id/buttonSatellite"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:text="Satellite" />
+  -->
+
+  <Button
+    android:id="@+id/buttonMinus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/buttonPlus"
+    android:layout_marginTop="44dp"
+    android:clickable="true"
+    android:text="Simul Start"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/buttonRGPlayPause"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/buttonMinus"
+    android:text="Simul Play"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/buttonRGOut"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/buttonRGPlayPause"
+    android:text="Simul Out"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/btnNorthUp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/buttonRGPlayPause"
+    android:layout_marginTop="60dp"
+    android:text="NorthUp"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/btnHeadingUp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/btnNorthUp"
+    android:text="HeadingUp"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/btnBirdView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/btnHeadingUp"
+    android:text="BirdView"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/btnGeoMove"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/btnBirdView"
+    android:layout_marginTop="60dp"
+    android:text="Preview Start"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/btnGeoEnd"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/btnGeoMove"
+    android:text="Preview End"
+    android:visibility="gone" />
+
+  <Button
+    android:id="@+id/buttonPOI"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="21dp"
+    android:layout_marginLeft="17dp"
+    android:layout_marginStart="17dp"
+    android:text="POI"
+    android:visibility="gone" />
+
+  <TextView
+    android:id="@+id/textGuide"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/buttonPOI"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignTop="@+id/buttonPOI"
+    android:layout_toRightOf="@+id/buttonMinus"
+    android:text="Text Guide"
+    android:visibility="gone" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
