@@ -1134,6 +1134,19 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             String strGuide = guide.szGuideText;
                             playTTS(strGuide);
 
+                            if (strGuide.indexOf("목적지 부근입니다") > -1) {
+                                stopTestDriveTimer();
+                                stopTtsTimer();
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showExitDialog();
+                                    }
+                                });
+
+                            }
+
                             break;
                         }
 
@@ -1142,7 +1155,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     Log.d("NAVI_EVT_ALARM", "uType : " + uType + " uValue " + uValue);
 
                 } catch (Exception ex) {
-
+                    ex.printStackTrace();
                 }
 
             }
@@ -3005,17 +3018,36 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
     }
 
+    private String beforeTtsMsg = "";   // 이전 tts 메세지
+
     @SuppressWarnings("deprecation")
-    private void ttsUnder20(String text) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
-        mTts.speak(text, TextToSpeech.QUEUE_FLUSH, map);
+    synchronized private void ttsUnder20(String text) {
+
+        // 읽는 중이 아니라면 이전 tts 메세지 삭제하고, 읽을 수 있도록 한다.
+        if (!mTts.isSpeaking()) {
+            this.beforeTtsMsg = "";
+        }
+
+        if (!this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
+            HashMap<String, String> map = new HashMap<>();
+            map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
+            mTts.speak(text, TextToSpeech.QUEUE_FLUSH, map);
+            this.beforeTtsMsg = text;
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void ttsGreater21(String text) {
-        String utteranceId = this.hashCode() + "";
-        mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+    synchronized private void ttsGreater21(String text) {
+
+        // 읽는 중이 아니라면 이전 tts 메세지 삭제하고, 읽을 수 있도록 한다.
+        if (!mTts.isSpeaking()) {
+            this.beforeTtsMsg = "";
+        }
+
+        if (!this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
+            String utteranceId = this.hashCode() + "";
+            mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+        }
     }
 
     /**
