@@ -773,6 +773,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                     pos[1].equals("37.356934")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
+
+                                            }else if (callsign.equals("fplnow") &&    // 시나리오4 이고, 좌표 값이 같다면, 시나리오 종료
+                                                    pos[0].equals("129.234344") &&
+                                                    pos[1].equals("35.980221")) {
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+
                                             }else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
 //                                            } else if (isWifiConnected) {
                                                 // 1초에 한번씩 gps 정보를 맵에게 전달한다.
@@ -1978,6 +1985,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             @Override
             public void run() {
 
+                // 현재 스피드가 10 이하면 2자리 수 이상 서버에 전송하기 때문에, 2자리로 맞춘다.
+                if (currentSpeed < 10) {
+                    currentSpeed = 10;
+                }
+
                 boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
                 boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
@@ -1995,7 +2007,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 }
                             }
                         });
-
 
                         if (flightPlanInfo != null) {
 
@@ -2027,14 +2038,15 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         params.put("lat", "0");            // 위도좌표
                                         params.put("lon", "0");            // 경도좌표
                                         params.put("elev", "0");           // 해발고도
+                                        params.put("speed", "10");          // 순항속도
                                     } else {
                                         String[] pos = temp.split(",");
 
                                         params.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                                         params.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
-                                        params.put("elev", pos[2]);                 // 해발고도
-                                        params.put("gaeroInfo", pos[3]);      // 자이로센서
-                                        params.put("speed", currentSpeed + "");          // 순항속도
+                                        params.put("elev", pos[2]+"");                 // 해발고도
+                                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
+                                        params.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
                                     }
                                 } catch (Exception ex) {
 
@@ -2055,15 +2067,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                 }
 
+                                params.put("speed", currentSpeed + "");          // 순항속도
+
                             }
 
-                            // 현재 스피드가 10 이하면 2자리 수 이상 서버에 전송하기 때문에, 2자리로 맞춘다.
-                            if (currentSpeed < 10) {
-                                currentSpeed = 10;
-                            }
+
 
                             try {
-                                params.put("speed", currentSpeed + "");          // 순항속도
+
                                 params.put("heading", "27");        // 해딩방향
                                 params.put("flgtlogGb", "GPS");      // ADSB 와 GPS 구분
                                 params.put("flgtIdx", flightPlanInfo.getFlightId());        // 비행정보 일련번호
@@ -2244,14 +2255,15 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                     tempJson.put("lat", "0");            // 위도좌표
                                     tempJson.put("lon", "0");            // 경도좌표
                                     tempJson.put("elev", "0");           // 해발고도
+                                    tempJson.put("speed", "10");          // 순항속도
                                 } else {
                                     String[] pos = temp.split(",");
 
                                     tempJson.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                                     tempJson.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
-                                    tempJson.put("elev", pos[2]);                 // 해발고도
-                                    tempJson.put("gaeroInfo", pos[3]);      // 자이로센서
-                                    tempJson.put("speed", currentSpeed + "");          // 순항속도
+                                    tempJson.put("elev", pos[2]+"");                 // 해발고도
+                                    tempJson.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
+                                    tempJson.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
                                 }
                             } catch (Exception ex) {
 
@@ -2272,9 +2284,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                             }
 
+                            tempJson.put("speed", currentSpeed + "");
+
                         }
 
-                        tempJson.put("speed", currentSpeed + "");
+
                         tempJson.put("heading", "100");
                         tempJson.put("flgtlogGb", "GPS");
                         tempJson.put("gaeroInfo", "");
@@ -3374,42 +3388,56 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             public void onClick(View view) {
 
                 String type = "";
+                String msg = "";
+                String title = "";
 
                 switch (view.getId()) {
 
                     // 메이데이
                     case R.id.bt_menu1:
                         type = "1";
+                        title = "메이데이";
+                        msg = "메이데이 전송";
                         // new ToastUtile().showCenterText(NhsFlightActivity.this, "메이데이, 메이데이 전송완료");
                         break;
 
                     // 임시 작륙
                     case R.id.bt_menu2:
                         type = "2";
-                        new ToastUtile().showCenterText(NhsFlightActivity.this, "임시착륙 보고 완료");
+                        title = "임시착륙";
+                        msg = "임시착륙 보고";
+                        //new ToastUtile().showCenterText(NhsFlightActivity.this, "임시착륙 보고 완료");
                         break;
 
                     // 적란운
                     case R.id.bt_menu3:
                         type = "6";
+                        title = "적란운";
+                        msg = "적란운 발생";
                         //new ToastUtile().showCenterText(NhsFlightActivity.this, "적란운 발생 보고 완료");
                         break;
 
                     // 난기류
                     case R.id.bt_menu4:
                         type = "4";
+                        title = "난기류";
+                        msg = "난기류 발생";
                         //new ToastUtile().showCenterText(NhsFlightActivity.this, "난기류 발생 보고 완료");
                         break;
 
                     // 기체착빙
                     case R.id.bt_menu5:
                         type = "5";
+                        title = "기체착빙";
+                        msg = "기체착빙 발생";
                         //new ToastUtile().showCenterText(NhsFlightActivity.this, "기체착빙 보고 완료");
                         break;
 
                     // 우박
                     case R.id.bt_menu6:
                         type = "7";
+                        title = "우박";
+                        msg = "우박 발생";
                         //new ToastUtile().showCenterText(NhsFlightActivity.this, "우박 발생 보고 완료");
                         break;
 
@@ -3418,72 +3446,22 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         break;
                 }
 
-                // 상황별로 서버로 요청한다.
-                if (!type.isEmpty() && flightPlanInfo != null) {
+                if (!type.isEmpty()) {
+                    final String finalType = type;
 
-                    final LoadingDialog loading = LoadingDialog.create(mContext, null, null);
-                    loading.show();
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                    String nowDate = sdf.format(new Date());
-
-                    FlightInfoService service = FlightInfoService.retrofit.create(FlightInfoService.class);
-
-                    Map<String, Object> params = new HashMap<String, Object>();
-                    params.put("acrftCd", flightPlanInfo.getAcrftCd() + "");          //항공기ID(CallSign)
-                    params.put("planId", flightPlanInfo.getPlanId() + "");           //비행계획서ID
-
-                    if (currentLocation != null) {
-                        params.put("lat", currentLocation.getLatitude() + "");            // 위도좌표
-                        params.put("lon", currentLocation.getLongitude() + "");            // 경도좌표
-                        params.put("elev", currentLocation.getAltitude() + "");           // 해발고도
-                    } else {
-                        params.put("lat", "126.9859858");            // 위도좌표
-                        params.put("lon", "37.5333465");            // 경도좌표
-                        params.put("elev", "99");                   // 해발고도
-                    }
-
-                    // 속도가 2자리 이상, 4자리 이하로 서버에게 요청을 해야한다.
-                    if (currentSpeed < 10) {
-                        currentSpeed = 10;
-                    }
-
-                    params.put("speed", currentSpeed + "");            //순항속도
-                    params.put("heading", "100");       //해딩방향
-                    params.put("flgtlogGb", "GPS");     //ADSB 와 GPS 구분
-                    params.put("eegcmsgDate", nowDate);     //메시지 발생 시간
-                    params.put("eegcmsgType", type);        // 상황 타입
-
-                    RequestBody body = NetUtil.mapToJsonBody(NhsFlightActivity.this, params);
-//PsmHkMessage
-                    Call<NetSecurityModel> callback = service.psmHkMessage(body);
-                    callback.enqueue(new Callback<NetSecurityModel>() {
+                    mPopup1 = new DialogType1(getContext(), title, msg, "전송", new View.OnClickListener() {
                         @Override
-                        public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {
-                            loading.dismiss();
-                            NetSecurityModel netSecurityModel = response.body();
+                        public void onClick(View v) {
+                            mPopup1.hideDialog();
+                            sendHotkey(finalType);
 
-
-                            if (response.code() == 200) {
-
-                                if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
-
-                                    String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
-                                    PsmHkMessage flightPlanModel = new Gson().fromJson(dec, PsmHkMessage.class);
-                                    new ToastUtile().showCenterText(mContext, flightPlanModel.getResult_msg());
-
-                                }
-
-                            }
                         }
-
+                    }, "취소", new View.OnClickListener() {
                         @Override
-                        public void onFailure(Call<NetSecurityModel> call, Throwable t) {
-                            loading.dismiss();
-                            new ToastUtile().showCenterText(mContext, getString(R.string.error_network));
+                        public void onClick(View view) {
+                            mPopup1.hideDialog();
                         }
                     });
-
                 }
 
             }
@@ -3491,6 +3469,126 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         this.dialogSelectHotkey.show();
 
+
+    }
+
+    /**
+     * 메뉴 초기화
+     *
+     * @author FIESTA
+     * @since 오후 5:02
+     **/
+    private void sendHotkey(String type){
+
+        // 상황별로 서버로 요청한다.
+        if (!type.isEmpty() && flightPlanInfo != null) {
+
+            final LoadingDialog loading = LoadingDialog.create(mContext, null, null);
+            loading.show();
+
+            // 속도가 2자리 이상, 4자리 이하로 서버에게 요청을 해야한다.
+            if (currentSpeed < 10) {
+                currentSpeed = 10;
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            String nowDate = sdf.format(new Date());
+
+            FlightInfoService service = FlightInfoService.retrofit.create(FlightInfoService.class);
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("acrftCd", flightPlanInfo.getAcrftCd() + "");          //항공기ID(CallSign)
+            params.put("planId", flightPlanInfo.getPlanId() + "");           //비행계획서ID
+
+
+            if (isTestDrive) {
+
+                try {
+
+                    int size = testDrivePointList.length;
+                    String temp = "";
+
+                    if (testDriveIndex < size) {
+                        temp = testDrivePointList[testDriveIndex];
+                    } else {
+                        temp = testDrivePointList[size - 1];
+                    }
+
+                    if (temp.isEmpty()) {
+                        params.put("lat", "0");            // 위도좌표
+                        params.put("lon", "0");            // 경도좌표
+                        params.put("elev", "0");           // 해발고도
+                        params.put("speed", "10");          // 순항속도
+                    } else {
+                        String[] pos = temp.split(",");
+
+                        params.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
+                        params.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
+                        params.put("elev", pos[2]+"");                 // 해발고도
+                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
+                        params.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
+                    }
+                } catch (Exception ex) {
+
+                }
+
+            } else {
+                try {
+                    if (currentLocation != null) {
+                        params.put("lat", currentLocation.getLatitude() + "");            // 위도좌표
+                        params.put("lon", currentLocation.getLongitude() + "");            // 경도좌표
+                        params.put("elev", currentLocation.getAltitude() + "");           // 해발고도
+                    } else {
+                        params.put("lat", "0");            // 위도좌표
+                        params.put("lon", "0");            // 경도좌표
+                        params.put("elev", "0");           // 해발고도
+                    }
+
+                    params.put("speed", currentSpeed + "");            //순항속도
+
+                } catch (Exception ex) {
+
+                }
+
+            }
+
+
+            params.put("heading", "100");       //해딩방향
+            params.put("flgtlogGb", "GPS");     //ADSB 와 GPS 구분
+            params.put("eegcmsgDate", nowDate);     //메시지 발생 시간
+            params.put("eegcmsgType", type);        // 상황 타입
+
+            RequestBody body = NetUtil.mapToJsonBody(NhsFlightActivity.this, params);
+//PsmHkMessage
+            Call<NetSecurityModel> callback = service.psmHkMessage(body);
+            callback.enqueue(new Callback<NetSecurityModel>() {
+                @Override
+                public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {
+                    loading.dismiss();
+                    NetSecurityModel netSecurityModel = response.body();
+
+
+                    if (response.code() == 200) {
+
+                        if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
+
+                            String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
+                            PsmHkMessage flightPlanModel = new Gson().fromJson(dec, PsmHkMessage.class);
+                            new ToastUtile().showCenterText(mContext, flightPlanModel.getResult_msg());
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<NetSecurityModel> call, Throwable t) {
+                    loading.dismiss();
+                    new ToastUtile().showCenterText(mContext, getString(R.string.error_network));
+                }
+            });
+
+        }
 
     }
 
