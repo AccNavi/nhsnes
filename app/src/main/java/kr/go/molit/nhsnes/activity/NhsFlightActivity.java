@@ -3525,7 +3525,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         params.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                         params.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
                         params.put("elev", pos[2]+"");                 // 해발고도
-                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
+//                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
                         params.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
                     }
                 } catch (Exception ex) {
