@@ -28,7 +28,7 @@ public interface FlightInfoService {
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("NIF/nis/list/airChartList.do")
     //Call<AirChartListModel> searchAirChartList();
-    Call<NetSecurityModel> searchAirChartList();
+    Call<NetSecurityModel> searchAirChartList(@Body RequestBody json);
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("NIF/nis/list/airspaceList.do")

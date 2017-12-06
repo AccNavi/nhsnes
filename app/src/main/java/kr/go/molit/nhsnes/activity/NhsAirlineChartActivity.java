@@ -26,6 +26,8 @@ import kr.go.molit.nhsnes.net.model.FlightPlanModel;
 import kr.go.molit.nhsnes.net.model.NetSecurityModel;
 import kr.go.molit.nhsnes.net.service.FlightInfoService;
 import kr.go.molit.nhsnes.net.service.NetConst;
+import kr.go.molit.nhsnes.net.service.NetUtil;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,9 +68,9 @@ public class NhsAirlineChartActivity extends NhsBaseFragmentActivity {
     private void getData(){
 
         FlightInfoService service = FlightInfoService.retrofit.create(FlightInfoService.class);
-
+        RequestBody body = NetUtil.mapToJsonBody(this, null);
         // AirChartListModel
-        Call<NetSecurityModel> callback = service.searchAirChartList();
+        Call<NetSecurityModel> callback = service.searchAirChartList(body);
         callback.enqueue(new Callback<NetSecurityModel>() {
             @Override
             public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {

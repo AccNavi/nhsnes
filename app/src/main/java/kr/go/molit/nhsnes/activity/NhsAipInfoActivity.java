@@ -503,9 +503,10 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
     private void getAIPInfoData() {
 
         FlightInfoService service = FlightInfoService.retrofit.create(FlightInfoService.class);
+        RequestBody body = NetUtil.mapToJsonBody(this, null);
 
         // AirChartListModel
-        Call<NetSecurityModel> callback = service.searchAirChartList();
+        Call<NetSecurityModel> callback = service.searchAirChartList(body);
         callback.enqueue(new Callback<NetSecurityModel>() {
             @Override
             public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {
