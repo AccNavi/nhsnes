@@ -276,7 +276,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 3;
+    private int testDrivePlus = 1;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -623,13 +623,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void checkTestMode(final String callsign) {
 
         /**
-            콜사인이 fplccw 이면 input1.txt 를 호출
-            콜사인이 fplwon 이면 input1.txt 를 거꾸로 읽어서 호출
-            콜사인이 fplkdw 이면 input2.txt 를 호출
-            콜사인이 fplnow 이면 input3.txt 를 호출
+         콜사인이 fplccw 이면 input1.txt 를 호출
+         콜사인이 fplwon 이면 input1.txt 를 거꾸로 읽어서 호출
+         콜사인이 fplkdw 이면 input2.txt 를 호출
+         콜사인이 fplnow 이면 input3.txt 를 호출
          **/
         if (callsign.equals("fplccw") || callsign.equals("fplwon") ||
-                callsign.equals("fplkdw") ||callsign.equals("fplnow")) {
+                callsign.equals("fplkdw") || callsign.equals("fplnow")) {
 
             // 현재 상태, 테스트 주행 중
             this.isTestDrive = true;
@@ -666,9 +666,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         mNlvView.clearRoutePosition();
 
                         // 시나리오 좌표를 설정한다.
-                       setTestRoute(callsign);
+                        setTestRoute(callsign);
 
-                       // 경로 확정
+                        // 경로 확정
                         int result = mNlvView.executeRP(NhsFlightActivity.this, 0, 0, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -698,8 +698,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         if (result != -1) {
 
-                            routeStatus = lanGetRouteInfo();
-
                             testDriveTimer = new Timer();
                             testDriveTimerTask = new TimerTask() {
                                 @Override
@@ -718,7 +716,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                             AirGPSData airGPSData = new AirGPSData();
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  airGPSData.uLat = (float) Double.parseDouble(pos[1]);
+
+                                            airGPSData.uLat = (float) Double.parseDouble(pos[1]);
                                             airGPSData.uLon = (float) Double.parseDouble(pos[0]);
 
                                             airGPSData.uBear = Float.parseFloat(pos[3]);
@@ -729,23 +728,23 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             Log.d("step", testDriveIndex + "");
 
                                             /**
-                                            // 고도가 3000 을 넘으면 자동 줌레벨을 시작한다.
-                                            if (airGPSData.uAltitude > 2900) {
-                                                if (testDriveToggle == -1)
-                                                    testDriveToggle = 0;
-                                            }
+                                             // 고도가 3000 을 넘으면 자동 줌레벨을 시작한다.
+                                             if (airGPSData.uAltitude > 2900) {
+                                             if (testDriveToggle == -1)
+                                             testDriveToggle = 0;
+                                             }
 
-                                            // 자동 줌레벨이 시작되었다면
-                                            if (testDriveToggle != -1) {
-                                                // 고도를 조절
-                                                if (testDriveToggle == 0) {
-                                                    airGPSData.uAltitude = getTestAlt();
-                                                } else // 스피드를 조절
-                                                {
-                                                    getTestSpeed();
-                                                    airGPSData.uAltitude = testAlt;
-                                                }
-                                            }
+                                             // 자동 줌레벨이 시작되었다면
+                                             if (testDriveToggle != -1) {
+                                             // 고도를 조절
+                                             if (testDriveToggle == 0) {
+                                             airGPSData.uAltitude = getTestAlt();
+                                             } else // 스피드를 조절
+                                             {
+                                             getTestSpeed();
+                                             airGPSData.uAltitude = testAlt;
+                                             }
+                                             }
 
                                              **/
 
@@ -768,9 +767,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
                                             boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
-                                            // TODO: 2017-09-20 테스트폰이 wifi용이라서.. wifi만 우선 체크한다. 빌드할때 아래 주석 풀것
-                                            if (isMobileDataEnabled || isWifiConnected) {
-//                                            if (isWifiConnected) {
+
+                                            if (callsign.equals("fplwon") &&    // 시나리오2 이고, 좌표 값이 같다면, 시나리오 종료
+                                                    pos[0].equals("126.772003") &&
+                                                    pos[1].equals("37.356934")) {
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+                                            }else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
+//                                            } else if (isWifiConnected) {
                                                 // 1초에 한번씩 gps 정보를 맵에게 전달한다.
                                                 lanReceiveGPSData(airGPSData);
                                                 lanExceuteGuide();
@@ -802,7 +806,22 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             // tts 타이머 실행
                             startTtsTimer();
 
-                            showDistanceTime(routeStatus);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    routeStatus = lanGetRouteInfo();
+
+                                    if (routeStatus != null) {
+                                        showDistanceTime(routeStatus);
+                                    } else {
+                                        // 관측기상 부터 차례대로 보여준다.
+                                        showWeather(0);
+                                    }
+
+                                }
+                            }, 1000);
+
 
                         }
 
@@ -878,13 +897,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         }
 
     }
+
     /**
      * 시나리오 경로를 지정한다.
      *
      * @author FIESTA
      * @since 오전 00:25
      **/
-    private void setTestRoute(String callsign){
+    private void setTestRoute(String callsign) {
 
         if (callsign.equals("fplccw")) {    // 시나리오 1
 
@@ -917,7 +937,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     });
 
 
-        }else if (callsign.equals("fplwon")) {  // 시나리오 2
+        } else if (callsign.equals("fplwon")) {  // 시나리오 2
 
             // 시작 위치 (수원)
             mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 127.013864, 37.281467,
@@ -948,7 +968,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     });
 
 
-        }else if (callsign.equals("fplkdw")) {  // 시나리오 3
+        } else if (callsign.equals("fplkdw")) {  // 시나리오 3
 
             // 시작 위치 (춘천 시청)
             mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 127.733290, 37.882018,
@@ -979,7 +999,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     });
 
 
-        }else if (callsign.equals("fplnow")) {  // 시나리오 4
+        } else if (callsign.equals("fplnow")) {  // 시나리오 4
 
             // 시작 위치 (대구항공교통본부)
             mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 35.894373,
@@ -1011,7 +1031,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
         }
-
 
 
     }
@@ -1110,19 +1129,20 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     int uType = LanStorage.mNative.lanNaviEventType();
                     int uValue = 0;
                     switch (uType) {
+
                         case Constants.NAVI_EVT_ALARM: {
                             AlarmType alarm = new AlarmType();
                             LanStorage.mNative.lanNaviEvent(alarm);
                             uValue = alarm.uAlarmType;
 
-                            switch (uValue) {
-
-                                case 1:
-                                    playTTS("경로 이탈 경보");
-                                    break;
-
-                            }
-
+//                            switch (uValue) {
+//
+//                                case 1:
+//                                    playTTS("경로 이탈 경보");
+//                                    break;
+//
+//                            }
+//
                             break;
 
 
@@ -2179,156 +2199,92 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             });
 
 
-                        } else {    // 통신이 두절 되었을 경우
+                        }
+                        Log.d("test", "send");
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (vWarring.getVisibility() == View.GONE) {
-                                        warringAnimation = AnimationUtils.loadAnimation(NhsFlightActivity.this, R.anim.warring);
-                                        vWarring.setVisibility(View.VISIBLE);
-                                        vWarring.startAnimation(warringAnimation);
-                                    }
-                                }
-                            });
+                    } catch (Exception ex) {
 
+                    }
+                } else {   // 통신이 두절 되었을 경우
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (vWarring.getVisibility() == View.GONE) {
+                                warringAnimation = AnimationUtils.loadAnimation(NhsFlightActivity.this, R.anim.warring);
+                                vWarring.setVisibility(View.VISIBLE);
+                                vWarring.startAnimation(warringAnimation);
+                            }
+                        }
+                    });
+
+
+                    try {
+
+                        // 저장할 데이터를 구성한다.
+                        JSONObject tempJson = new JSONObject();
+                        tempJson.put("acrftCd", flightPlanInfo.getAcrftCd() + "");
+                        tempJson.put("planId", flightPlanInfo.getPlanId() + "");
+                        tempJson.put("planSn", flightPlanInfo.getPlanSn() + "");
+
+
+                        if (isTestDrive) {
 
                             try {
+                                int size = testDrivePointList.length;
+                                String temp = "";
 
-                                // 저장할 데이터를 구성한다.
-                                JSONObject tempJson = new JSONObject();
-                                tempJson.put("acrftCd", flightPlanInfo.getAcrftCd() + "");
-                                tempJson.put("planId", flightPlanInfo.getPlanId() + "");
-                                tempJson.put("planSn", flightPlanInfo.getPlanSn() + "");
+                                if (testDriveIndex < size) {
+                                    temp = testDrivePointList[testDriveIndex];
+                                } else {
+                                    temp = testDrivePointList[size - 1];
+                                }
 
+                                if (temp.isEmpty()) {
+                                    tempJson.put("lat", "0");            // 위도좌표
+                                    tempJson.put("lon", "0");            // 경도좌표
+                                    tempJson.put("elev", "0");           // 해발고도
+                                } else {
+                                    String[] pos = temp.split(",");
+
+                                    tempJson.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
+                                    tempJson.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
+                                    tempJson.put("elev", pos[2]);                 // 해발고도
+                                    tempJson.put("gaeroInfo", pos[3]);      // 자이로센서
+                                    tempJson.put("speed", currentSpeed + "");          // 순항속도
+                                }
+                            } catch (Exception ex) {
+
+                            }
+
+                        } else {
+                            try {
                                 if (currentLocation != null) {
                                     tempJson.put("lat", currentLocation.getLatitude() + "");            // 위도좌표
                                     tempJson.put("lon", currentLocation.getLongitude() + "");            // 경도좌표
                                     tempJson.put("elev", currentLocation.getAltitude() + "");           // 해발고도
                                 } else {
-                                    tempJson.put("lat", "126.9859858");            // 위도좌표
-                                    tempJson.put("lon", "37.5333465");            // 경도좌표
-                                    tempJson.put("elev", "99");           // 해발고도
+                                    tempJson.put("lat", "0");            // 위도좌표
+                                    tempJson.put("lon", "0");            // 경도좌표
+                                    tempJson.put("elev", "0");           // 해발고도
                                 }
-
-
-                                tempJson.put("speed", currentSpeed + "");
-                                tempJson.put("heading", "100");
-                                tempJson.put("flgtlogGb", "GPS");
-                                tempJson.put("gaeroInfo", "");
-                                tempJson.put("callsign", flightPlanInfo.getCallsign() + "");
-                                tempJson.put("flgtIdx", flightPlanInfo.getFlightId() + "");
-                                tempJson.put("mbrId", StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_MBR_ID));
-
-
-                                // 파일에 저장한다.
-                                Util.appendStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_NAVI",
-                                        tempSaveFileName, tempJson.toString());
-
                             } catch (Exception ex) {
 
                             }
-                        }
-                        Log.d("test", "send");
 
-
-                        /**
-                         // 샘플 테스트를 위한 데이터이다
-                         final FlightDriveModel flightDriveModel = new FlightDriveModel();
-                         flightDriveModel.setResult_msg("성공");
-                         flightDriveModel.setResult_code("Y");
-                         flightDriveModel.setEegcmsgMemo("긴급..!");
-                         flightDriveModel.setMsgsendContent("일반..!");
-
-                         AlmostAcrftModel model = new AlmostAcrftModel();
-                         model.setAcrftCd("HL-C093");
-                         model.setPlanId("3");
-                         model.setLat("40.4915");
-                         model.setLon("146.4283");
-                         model.setElev("");
-                         model.setSpeed("");
-                         model.setHeading("");
-
-                         ArrayList list = new ArrayList<AlmostAcrftModel>();
-                         list.add(model);
-
-                         flightDriveModel.setList(list);
-
-
-                         // 응급메시지 레이어 표출, TTS, 빨간색 레이어
-                         //  1초 후에
-                         //  일반메시지 레이어 표출, TTS
-
-
-                         if (flightDriveModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
-
-                         runOnUiThread(new Runnable() {
-                        @Override public void run() {
-                        if (!flightDriveModel.getMsgsendContent().isEmpty()) {
-
-                        playTTS(flightDriveModel.getMsgsendContent());
-
-                        // 긴급 메세지가 있으면 1초 뒤에 재생한다.
-                        // 그런데 1초 너무 작은것 같다 1.5 초로 해놓자..
-                        if (!flightDriveModel.getEegcmsgMemo().isEmpty()) {
-                        new Handler().postDelayed(new Runnable() {
-                        @Override public void run() {
-                        playTTS(flightDriveModel.getEegcmsgMemo());
-                        showWarring();
-                        }
-                        }, 1500);
                         }
 
-                        } else if (!flightDriveModel.getEegcmsgMemo().isEmpty()) {
-                        playTTS(flightDriveModel.getEegcmsgMemo());
-                        showWarring();
-                        }
-                        }
-                        });
+                        tempJson.put("speed", currentSpeed + "");
+                        tempJson.put("heading", "100");
+                        tempJson.put("flgtlogGb", "GPS");
+                        tempJson.put("gaeroInfo", "");
+                        tempJson.put("callsign", flightPlanInfo.getCallsign() + "");
+                        tempJson.put("flgtIdx", flightPlanInfo.getFlightId() + "");
+                        tempJson.put("mbrId", StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_MBR_ID));
 
-                         // 맵에 데이터를 넘겨준다.
-                         int size = flightDriveModel.getList().size();
-                         int i = 0;
-
-                         AroundAviation av = new AroundAviation(size);
-                         AlmostAcrftModel almostAcrftModel = null;
-
-                         for (i=0; i<size; i++) {
-
-                         try {
-
-                         almostAcrftModel = flightDriveModel.getList().get(i);
-
-                         av.item[i].strCallSign = flightPlanInfo.getCallsign();
-
-                         av.item[i].lon = (float) Double.parseDouble(almostAcrftModel.getLon());
-                         av.item[i].lat = (float) Double.parseDouble(almostAcrftModel.getLat());
-
-                         if (almostAcrftModel.getElev().isEmpty()) {
-                         av.item[i].elev = 0;
-                         } else {
-                         av.item[i].elev = Integer.parseInt(almostAcrftModel.getElev());
-                         }
-
-                         if (almostAcrftModel.getHeading().isEmpty()) {
-                         av.item[i].heading = 27;
-                         } else {
-                         av.item[i].heading = Integer.parseInt(almostAcrftModel.getHeading());
-                         }
-                         av.item[i].uState = 0;
-                         }catch (Exception ex) {
-
-                         } finally {
-
-                         }
-
-                         }
-
-
-                         lanReceiveAroundAviation(av);
-
-                         }
-                         **/
+                        // 파일에 저장한다.
+                        Util.appendStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_NAVI",
+                                tempSaveFileName, tempJson.toString());
 
                     } catch (Exception ex) {
 
@@ -2748,25 +2704,40 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             if (result != -1) {
 
-                routeStatus = lanGetRouteInfo();
-                showDistanceTime(routeStatus);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        routeStatus = lanGetRouteInfo();
+
+                        if (routeStatus != null) {
+                            showDistanceTime(routeStatus);
+                        } else {
+                            // 관측기상 부터 차례대로 보여준다.
+                            showWeather(0);
+                        }
+
+                    }
+                }, 1000);
 
                 // 경로에 따라 위성사진 다운로드할 path 및 파일이름이 나온다.
-                AirDoyupList doyupList = lanGetRouteDoyupList();
+                /**
+                 AirDoyupList doyupList = lanGetRouteDoyupList();
 
-                int nSize = lanGetRouteDoyupListCount();
-                Log.d("test", "Doyup Download Total Count: " + nSize + "");
-                if (nSize != 0) {
-                    for (i = 0; i < nSize; i++) {
-                        try {
-                            doyupList.lists[i].path = new String(doyupList.lists[i].arrPath, "ksc5601");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                        Log.d("test", "Doyup Download Path: " + doyupList.lists[i].path + "");
-                    }
-                }
+                 int nSize = lanGetRouteDoyupListCount();
+                 Log.d("test", "Doyup Download Total Count: " + nSize + "");
+                 if (nSize != 0) {
+                 for (i = 0; i < nSize; i++) {
+                 try {
+                 doyupList.lists[i].path = new String(doyupList.lists[i].arrPath, "ksc5601");
+                 } catch (UnsupportedEncodingException e) {
+                 e.printStackTrace();
+                 }
+                 Log.d("test", "Doyup Download Path: " + doyupList.lists[i].path + "");
+                 }
+                 }
 
+                 **/
             }
 
         }
