@@ -643,7 +643,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     if (callsign.equals("fplccw")) {
                         testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1.txt", " ", true);
                     } else {
-                        testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1.txt", " ", false);
+                        testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1-1.txt", " ", true);
                     }
                 } else if (callsign.equals("fplkdw")) {
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input2.txt", " ", true);
