@@ -3,6 +3,8 @@ package kr.go.molit.nhsnes.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -75,6 +78,11 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     this.edPwdRe = (EditText) this.findViewById(R.id.ed_pwd_re);
     this.edAcrfcd =  (EditText) this.findViewById(R.id.ed_acrfcd);
     this.tvCompany = (TextView) this.findViewById(R.id.tv_company);
+
+    //영어, 숫자만 입력 가능
+    edId.setFilters(new InputFilter[]{filterAlphaNum});
+    edPwd.setFilters(new InputFilter[]{filterAlphaNumSpecial});
+    edPwdRe.setFilters(new InputFilter[]{filterAlphaNumSpecial});
 
     findViewById(R.id.tv_find_user_id).setOnClickListener(this);
     findViewById(R.id.fl_register).setOnClickListener(this);
@@ -184,11 +192,9 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
 
       case R.id.btn_check_id:
 
-        if (id.isEmpty()) {
-
-          Toast.makeText(getContext(), "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
-
-        } else {
+        if(id.length() < 4){
+          Toast.makeText(getContext(), "입력된 ID가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+        }else {
 
           NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
           NetworkParamUtil networkParamUtil = new NetworkParamUtil();
@@ -217,8 +223,8 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
           Toast.makeText(getContext(), "소속사를 선택하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
         } else if (name.isEmpty()) {
           Toast.makeText(getContext(), "이름을 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-        } else if (pwd.isEmpty()) {
-          Toast.makeText(getContext(), "비밀번호을 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+        } else if (pwd.length() < 9) {
+          Toast.makeText(getContext(), "비밀번호를 9자리 이상 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
         } else if (pwdRe.isEmpty()) {
           Toast.makeText(getContext(), "비밀번호 확인을 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
         } else if (!pwd.equals(pwdRe)) {
@@ -379,7 +385,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
    **/
   NetworkProcess.OnResultListener getCompanyResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -391,7 +397,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -403,7 +409,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -456,7 +462,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
    **/
   NetworkProcess.OnResultListener checkIdResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -468,7 +474,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -480,7 +486,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -508,7 +514,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
    **/
   NetworkProcess.OnResultListener checkAuthCodeResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -520,7 +526,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -532,7 +538,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -561,7 +567,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
    **/
   NetworkProcess.OnResultListener requestAuthCodeResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -573,7 +579,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -585,7 +591,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -615,7 +621,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
    **/
   NetworkProcess.OnResultListener registerResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -627,7 +633,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsRegisterActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -639,7 +645,7 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -652,11 +658,29 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
 
       // 메세지 출력
       new ToastUtile().showCenterText(NhsRegisterActivity.this, msg);
-
-
     }
+  };
 
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNum = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
+  };
 
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNumSpecial = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
   };
 }
 

@@ -3,6 +3,7 @@ package kr.go.molit.nhsnes.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -115,7 +116,10 @@ public class NhsMyPageModifyActivity extends NhsBaseFragmentActivity implements 
         break;
 
       case R.id.fl_modify:
-
+        if(!isValidEmail(this.edEmail.getText().toString())){
+          Toast.makeText(getContext(), "이메일 형식에 맞게 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+          return;
+        }
         this.nhsMyInfoModel.setAfftId(this.selectedCompany.getAfftId());
         this.nhsMyInfoModel.setEmail(this.edEmail.getText().toString());
         this.nhsMyInfoModel.setHpno(this.edPhoneNumber.getText().toString());
@@ -520,6 +524,10 @@ public class NhsMyPageModifyActivity extends NhsBaseFragmentActivity implements 
 
 
   };
+
+  private boolean isValidEmail(CharSequence target) {
+    return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+  }
 
 }
 

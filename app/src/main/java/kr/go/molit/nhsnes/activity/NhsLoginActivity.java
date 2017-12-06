@@ -9,17 +9,21 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.text.Html;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -106,6 +110,10 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     //체크박스
     cb_auto = (CheckBox) findViewById(R.id.cb_auto);
 
+    //영어, 숫자만 입력 가능
+    et_id.setFilters(new InputFilter[]{filterAlphaNum});
+    et_pass.setFilters(new InputFilter[]{filterAlphaNumSpecial});
+
     findViewById(R.id.bt_find_id).setOnClickListener(clickListener);
     findViewById(R.id.bt_find_pwd).setOnClickListener(clickListener);
     findViewById(R.id.bt_login).setOnClickListener(clickListener);
@@ -133,17 +141,22 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
         //로그인
         case R.id.bt_login:
 
-          NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
-          NetworkParamUtil networkParamUtil = new NetworkParamUtil();
+          if(et_id.getText().length() < 4){
+            Toast.makeText(getContext(), "입력된 ID가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+          }else if (et_pass.getText().length() < 9) {
+            Toast.makeText(getContext(), "비밀번호를 9자리 이상 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+          }else {
+            NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
+            NetworkParamUtil networkParamUtil = new NetworkParamUtil();
 
-          // 로그인 요청
-          StringEntity param = networkParamUtil.requestLogin(et_id.getText().toString(), et_pass.getText().toString());
-          NetworkProcess networkProcess = new NetworkProcess(NhsLoginActivity.this,
-              networkUrlUtil.getUserLogin(),
-              param,
-              loginResult, true);
-          networkProcess.sendEmptyMessage(0);
-
+            // 로그인 요청
+            StringEntity param = networkParamUtil.requestLogin(et_id.getText().toString(), et_pass.getText().toString());
+            NetworkProcess networkProcess = new NetworkProcess(NhsLoginActivity.this,
+                    networkUrlUtil.getUserLogin(),
+                    param,
+                    loginResult, true);
+            networkProcess.sendEmptyMessage(0);
+          }
 
           break;
         //회원가입
@@ -255,7 +268,7 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
    **/
   NetworkProcess.OnResultListener loginResult = new NetworkProcess.OnResultListener() {
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
       try {
 
         new ToastUtile().showCenterText(NhsLoginActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -267,7 +280,7 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     }
 
     @Override
-    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
       try {
 
         new ToastUtile().showCenterText(NhsLoginActivity.this, getString(R.string.error_network) + "(" + statusCode + ")");
@@ -279,7 +292,7 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     }
 
     @Override
-    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
       String msg = response.optString("result_msg");
       String resultCode = response.optString("result_code");
@@ -372,5 +385,28 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
             }, false);
     networkProcess.sendEmptyMessage(0);
   }
+
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNum = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
+  };
+
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNumSpecial = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
+  };
+
 }
 

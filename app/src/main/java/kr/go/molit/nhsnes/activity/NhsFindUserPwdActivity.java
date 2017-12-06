@@ -1,12 +1,16 @@
 package kr.go.molit.nhsnes.activity;
 
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+
+import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 import kr.go.molit.nhsnes.Network.NetworkProcess;
@@ -52,6 +56,9 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
     this.edPhoneNumber = (EditText) this.findViewById(R.id.ed_phone);
     this.edAuthCode = (EditText) this.findViewById(R.id.ed_auth_code);
 
+    //영어, 숫자만 입력 가능
+    this.edId.setFilters(new InputFilter[]{filterAlphaNum});
+
     this.vInputInfo = this.findViewById(R.id.ll_input_info);
     this.vResultInfo = this.findViewById(R.id.ll_result);
 
@@ -61,6 +68,12 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
     findViewById(R.id.btn_request_auth_code).setOnClickListener(this);
     findViewById(R.id.btn_auth_code).setOnClickListener(this);
 
+    EditText edPwd = (EditText)findViewById(R.id.ed_pwd);
+    EditText pwdRe = (EditText)findViewById(R.id.ed_pwd_re);
+
+    //영어, 숫자만 입력 가능
+    edPwd.setFilters(new InputFilter[]{filterAlphaNumSpecial});
+    pwdRe.setFilters(new InputFilter[]{filterAlphaNumSpecial});
   }
 
   @Override
@@ -127,8 +140,8 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
             Toast.makeText(getContext(), "이름을 입력해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
           } else if (authCode.isEmpty()) {
             Toast.makeText(getContext(), "인증번호 인증을 해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-          } else if (id.isEmpty()) {
-            Toast.makeText(getContext(), "아이디를 입력해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+          } else if (id.length() < 4){
+            Toast.makeText(getContext(), "입력된 ID가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
           } else if (!checkAuthCode) {
             Toast.makeText(getContext(), "인증번호 인증을 해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
           } else {
@@ -151,8 +164,8 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
           String pwd = ((EditText)findViewById(R.id.ed_pwd)).getText().toString();
           String pwdRe = ((EditText)findViewById(R.id.ed_pwd_re)).getText().toString();
 
-          if (pwd.isEmpty()) {
-            Toast.makeText(getContext(), "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+          if (pwd.length() < 9) {
+            Toast.makeText(getContext(), "비밀번호를 9자리 이상 입력하여 주시기 바랍니다.", Toast.LENGTH_SHORT).show();
           } else if (pwdRe.isEmpty()) {
             Toast.makeText(getContext(), "비밀번호 확인을 입력해주세요.", Toast.LENGTH_SHORT).show();
           } else if (!pwd.equals(pwdRe)) {
@@ -409,8 +422,29 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
 
 
     }
-
-
   };
+
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNum = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
+  };
+
+  // 영문 + 숫자 만 입력 되도록
+  public InputFilter filterAlphaNumSpecial = new InputFilter() {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");
+      if (!ps.matcher(source).matches()) {
+        return "";
+      }
+      return null;
+    }
+  };
+
 }
 
