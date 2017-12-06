@@ -774,13 +774,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
-                                            }else if (callsign.equals("fplnow") &&    // 시나리오4 이고, 좌표 값이 같다면, 시나리오 종료
+                                            } else if (callsign.equals("fplnow") &&    // 시나리오4 이고, 좌표 값이 같다면, 시나리오 종료
                                                     pos[0].equals("129.234344") &&
                                                     pos[1].equals("35.980221")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
-                                            }else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
+                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
 //                                            } else if (isWifiConnected) {
                                                 // 1초에 한번씩 gps 정보를 맵에게 전달한다.
                                                 lanReceiveGPSData(airGPSData);
@@ -802,6 +802,28 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                         // 시나리오가 끝났으면 tts를 중지한다.
                                         stopTtsTimer();
+
+                                        // 시나리오가 끝나면 5초 뒤에 종료 팝업창을 띄운다.
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        showExitDialog();
+
+                                                    }
+
+                                                });
+
+                                            }
+                                        }, 5000);
+
                                     }
 
                                 }
@@ -2044,9 +2066,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                         params.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                                         params.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
-                                        params.put("elev", pos[2]+"");                 // 해발고도
-                                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
-                                        params.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
+                                        params.put("elev", pos[2] + "");                 // 해발고도
+                                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3])) + "");      // 자이로센서
+                                        params.put("speed", Math.round(Float.parseFloat(pos[4])) + "");          // 순항속도
                                     }
                                 } catch (Exception ex) {
 
@@ -2070,7 +2092,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 params.put("speed", currentSpeed + "");          // 순항속도
 
                             }
-
 
 
                             try {
@@ -2261,9 +2282,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                     tempJson.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                                     tempJson.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
-                                    tempJson.put("elev", pos[2]+"");                 // 해발고도
-                                    tempJson.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
-                                    tempJson.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
+                                    tempJson.put("elev", pos[2] + "");                 // 해발고도
+                                    tempJson.put("gaeroInfo", Math.round(Float.parseFloat(pos[3])) + "");      // 자이로센서
+                                    tempJson.put("speed", Math.round(Float.parseFloat(pos[4])) + "");          // 순항속도
                                 }
                             } catch (Exception ex) {
 
@@ -3011,14 +3032,18 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         // 읽는 중이 아니라면 이전 tts 메세지 삭제하고, 읽을 수 있도록 한다.
         if (!mTts.isSpeaking()) {
             this.beforeTtsMsg = "";
+            Log.d("tts_play", "init");
         }
-
-        if (!this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
+        // 같은 메세지이면 읽지 않는다. 단
+        if (this.beforeTtsMsg.isEmpty() || (!this.beforeTtsMsg.equals(text) && !mTts.isSpeaking())) {
             HashMap<String, String> map = new HashMap<>();
             map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, map);
             this.beforeTtsMsg = text;
+//            Log.d("tts_play", text);
         }
+
+        Log.d("tts_play", text);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -3029,9 +3054,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             this.beforeTtsMsg = "";
         }
 
-        if (!this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
+        if (this.beforeTtsMsg.isEmpty() || !this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
             String utteranceId = this.hashCode() + "";
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+            Log.d("tts_play", text);
         }
     }
 
@@ -3478,7 +3504,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
      * @author FIESTA
      * @since 오후 5:02
      **/
-    private void sendHotkey(String type){
+    private void sendHotkey(String type) {
 
         // 상황별로 서버로 요청한다.
         if (!type.isEmpty() && flightPlanInfo != null) {
@@ -3524,9 +3550,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         params.put("lat", (float) Double.parseDouble(pos[1]) + "");            // 위도좌표
                         params.put("lon", (float) Double.parseDouble(pos[0]) + "");            // 경도좌표
-                        params.put("elev", pos[2]+"");                 // 해발고도
+                        params.put("elev", pos[2] + "");                 // 해발고도
 //                        params.put("gaeroInfo", Math.round(Float.parseFloat(pos[3]))+"");      // 자이로센서
-                        params.put("speed", Math.round(Float.parseFloat(pos[4]))+"");          // 순항속도
+                        params.put("speed", Math.round(Float.parseFloat(pos[4])) + "");          // 순항속도
                     }
                 } catch (Exception ex) {
 
