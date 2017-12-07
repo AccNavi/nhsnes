@@ -181,6 +181,11 @@ import retrofit2.Response;
  **/
 public class NhsFlightActivity extends NhsBaseFragmentActivity implements SensorEventListener, View.OnClickListener, OnClickOptionMapMenu {
 
+    private final static int MAX_WEATHER_POINT = 100;          // 최대 허용 개수
+    private final static int MAX_SNOWTAM_COUNT = 50;
+    private final static int MAX_SNOWTAM_SUBCOUNT = 50;
+    private final static int MAX_NOTAM_COUNT = 50;
+
     private final static int SHOW_VALUE_TIME = 5000;          // 5초마다 데이터 값을 보여준다.(메뉴 우측 값들)
     private final static int SHOW_VALUE_GYRO_TIME = 200;    // 1초마다 데이터 자이로 핀을 보여준다(제일 하단 핀 움직이는 구간)
 
@@ -647,6 +652,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1-1.txt", " ", true);
                     }
                 } else if (callsign.equals("fplkdw")) {
+                    Log.d("test0","start1");
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input2.txt", " ", true);
                 } else if (callsign.equals("fplnow")) {
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input3.txt", " ", true);
@@ -659,6 +665,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d("test1","start");
 
                     try {
 
@@ -668,7 +675,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         // 시나리오 좌표를 설정한다.
                         setTestRoute(callsign);
-
+                        Log.d("test2","start");
                         // 경로 확정
                         int result = mNlvView.executeRP(NhsFlightActivity.this, 0, 0, new View.OnClickListener() {
                             @Override
@@ -696,6 +703,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 }
                             }
                         });
+                        Log.d("test3","start");
 
                         if (result != -1) {
 
@@ -703,6 +711,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             testDriveTimerTask = new TimerTask() {
                                 @Override
                                 public void run() {
+                                    Log.d("test4","start");
 
                                     int size = testDrivePointList.length;
 
@@ -798,7 +807,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             testDriveIndex += testDrivePlus;
 
                                         }
-
+                                        Log.d("test5","start");
                                     } else {
 
                                         // 시나리오가 끝났으면 tts를 중지한다.
@@ -806,6 +815,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                         // 시나리오 종료
                                         stopTestDriveTimer();
+                                        Log.d("test6","start");
 
                                         // 시나리오가 끝나면 5초 뒤에 종료 팝업창을 띄운다.
                                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -1268,6 +1278,12 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                 int size = resultData.length();
                                 int i = 0;
+
+                                // 허용 개수 쳬크
+                                if (size >= MAX_NOTAM_COUNT) {
+                                    size = MAX_NOTAM_COUNT;
+                                }
+
                                 JSONObject data = null;
                                 String gisType = "CIRCLE";
 
@@ -1317,6 +1333,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         av.item[i].uMinFL = Integer.parseInt(data.optString("MIN_FL", "0"));
                                         av.item[i].uMaxFL = Integer.parseInt(data.optString("MAX_FL", "0"));
                                         av.item[i].cGisType = (gisType.equalsIgnoreCase("CIRCLE") ? '1' : '0');
+                                        Log.d("gistype",gisType);
                                         av.item[i].rad = Integer.parseInt(data.optString("GIS_RADIUS", "0"));
                                         av.item[i].strEcode = data.optString("QCODE", "0");
                                         av.item[i].strQcode = data.optString("E_CODE", "0");
@@ -1401,6 +1418,12 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 int size = resultData.length();
                                 int jSize = 0;
                                 int i, j = 0;
+
+                                // 허용 개수 체크
+                                if (size >= MAX_SNOWTAM_COUNT) {
+                                    size = MAX_SNOWTAM_COUNT;
+                                }
+
                                 JSONObject data = null;
                                 JSONArray rwyList = null;
                                 JSONObject rwy = null;
@@ -1413,6 +1436,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         data = resultData.optJSONObject(i);
                                         rwyList = data.optJSONArray("RWY_LIST");
                                         jSize = rwyList.length();
+
+                                        // 허용 개수 체크
+                                        if (jSize >= MAX_SNOWTAM_SUBCOUNT) {
+                                            jSize = MAX_SNOWTAM_SUBCOUNT;
+                                        }
 
                                         String apCd = data.optString("AP_CD", "");  //  공항 코드
 
@@ -1463,8 +1491,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
         NetworkParamUtil networkParamUtil = new NetworkParamUtil();
         StringEntity param = networkParamUtil.getWeatherPoint(NhsFlightActivity.this,
-                "201709270100",
-                "201709272359");
+                "201712070000",
+                "201712072359");
         new NetworkProcess(NhsFlightActivity.this, networkUrlUtil.getWeatherPoint(),
                 param, new NetworkProcess.OnResultListener() {
             @Override
@@ -1496,6 +1524,12 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             int size = list.length();
                             int i = 0;
                             JSONObject data = null;
+
+                            // 최대 허용할 수 있는 수가 초과되면 일정 수량까지만 받는다.
+                            if (size >= MAX_WEATHER_POINT) {
+                                size = MAX_WEATHER_POINT;
+                            }
+
                             WeatherInfo weatherInfo = new WeatherInfo(size);
                             String point = "";
                             String[] points = null;
@@ -1560,6 +1594,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                     }
 
                                 } catch (Exception ex) {
+
+                                    // 파싱 오류나는지 한번 볼꼐요
+                                    ex.printStackTrace();
 
                                 } finally {
 

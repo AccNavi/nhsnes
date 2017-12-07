@@ -13,7 +13,7 @@ public class INativeImple {
     public static NativeImplement getInstance(Context context){
         if(mImple == null) {
 
-            mImple = new NativeImplement();
+            mImple = new NativeImplement(context);
 
 //            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
 //            int width = metrics.widthPixels;

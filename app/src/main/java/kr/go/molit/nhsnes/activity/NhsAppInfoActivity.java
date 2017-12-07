@@ -1,6 +1,5 @@
 package kr.go.molit.nhsnes.activity;
 
-import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,20 +17,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.channels.FileChannel;
 
 import kr.go.molit.nhsnes.R;
 import kr.go.molit.nhsnes.common.StorageUtil;
 import kr.go.molit.nhsnes.common.Util;
 import kr.go.molit.nhsnes.dialog.DialogType1;
 
-import static com.modim.lan.lanandroid.NativeImplement.lanVersion;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_VECTOR;
 
@@ -45,8 +40,8 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     private LinearLayout llBgNewApp = null;
     private TextView tvNewApp = null;
     private NativeImplement nativeImplement = null;
-    private int vectorVersion = 0;
-    private int demVersion = 0;
+    private String vectorVersion = "0";
+    private String demVersion = "0";
     private String newstVectorVersion = "";
     private String newestDemVersion = "";
 
@@ -82,25 +77,22 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
         try {
 
-            this.vectorVersion = lanVersion(1);
-            this.demVersion = lanVersion(2);
+            this.vectorVersion = StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, NativeImplement.NHS_MAP_VERSION_VECTOR, "0");
+            this.demVersion = StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, NativeImplement.NHS_MAP_VERSION_DEM, "0");
 
-            JSONObject newestVectorObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_VECTOR, ""));
-            JSONObject newestDemObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_DEM, ""));
+            JSONObject newestVectorObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_VECTOR, "0"));
+            JSONObject newestDemObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_DEM, "0"));
 
             this.newstVectorVersion = newestVectorObject.optString("MAP_VER");
             this.newestDemVersion = newestDemObject.optString("MAP_VER");
 
-             // TODO: 2017-11-01 추후 int를 형식에 맞게 string으로 변경하는 작업이 필요하다.
-            String strVectorVersion = this.vectorVersion + "";
-            String strDemVersion = this.demVersion + "";
-
         }catch (Exception ex) {
 
         }
+
         // 버전이 같지 않으면 지도 업데이트 활성화
-//        if (!(strVectorVersion.equals(newstVectorVersion) &&
-//                strDemVersion.equals(newestDemVersion))) {
+        if (!(this.vectorVersion.equals(this.newstVectorVersion) &&
+                this.demVersion.equals(this.newestDemVersion))) {
 
             tvMapUpdate.setTextColor(getResources().getColor(android.R.color.white));
             llMapUpdate.setBackgroundResource(R.drawable.border_corner_white);
@@ -122,7 +114,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                 }
             });
-//        }
+        }
     }
 
     /**

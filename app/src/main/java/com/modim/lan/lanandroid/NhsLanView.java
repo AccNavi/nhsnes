@@ -131,7 +131,7 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
     }
   }
 
-   /**
+  /**
    * 로그 주행
    *
    * @author FIESTA
@@ -339,7 +339,7 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   public void onPause() {
     try {
       mSensorManager.unregisterListener(this);
-      mSensorManager.unregisterListener(mGyroLis);
+//      mSensorManager.unregisterListener(mGyroLis);
     } catch (Exception e) {
 
     }
@@ -347,12 +347,12 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
 
   public void onResume() {
     try {
-
+//
       mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI);
-
-      // 자이로 센서를 등록한다.
-      mSensorManager.registerListener(mGyroLis, mGgyroSensor, SensorManager.SENSOR_DELAY_UI);
-
+//
+//      // 자이로 센서를 등록한다.
+//      mSensorManager.registerListener(mGyroLis, mGgyroSensor, SensorManager.SENSOR_DELAY_UI);
+//
     } catch (Exception e) {
 
     }

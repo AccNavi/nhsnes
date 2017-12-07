@@ -6,6 +6,7 @@ import com.modim.lan.lanandroid.INativeImple;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import kr.go.molit.nhsnes.activity.NhsIntroActivity;
 import kr.go.molit.nhsnes.common.StorageUtil;
 
 /**
@@ -18,6 +19,7 @@ public class NhsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         realmSetUp();
+        INativeImple.getInstance(getApplicationContext());
     }
 
     public void realmSetUp() {

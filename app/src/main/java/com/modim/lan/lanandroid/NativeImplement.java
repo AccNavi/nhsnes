@@ -1,17 +1,20 @@
 
 package com.modim.lan.lanandroid;
 
+import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+
+import kr.go.molit.nhsnes.common.StorageUtil;
 
 public class NativeImplement {
+
+    public static final String NHS_MAP_VERSION_VECTOR = "nhs_vector_version";
+    public static final String NHS_MAP_VERSION_DEM = "nhs_dem_version";
+
     public boolean mJNIInit = false;
     public static final String KML_DATA_PATH;     // KML 을 불러올 경로
     public static String GPS_LOG_DATA_PATH;     // GPS LOG 을 불러올 경로
@@ -23,7 +26,7 @@ public class NativeImplement {
 //        GPS_LOG_DATA_PATH = Environment.getExternalStorageDirectory() + "/ACC_NAVI/GPSLog";
     }
 
-    public NativeImplement() {
+    public NativeImplement(Context context) {
 
         JniConfig config = new JniConfig();
 
@@ -38,6 +41,18 @@ public class NativeImplement {
 
         config.configValueB = 2;
         config.configValueC = 3;
+
+        // 맵 버전 정보를 가져온다.
+        lanTouchVersion(config.sRootDirectory);
+
+        int vector = lanVersion(1);
+        int dem = lanVersion(3);
+
+        // 맵 버전을 저장한다.
+        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_VECTOR, vector+"");
+        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_DEM, dem+"");
+
+        Log.d("mapVersion", "Vector : " + vector + "\nDem : " + dem);
 
         mJNIInit = lanInitialize(config);
         if (!mJNIInit)
@@ -205,5 +220,9 @@ public class NativeImplement {
     public static native void lanSystemParametersInfo(AirSystemParametersInfo sysParam);
 
     public static native void lanSimulSpeedTrajectory(int iSpeedLevel);
+
+    public static native void lanTouchVersion(String szRootPath);
+
+
 }
 
