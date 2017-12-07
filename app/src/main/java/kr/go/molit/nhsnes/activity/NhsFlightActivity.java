@@ -282,7 +282,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 10;
+    private int testDrivePlus = 1;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -315,10 +315,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private boolean isSkipTts = false;
 
     // tts를 스킵할 구간 좌표를 설정한다.
-    private String startLat = "37.882168";
-    private String startLon = "127.734360";
-    private String endLat = "37.882626";
-    private String endLon = "127.737572";
+    private String startLat = "";       // 37.882168
+    private String startLon = "";       // 127.734360
+    private String endLat = "";         // 37.882626
+    private String endLon = "";         // 127.737572
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
