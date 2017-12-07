@@ -76,6 +76,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -276,7 +277,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 1;
+    private int testDrivePlus = 50;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -803,13 +804,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         // 시나리오가 끝났으면 tts를 중지한다.
                                         stopTtsTimer();
 
+                                        // 시나리오 종료
+                                        stopTestDriveTimer();
+
                                         // 시나리오가 끝나면 5초 뒤에 종료 팝업창을 띄운다.
-                                        new Handler().postDelayed(new Runnable() {
+                                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-
-                                                stopTestDriveTimer();
-                                                stopTtsTimer();
 
                                                 runOnUiThread(new Runnable() {
                                                     @Override

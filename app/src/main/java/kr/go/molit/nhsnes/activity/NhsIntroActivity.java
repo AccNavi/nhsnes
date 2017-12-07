@@ -142,6 +142,8 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
 
         requestPermission();
 
+//        String test = "{\"result_code\":\"data\"}";
+
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {

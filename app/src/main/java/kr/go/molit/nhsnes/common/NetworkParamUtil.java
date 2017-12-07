@@ -141,7 +141,7 @@ public class NetworkParamUtil {
   }
 
   /**
-   * 회원 탈퇴
+   * 날씨 정보
    * @author FIESTA
    * @since  오전 12:44
    **/
@@ -152,7 +152,7 @@ public class NetworkParamUtil {
 
     try {
 
-      jsonParams.put("tokenKey", StorageUtil.getStorageModeEx(context, LOGIN_TOKEN_KEY, ""));     // Token번호
+      //jsonParams.put("tokenKey", StorageUtil.getStorageModeEx(context, LOGIN_TOKEN_KEY, ""));     // Token번호
       jsonParams.put("start_dt", start_dt);    // 검색 시작일시
       jsonParams.put("end_dt", end_dt);        // 검색 종료일시
 
