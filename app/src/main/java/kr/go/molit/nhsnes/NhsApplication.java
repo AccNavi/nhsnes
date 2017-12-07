@@ -19,7 +19,7 @@ public class NhsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         realmSetUp();
-        INativeImple.getInstance(getApplicationContext());
+//        INativeImple.getInstance(getApplicationContext());
     }
 
     public void realmSetUp() {

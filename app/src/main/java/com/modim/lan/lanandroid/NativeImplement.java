@@ -43,16 +43,16 @@ public class NativeImplement {
         config.configValueC = 3;
 
         // 맵 버전 정보를 가져온다.
-        lanTouchVersion(config.sRootDirectory);
-
-        int vector = lanVersion(1);
-        int dem = lanVersion(3);
-
-        // 맵 버전을 저장한다.
-        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_VECTOR, vector+"");
-        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_DEM, dem+"");
-
-        Log.d("mapVersion", "Vector : " + vector + "\nDem : " + dem);
+//        lanTouchVersion(config.sRootDirectory);
+//
+//        int vector = lanVersion(1);
+//        int dem = lanVersion(3);
+//
+//        // 맵 버전을 저장한다.
+//        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_VECTOR, vector+"");
+//        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_DEM, dem+"");
+//
+//        Log.d("mapVersion", "Vector : " + vector + "\nDem : " + dem);
 
         mJNIInit = lanInitialize(config);
         if (!mJNIInit)
