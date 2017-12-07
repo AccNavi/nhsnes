@@ -282,7 +282,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 1;
+    private int testDrivePlus = 10;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -310,6 +310,15 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private float[] gyroValues = null;
 
     protected Location beforeLocation = null;    // 이전 gps
+
+    // tts 스킵 여부
+    private boolean isSkipTts = false;
+
+    // tts를 스킵할 구간 좌표를 설정한다.
+    private String startLat = "37.882168";
+    private String startLon = "127.734360";
+    private String endLat = "37.882626";
+    private String endLon = "127.737572";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -719,6 +728,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                         try {
 
+
+
                                             String temp = testDrivePointList[testDriveIndex];
                                             Log.d("jincocotest", "index : " + testDriveIndex + " value :" + temp);
 
@@ -736,6 +747,23 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
                                             Log.d("step", testDriveIndex + "");
+
+
+                                            // 특정 구간은 tts가 발생하지 않도록한다.(시나리오3)
+                                            if (callsign.equals("fplkdw")) {
+
+                                                // 시작 위치
+                                                if ((airGPSData.uLat == Float.parseFloat(startLat) && airGPSData.uLon == Float.parseFloat(startLon))){
+
+                                                    isSkipTts = true;
+
+                                                 } else if (airGPSData.uLat == Float.parseFloat(endLat)  && airGPSData.uLon == Float.parseFloat(endLon) ) {    // 종료 위치
+
+                                                    isSkipTts = false;
+
+                                                }
+
+                                            }
 
                                             /**
                                              // 고도가 3000 을 넘으면 자동 줌레벨을 시작한다.
@@ -3015,51 +3043,53 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
      **/
     private void playTTS(final String msg) {
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean isSoundMode = StorageUtil.getStorageMode(getContext(), IS_TTS_SOUND);
-                TextView t = (TextView) findViewById(R.id.tv_info_msg);
-                TextView t2 = (TextView) findViewById(R.id.tv_info_msg2);
-                findViewById(R.id.ll_test1).setVisibility(View.VISIBLE);
-                t.setSelected(true);
-                t.setText(msg);
-                t2.setText(msg);
+        if (!isSkipTts) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    boolean isSoundMode = StorageUtil.getStorageMode(getContext(), IS_TTS_SOUND);
+                    TextView t = (TextView) findViewById(R.id.tv_info_msg);
+                    TextView t2 = (TextView) findViewById(R.id.tv_info_msg2);
+                    findViewById(R.id.ll_test1).setVisibility(View.VISIBLE);
+                    t.setSelected(true);
+                    t.setText(msg);
+                    t2.setText(msg);
 
-                if (isSoundMode) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        ttsGreater21(msg);
-                    } else {
-                        ttsUnder20(msg);
+                    if (isSoundMode) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            ttsGreater21(msg);
+                        } else {
+                            ttsUnder20(msg);
+                        }
+
                     }
 
+                    // 상단 위에 메시창을 클릭하면, 화면 중앙에 메세지가 출력되도록 하는 기능이다.
+                    findViewById(R.id.ll_test1).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            view.setVisibility(View.GONE);
+                            findViewById(R.id.ll_test1).setVisibility(View.GONE);
+                            findViewById(R.id.ll_test2).setVisibility(View.VISIBLE);
+
+                            findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    findViewById(R.id.ll_test1).setVisibility(View.GONE);
+                                    findViewById(R.id.ll_test2).setVisibility(View.GONE);
+                                    vWarring.clearAnimation();
+                                    vWarring.setVisibility(View.GONE);
+
+                                }
+                            });
+
+                        }
+                    });
                 }
+            });
 
-                // 상단 위에 메시창을 클릭하면, 화면 중앙에 메세지가 출력되도록 하는 기능이다.
-                findViewById(R.id.ll_test1).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        view.setVisibility(View.GONE);
-                        findViewById(R.id.ll_test1).setVisibility(View.GONE);
-                        findViewById(R.id.ll_test2).setVisibility(View.VISIBLE);
-
-                        findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                findViewById(R.id.ll_test1).setVisibility(View.GONE);
-                                findViewById(R.id.ll_test2).setVisibility(View.GONE);
-                                vWarring.clearAnimation();
-                                vWarring.setVisibility(View.GONE);
-
-                            }
-                        });
-
-                    }
-                });
-            }
-        });
-
+        }
     }
 
     private String beforeTtsMsg = "";   // 이전 tts 메세지
@@ -3092,7 +3122,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             this.beforeTtsMsg = "";
         }
 
-        if (this.beforeTtsMsg.isEmpty() || !this.beforeTtsMsg.equals(text)) {   // 같은 메세지이면 읽지 않는다.
+        if (this.beforeTtsMsg.isEmpty() || (!this.beforeTtsMsg.equals(text) && !mTts.isSpeaking())) {   // 같은 메세지이면 읽지 않는다.
             String utteranceId = this.hashCode() + "";
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
             Log.d("tts_play", text);
