@@ -781,8 +781,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
-                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
-//                                            } else if (isWifiConnected) {
+//                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
+                                            } else if (isWifiConnected) {
                                                 // 1초에 한번씩 gps 정보를 맵에게 전달한다.
                                                 lanReceiveGPSData(airGPSData);
                                                 lanExceuteGuide();
@@ -2017,8 +2017,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
                 // TODO: 2017-09-20 테스트폰이 wifi용이라서.. wifi만 우선 체크한다. 빌드할때 아래 주석 풀것
-                if (isMobileDataEnabled || isWifiConnected) {
-//                if (isWifiConnected) {
+//                if (isMobileDataEnabled || isWifiConnected) {
+                if (isWifiConnected) {
 
                     try {
                         runOnUiThread(new Runnable() {
