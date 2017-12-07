@@ -137,11 +137,11 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
         String endDt = "";
         String startDt = "";
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         endDt = sdf.format(new Date());  // 종료일
 
         sdf = new SimpleDateFormat("yyyyMMdd");
-        startDt = sdf.format(new Date()) + "000000";    // 시작일
+        startDt = sdf.format(new Date()) + "0000";    // 시작일
 
         NetworkUrlUtil nuu = new NetworkUrlUtil();
         NetworkParamUtil npu =new NetworkParamUtil();
