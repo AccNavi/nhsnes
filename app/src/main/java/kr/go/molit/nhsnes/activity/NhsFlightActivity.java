@@ -3130,6 +3130,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         if (this.beforeTtsMsg.isEmpty() || (!this.beforeTtsMsg.equals(text) && !mTts.isSpeaking())) {   // 같은 메세지이면 읽지 않는다.
             String utteranceId = this.hashCode() + "";
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+            this.beforeTtsMsg = text;
             Log.d("tts_play", text);
         }
     }
