@@ -752,14 +752,19 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             // 특정 구간은 tts가 발생하지 않도록한다.(시나리오3)
                                             if (callsign.equals("fplkdw")) {
 
-                                                // 시작 위치
-                                                if ((airGPSData.uLat == Float.parseFloat(startLat) && airGPSData.uLon == Float.parseFloat(startLon))){
+                                                if (!startLat.isEmpty() && !startLon.isEmpty()
+                                                        && !endLat.isEmpty() && !endLon.isEmpty()) {
 
-                                                    isSkipTts = true;
+                                                    // 시작 위치
+                                                    if ((airGPSData.uLat == (float) Double.parseDouble(startLat) && airGPSData.uLon ==(float) Double.parseDouble(startLon))) {
 
-                                                 } else if (airGPSData.uLat == Float.parseFloat(endLat)  && airGPSData.uLon == Float.parseFloat(endLon) ) {    // 종료 위치
+                                                        isSkipTts = true;
 
-                                                    isSkipTts = false;
+                                                    } else if (airGPSData.uLat == (float) Double.parseDouble(endLat) && airGPSData.uLon == (float) Double.parseDouble(endLon)) {    // 종료 위치
+
+                                                        isSkipTts = false;
+
+                                                    }
 
                                                 }
 
