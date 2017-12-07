@@ -315,10 +315,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private boolean isSkipTts = false;
 
     // tts를 스킵할 구간 좌표를 설정한다.
-    private String startLat = "";       // 37.882168
-    private String startLon = "";       // 127.734360
-    private String endLat = "";         // 37.882626
-    private String endLon = "";         // 127.737572
+    private String startLat = "38.014599";       // 37.882168
+    private String startLon = "128.672531";       // 127.734360
+    private String endLat = "38.022285";         // 37.882626
+    private String endLon = "128.726990";         // 127.737572
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
