@@ -101,7 +101,7 @@
         android:layout_marginTop="10dp"
         android:button="@drawable/selector_agreement"
         android:paddingLeft="10dp"
-        android:text="개인정보 수입 이용에 동의합니다."
+        android:text="개인정보 수집 이용에 동의합니다."
         android:textColor="#FFFFFF"
         android:textSize="12sp" />
 
