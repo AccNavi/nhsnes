@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import java.io.InputStreamReader;
 
 import cz.msebera.android.httpclient.Header;
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.NetworkParamUtil;
 
 public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
 
@@ -100,7 +102,19 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
             post.addHeader("Accept", "application/json");
             post.addHeader("Content-type", "application/json");
 
+            String data = " ";
+
+            if (this.param != null) {
+
+                // 파라미터를 가져온다.
+                data = new String(inputStreamToByteArray(this.param.getContent()));
+            }
+
+            // 암호화 인코딩한다.
+            this.param = new NetworkParamUtil().encDataDonwload(this.context, data);
+
             post.setEntity(this.param);
+
 
             HttpResponse response = client.execute(post);
             resEntity = response.getEntity();
@@ -158,5 +172,26 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
 
     }
 
+
+    public static byte[] inputStreamToByteArray(InputStream is) {
+
+        byte[] resBytes = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        byte[] buffer = new byte[1024];
+        int read = -1;
+        try {
+            while ((read = is.read(buffer)) != -1) {
+                bos.write(buffer, 0, read);
+            }
+
+            resBytes = bos.toByteArray();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resBytes;
+    }
 
 }

@@ -72,6 +72,47 @@ public class NetworkParamUtil {
   }
 
   /**
+   * 다운로드 요청
+   * @author FIESTA
+   * @since  오전 12:44
+   **/
+  public org.apache.http.entity.StringEntity encDataDonwload(Context context, String jsonData){
+
+    JSONObject jsonParams = new JSONObject();
+    org.apache.http.entity.StringEntity entity = null;
+
+    try {
+
+      String sessionKey = (String)SharedData.getSharedData(context, SharedData.SESSION_KEY);
+
+      TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+      String imei = telephonyManager.getDeviceId();
+
+      // 암홈화
+      MagicSE_Util magic = new MagicSE_Util(context);
+      String encData = magic.getEncData(jsonData);
+
+      jsonParams.put("sessionId", imei);     // 세션키
+
+      if (encData == null) {
+        encData = "";
+      }
+
+      jsonParams.put("data", encData);              // 암호화된 데이터
+
+      entity = new org.apache.http.entity.StringEntity(jsonParams.toString(), "UTF-8");
+
+    } catch (JSONException e) {
+      // TODO Auto-generated catch block
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+
+    return entity;
+
+  }
+
+  /**
   * 비행 계획서 전송 파라미터
   * @author FIESTA
   * @since  오전 1:12
