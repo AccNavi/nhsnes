@@ -99,6 +99,7 @@ public class NetworkParamUtil {
       }
 
       jsonParams.put("data", encData);              // 암호화된 데이터
+      Log.d("download_param", jsonParams.toString());
 
       entity = new org.apache.http.entity.StringEntity(jsonParams.toString(), "UTF-8");
 
@@ -666,6 +667,8 @@ public class NetworkParamUtil {
       jsonParams.put("file_nm", fileNm);
       jsonParams.put("file_origin_nm", fileOriginNm);
 
+      Log.d("download_param", jsonParams.toString());
+
       entity = new org.apache.http.entity.StringEntity(jsonParams.toString(), "UTF-8");
 
     } catch (JSONException e) {
@@ -693,6 +696,8 @@ public class NetworkParamUtil {
       jsonParams.put("tokenKey", StorageUtil.getStorageModeEx(context, LOGIN_TOKEN_KEY, ""));
       jsonParams.put("map_type", mapType);
       jsonParams.put("file_nm", fileNm);
+
+      Log.d("download_param", jsonParams.toString());
 
       entity = new org.apache.http.entity.StringEntity(jsonParams.toString(), "UTF-8");
 
