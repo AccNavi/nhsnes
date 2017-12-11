@@ -2030,18 +2030,18 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         };
         this.saveTimer.schedule(this.saveTimerTask, 500, SAVE_TIMER_INTERVAL);
 
-        super.setGpsListener(new OnGpsListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                // gps 수신 요청한다.
-                getLocation();
-            }
-
-            @Override
-            public void onLocationFailed(String message) {
-
-            }
-        });
+//        super.setGpsListener(new OnGpsListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//                // gps 수신 요청한다.
+//                getLocation();
+//            }
+//
+//            @Override
+//            public void onLocationFailed(String message) {
+//
+//            }
+//        });
 
     }
 
