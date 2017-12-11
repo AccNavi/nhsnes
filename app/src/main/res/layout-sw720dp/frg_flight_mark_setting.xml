@@ -243,7 +243,7 @@
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
       android:layout_marginTop="2dp"
-      app:text="가상 정보 레이어"
+      app:text="기상 정보 레이어"
       app:textColor="@color/white" />
 
     <kr.go.molit.nhsnes.widget.TextToggleButton
