@@ -32,7 +32,7 @@ public class NetworkUrlUtil {
   private String snotam = BASE_URL + "/NIF/nis/list/snowtamList.do";   // 항공고시보(SNOWTAM) 조회
   private String mapVersion = BASE_URL + "/NIF/gis/list/mapVersion.do";   // 맵 버전
   private String fpmList = BASE_URL+"/NIF/fpm/list/fpmList.do";   // 비행계획서 리스트
-  private String downloadDoyup = BASE_URL+"/NIF/gis/file/downloadMapData.do";   // 맵 데이터 다운로드
+  private String downloadMap = BASE_URL+"/NIF/gis/file/downloadMapData.do";   // 맵 데이터 다운로드
   private String acrftInformation = BASE_URL+"/NIF/user/acrft/AcrftInformation.do";   // 항공기정보
   private String weatherTaf = BASE_URL+"/NIF/nis/list/weatherTaf.do";   // 기상 taf
   private String weatherWrng = BASE_URL+"/NIF/nis/list/weatherWrng.do";   // 공항경보(Wrng) 조회
@@ -138,8 +138,8 @@ public class NetworkUrlUtil {
    * @version 1.0.0
    * @since 2017-09-19 오후 10:32
    **/
-  public String getDownloadDoyup() {
-    return downloadDoyup;
+  public String getDownloadMap() {
+    return downloadMap;
   }
 
 

@@ -43,7 +43,6 @@ import kr.go.molit.nhsnes.model.NhsNGllDataModel;
 import kr.go.molit.nhsnes.net.model.AirChartListItemModel;
 import kr.go.molit.nhsnes.net.model.AirChartListModel;
 import kr.go.molit.nhsnes.net.model.AirListModel;
-import kr.go.molit.nhsnes.net.model.FlightPlanModel;
 import kr.go.molit.nhsnes.net.model.NetSecurityModel;
 import kr.go.molit.nhsnes.net.service.FlightInfoService;
 import kr.go.molit.nhsnes.net.service.NetConst;
@@ -453,7 +452,7 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
                 this.allDownLoadStep += 1;
 
                 org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadDoyup(NhsAipInfoActivity.this, "5", nhsNGllDataModel.getResultUrl());
-                NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAipInfoActivity.this, new NetworkUrlUtil().getDownloadDoyup(), param, nhsNGllDataModel.getSavePath(), nhsNGllDataModel.getFileName(), new NetworkProcessWithFile.OnResultListener() {
+                NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAipInfoActivity.this, new NetworkUrlUtil().getDownloadMap(), param, nhsNGllDataModel.getSavePath(), nhsNGllDataModel.getFileName(), new NetworkProcessWithFile.OnResultListener() {
                     @Override
                     public void onFailure() {
                         allDownload();

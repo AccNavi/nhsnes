@@ -4,6 +4,7 @@ import static com.modim.lan.lanandroid.NativeImplement.lanDestroy;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_AUTO;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_NAME;
 import static kr.go.molit.nhsnes.adapter.RecyclerMainNhsFlightPlanListAdapter.VIEWTYPE_NHS_FLIGHT_HISTORY_ACT;
+import static kr.go.molit.nhsnes.adapter.RecyclerMainNhsFlightPlanListAdapter.VIEWTYPE_NHS_MAIN_ACT_RECENT;
 import static kr.go.molit.nhsnes.fragment.SystemSettingFragment.IS_USE_UTC;
 
 import android.app.PendingIntent;
@@ -148,7 +149,7 @@ public class NhsMainActivity extends NhsBaseFragmentActivity implements View.OnC
         }
 
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(new RecyclerMainNhsFlightPlanListAdapter(recentList, VIEWTYPE_NHS_FLIGHT_HISTORY_ACT, this));
+        rvList.setAdapter(new RecyclerMainNhsFlightPlanListAdapter(recentList, VIEWTYPE_NHS_MAIN_ACT_RECENT, this));
 
         setRecyclerView(TAB_RECENT_SELECTED);
         setTabLayout(TAB_RECENT_SELECTED);

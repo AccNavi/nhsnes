@@ -586,7 +586,7 @@ public class RecyclerNhsFlightInfoListAdapter extends RecyclerView.Adapter<Recyc
     private void downloadChartFileDoyup(String downloadPath, String mapType, String fileOriginName, String savePath) {
 
         org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadDoyup(this.activity, mapType, downloadPath);
-        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(this.activity, new NetworkUrlUtil().getDownloadDoyup(), param, savePath, fileOriginName, this.onFileResultListener, true);
+        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(this.activity, new NetworkUrlUtil().getDownloadMap(), param, savePath, fileOriginName, this.onFileResultListener, true);
         downloadFile.execute();
 
     }

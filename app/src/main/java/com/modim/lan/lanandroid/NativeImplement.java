@@ -43,20 +43,78 @@ public class NativeImplement {
         config.configValueC = 3;
 
         // 맵 버전 정보를 가져온다.
-//        lanTouchVersion(config.sRootDirectory);
-//
-//        int vector = lanVersion(1);
-//        int dem = lanVersion(3);
-//
-//        // 맵 버전을 저장한다.
-//        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_VECTOR, vector+"");
-//        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_DEM, dem+"");
-//
-//        Log.d("mapVersion", "Vector : " + vector + "\nDem : " + dem);
+        lanTouchVersion(config.sRootDirectory);
+
+        int ivector = lanVersion(1);
+        int idem = lanVersion(3);
+
+        String vector = getMapBinaryToInteger(Integer.toBinaryString(ivector));
+        String dem = getMapBinaryToInteger(Integer.toBinaryString(idem));
+
+        // 맵 버전을 저장한다.
+        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_VECTOR, vector+"");
+        StorageUtil.setStorageMode(context, NHS_MAP_VERSION_DEM, dem+"");
+
+        Log.d("mapVersion", "Vector : " + vector + "\nDem : " + dem);
 
         mJNIInit = lanInitialize(config);
         if (!mJNIInit)
             lanDestroy();
+    }
+
+    public int BinaryToDecimal(int binaryNumber){
+
+        int decimal = 0;
+        int p = 0;
+        while(true){
+            if(binaryNumber == 0){
+                break;
+            } else {
+                int temp = binaryNumber%10;
+                decimal += temp*Math.pow(2, p);
+                binaryNumber = binaryNumber/10;
+                p++;
+            }
+        }
+        return decimal;
+    }
+
+
+
+
+    public String getMapBinaryToInteger(String binary) {
+
+        char[] numbers = binary.toCharArray();
+        int count = 0;
+        int result = 0;
+        boolean isFirst = true;
+        String resultMapVersion = "";
+
+        for(int i=numbers.length - 1; i>=0; i--) {
+
+            count++;
+
+            if (numbers[i] == '1') {
+                result += Math.pow(2, count-1);
+            }
+
+            if (count > 7 || i == 0) {
+
+                if (isFirst) {
+                    resultMapVersion = "-" + String.format("%03d", result);
+                } else {
+                    resultMapVersion = result + resultMapVersion;
+                }
+
+                count = 0;
+                result = 0;
+                isFirst = false;
+            }
+
+        }
+
+        return resultMapVersion;
+
     }
 
     /**

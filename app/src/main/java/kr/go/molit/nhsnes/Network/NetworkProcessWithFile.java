@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -114,7 +115,6 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
             this.param = new NetworkParamUtil().encDataDonwload(this.context, data);
 
             post.setEntity(this.param);
-
 
             HttpResponse response = client.execute(post);
             resEntity = response.getEntity();

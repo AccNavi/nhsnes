@@ -184,7 +184,7 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
                                         koName = data.optString("POINT_NM_KOR");
 
                                         // 지명이 같은게 있다면 날씨 파싱해서 보여준다.
-                                        if (koName.indexOf(myLocation) > 0) {
+                                        if (myLocation.indexOf(koName) >= 0) {
                                             showData(data);
                                             isFound = true;
 

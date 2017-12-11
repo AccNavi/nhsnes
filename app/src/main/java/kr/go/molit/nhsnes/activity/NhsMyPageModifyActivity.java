@@ -526,7 +526,7 @@ public class NhsMyPageModifyActivity extends NhsBaseFragmentActivity implements 
   };
 
   private boolean isValidEmail(CharSequence target) {
-    return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
   }
 
 }

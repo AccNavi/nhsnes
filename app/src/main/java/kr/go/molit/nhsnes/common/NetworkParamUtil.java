@@ -712,6 +712,36 @@ public class NetworkParamUtil {
   }
 
   /**
+   * 맵 다운로드 요청
+   * @author FIESTA
+   * @since  오전 12:44
+   **/
+  public org.apache.http.entity.StringEntity requestDownloadMap(Context context, String mapType, String fileNm) {
+
+    JSONObject jsonParams = new JSONObject();
+    org.apache.http.entity.StringEntity entity = null;
+
+    try {
+
+      jsonParams.put("tokenKey", StorageUtil.getStorageModeEx(context, LOGIN_TOKEN_KEY, ""));
+      jsonParams.put("map_type", mapType);
+      jsonParams.put("file_nm", fileNm);
+
+      Log.d("download_param", jsonParams.toString());
+
+      entity = new org.apache.http.entity.StringEntity(jsonParams.toString(), "UTF-8");
+
+    } catch (JSONException e) {
+      // TODO Auto-generated catch block
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+
+    return entity;
+
+  }
+
+  /**
    * 로그아웃 요청
    * @author FIESTA
    * @since  오전 12:44

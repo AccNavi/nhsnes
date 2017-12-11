@@ -3,12 +3,10 @@ package kr.go.molit.nhsnes.activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.modim.lan.lanandroid.INativeImple;
 import com.modim.lan.lanandroid.NativeImplement;
@@ -21,11 +19,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.LinkedList;
 
+import kr.go.molit.nhsnes.Network.NetworkProcessWithFile;
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.NetworkParamUtil;
+import kr.go.molit.nhsnes.common.NetworkUrlUtil;
 import kr.go.molit.nhsnes.common.StorageUtil;
 import kr.go.molit.nhsnes.common.Util;
 import kr.go.molit.nhsnes.dialog.DialogType1;
+import kr.go.molit.nhsnes.widget.TextViewEx;
 
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_VECTOR;
@@ -42,14 +45,16 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     private NativeImplement nativeImplement = null;
     private String vectorVersion = "0";
     private String demVersion = "0";
-    private String newstVectorVersion = "";
+    private String newestVectorVersion = "";
     private String newestDemVersion = "";
+
+    private TextViewEx tveMapVersion = null;
+    private LinkedList<NetworkProcessWithFile> downloadQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_app_info);
-        showCheckNewAppDialog();
 
         this.nativeImplement = INativeImple.getInstance(getContext());
 
@@ -65,6 +70,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
 
     }
+
+    private int downloadStep = 0;
+
     /**
      * 맵 버전을 체크 후, 버튼을 활성화 한다.
      * @author FIESTA
@@ -83,37 +91,129 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
             JSONObject newestVectorObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_VECTOR, "0"));
             JSONObject newestDemObject = new JSONObject(StorageUtil.getStorageModeEx(NhsAppInfoActivity.this, MAP_VERSION_DEM, "0"));
 
-            this.newstVectorVersion = newestVectorObject.optString("MAP_VER");
+            this.newestVectorVersion = newestVectorObject.optString("MAP_VER");
             this.newestDemVersion = newestDemObject.optString("MAP_VER");
 
         }catch (Exception ex) {
 
         }
 
+        String mapVersion = "백터지도 버전: " + vectorVersion + "(최신: " + newestVectorVersion + ")\n"+
+                            "수치지도 버전: " + demVersion + "(최신: " + newestDemVersion + ")";
+
+        this.tveMapVersion.setText(mapVersion);
+
         // 버전이 같지 않으면 지도 업데이트 활성화
-        if (!(this.vectorVersion.equals(this.newstVectorVersion) &&
-                this.demVersion.equals(this.newestDemVersion))) {
+//        if ((this.vectorVersion.equals(this.newestVectorVersion) ||
+//                this.demVersion.equals(this.newestDemVersion))) {
+        if ((!(this.vectorVersion.equals(this.newestVectorVersion)) ||
+                !(this.demVersion.equals(this.newestDemVersion)))) {
+
+            showCheckNewAppDialog();
 
             tvMapUpdate.setTextColor(getResources().getColor(android.R.color.white));
             llMapUpdate.setBackgroundResource(R.drawable.border_corner_white);
             llMapUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(NhsAppInfoActivity.this, "지도 업데이트 시작되었습니다. \n 잠시만 기다려주새요", Toast.LENGTH_SHORT).show();
 
-                    new Handler().postDelayed(new Runnable() {
+                    downloadQueue = new LinkedList<>();
+
+                    if (!(vectorVersion.equals(newestVectorVersion))){
+
+                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "4", "MapMain.dat");
+                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
+                                param, Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/",
+                                "MapMain.dat", new NetworkProcessWithFile.OnResultListener() {
+                            @Override
+                            public void onFailure() {
+
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+                            }
+                        }, true);
+
+                        downloadQueue.add(downloadFile);
+
+                    }
+
+                    if (!(demVersion.equals(newestDemVersion))) {
+
+                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "3", "DemMain.dat");
+                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
+                                param, Environment.getExternalStorageDirectory().getAbsolutePath()+"/ACC_Navi/Map_Data/",
+                                "DemMain.dat", new NetworkProcessWithFile.OnResultListener() {
+                            @Override
+                            public void onFailure() {
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+                            }
+                        }, true);
+
+                        downloadQueue.add(downloadFile);
+
+                    }
+
+
+                    org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "7", "LAN_POI");
+                    NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
+                            param, Environment.getExternalStorageDirectory().getAbsolutePath()+"/ACC_Navi/Map_Data/",
+                            "LAN_POI", new NetworkProcessWithFile.OnResultListener() {
                         @Override
-                        public void run() {
-                            copyAssets("Dem.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Dem/");
-                            copyAssets("MapMain.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Vector/");
-                            Toast.makeText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                            tvMapUpdate.setTextColor(getResources().getColor(R.color.listDivider));
-                            llMapUpdate.setBackgroundResource(R.drawable.border_corner_gray);
+                        public void onFailure() {
+                            downloadQueue.clear();
                         }
-                    }, 1000);
+
+                        @Override
+                        public void onSuccess(File file) {
+                            downloadQueue.clear();
+                        }
+                    }, true);
+
+
+                    downloadStep = 0;
+                    downloadQueue.add(downloadFile);
+                    downloadQueue.get(downloadStep).execute();
+
+
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            copyAssets("Dem.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Dem/");
+//                            copyAssets("MapMain.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Vector/");
+//                            Toast.makeText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+//                            tvMapUpdate.setTextColor(getResources().getColor(R.color.listDivider));
+//                            llMapUpdate.setBackgroundResource(R.drawable.border_corner_gray);
+//                        }
+//                    }, 1000);
 
                 }
             });
+        } else {
+            tvMapUpdate.setTextColor(getResources().getColor(R.color.listDivider));
+            llMapUpdate.setBackgroundResource(R.drawable.border_corner_gray);
+
         }
     }
 
@@ -126,7 +226,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
         this.llBgNewApp = (LinearLayout) findViewById(R.id.ll_bg_new_app);
         this.tvNewApp = (TextView) findViewById(R.id.tv_new_app);
-
+        this.tveMapVersion = (TextViewEx) findViewById(R.id.tve_map_version);
     }
 
     @Override

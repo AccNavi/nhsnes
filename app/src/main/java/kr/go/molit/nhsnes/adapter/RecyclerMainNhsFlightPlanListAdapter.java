@@ -303,7 +303,18 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
             if (this.onClickListener  != null) {
                 type4.bgLayout.setTag(position);
                 type4.bgLayout.setOnClickListener(this.onClickListener);
-            } else {
+            } else if (viewType == VIEWTYPE_NHS_MAIN_ACT_RECENT) {
+
+                type4.bgLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogSearchPath dialog = new DialogSearchPath(context, data);
+                        //DialogSearchPath dialog = new DialogSearchPath(context, data.getDepartureAerodrome());
+                        dialog.show();
+                    }
+                });
+
+            }else {
                 type4.bgLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

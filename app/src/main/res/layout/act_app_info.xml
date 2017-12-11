@@ -26,6 +26,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp"
     android:gravity="center"
+      android:id="@+id/tve_map_version"
     android:text="업데이트 : 2017.02.25\n지도 버전 : 2.1.1"
     android:textColor="@color/textColorBlue"
     android:textSize="12sp" />
