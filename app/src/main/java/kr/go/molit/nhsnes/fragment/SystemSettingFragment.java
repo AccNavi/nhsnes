@@ -63,7 +63,8 @@ public class SystemSettingFragment extends BaseFragment implements View.OnClickL
     public final static String CONNECT_WITH_SYSTEM = "Connect with system"; // 시스템과 연계
     public final static String PROVIDE_AIRCRAFT_LOCATION = "Provide aircraft location"; // 항공기 위치 제공
     public final static String AUTO_DELETE = "Auto delete"; // 자동 삭제
-    public final static String SYNC_DATE = "sync_date"; // 동기화 시간
+    public final static String SYNC_DATE_UTC = "sync_date_utc"; // 동기화 시간 utc
+    public final static String SYNC_DATE_KTC = "sync_date_ktc"; // 동기화 시간 ktc
 
     private View rootView;
 
@@ -171,9 +172,8 @@ public class SystemSettingFragment extends BaseFragment implements View.OnClickL
             ttbAutoDelete.setCheck(StorageUtil.getStorageMode(getContext(), AUTO_DELETE));
 
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 HH:mm");
-            TextView tvSyncTime = ((TextViewEx)rootView.findViewById(R.id.tve_sync_time));
-            tvSyncTime.setText(StorageUtil.getStorageModeEx(getContext(), SYNC_DATE, sdf.format(new Date())));
+            showSyncTime();
+
 
             if (StorageUtil.getStorageMode(getContext(), IS_TTS_SOUND)) {
 
@@ -366,13 +366,31 @@ public class SystemSettingFragment extends BaseFragment implements View.OnClickL
                     public void onAnimationEnd(Animation animation) {
                         new ToastUtile().showCenterText(getActivity(), "동기화를 완료하였습니다.");
 
+                        Date date = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 HH:mm");
+
+                        String utc = "";
+                        String kst = "";
+
+                        long nowTime = System.currentTimeMillis();
+
+                        kst = sdf.format(date);
+
+                        date.setTime(nowTime - ((((60 * 1000) * 60) * 9)));
+
+                        utc = sdf.format(date);
+
 
                         // 동기화된 시간을 표시한다.
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 HH:mm");
-                        ((TextViewEx)rootView.findViewById(R.id.tve_sync_time)).setText(sdf.format(new Date()));
+                        if (StorageUtil.getStorageMode(getContext(), IS_USE_UTC)) {
+                            ((TextViewEx) rootView.findViewById(R.id.tve_sync_time)).setText(utc);
+                        } else {
+                            ((TextViewEx) rootView.findViewById(R.id.tve_sync_time)).setText(kst);
+                        }
 
                         // 동기화 시간 저장
-                        StorageUtil.setStorageMode(getContext(), SYNC_DATE, sdf.format(new Date()));
+                        StorageUtil.setStorageMode(getContext(), SYNC_DATE_UTC, utc);
+                        StorageUtil.setStorageMode(getContext(), SYNC_DATE_KTC, kst);
 
                     }
 
@@ -385,6 +403,27 @@ public class SystemSettingFragment extends BaseFragment implements View.OnClickL
 
                 break;
         }
+
+    }
+
+    private void showSyncTime(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일 HH:mm");
+        TextView tvSyncTime = ((TextViewEx)rootView.findViewById(R.id.tve_sync_time));
+
+        long nowTime = System.currentTimeMillis();
+        Date date = new Date();
+        date.setTime(nowTime - ((((60 * 1000) * 60) * 9)));
+
+        String utc = StorageUtil.getStorageModeEx(getContext(), SYNC_DATE_UTC, sdf.format(date));
+        String ktc = StorageUtil.getStorageModeEx(getContext(), SYNC_DATE_KTC, sdf.format(new Date()));
+
+        if (StorageUtil.getStorageMode(getContext(), IS_USE_UTC)) {
+            tvSyncTime.setText(utc);
+        } else {
+            tvSyncTime.setText(ktc);
+        }
+
 
     }
 
@@ -448,6 +487,7 @@ public class SystemSettingFragment extends BaseFragment implements View.OnClickL
             case R.id.ttb_use_utc:
                 StorageUtil.setStorageMode(getContext(), IS_USE_UTC, isChecked);
                 Log.d("check", "IS_USE_UTC " + isChecked);
+                showSyncTime();
                 break;
 
             case R.id.ttb_auto_screen_brightness:
