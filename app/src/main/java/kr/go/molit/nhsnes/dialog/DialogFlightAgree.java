@@ -1,5 +1,6 @@
 package kr.go.molit.nhsnes.dialog;
 
+import static com.modim.lan.lanandroid.NativeImplement.lanGetRouteDoyupList;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_MBR_ID;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.DATA_END;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.DATA_ROUTE;
@@ -8,16 +9,25 @@ import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.KEY_MODE;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SEARCH_IN_ROUTE_SEARCH;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SIMULATION;
 import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT1;
+import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT10;
 import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT8;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.modim.lan.lanandroid.AirRouteStatus;
+import com.modim.lan.lanandroid.Constants;
+import com.modim.lan.lanandroid.INativeImple;
+import com.modim.lan.lanandroid.NativeImplement;
+import com.modim.lan.lanandroid.RpOption;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -60,6 +70,8 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
     boolean isStartFlight = false;
     FlightPlanInfo result = null;
     private ArrayList<FlightRouteModel> route = null;
+    private NativeImplement nativeImplement;
+    private ProgressDialog mProgressDialog;
 
     public DialogFlightAgree(@NonNull Context context, FlightPlanInfo result) {
         super(context);
@@ -71,6 +83,9 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_flight_agree);
+
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
         findViewById(R.id.btn_view).setOnClickListener(this);
         findViewById(R.id.btn_simulation).setOnClickListener(this);
         findViewById(R.id.bt_menu1).setOnClickListener(this);
@@ -88,21 +103,26 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
         tveDate.setText(convertStrDate + " " + this.result.getCallsign());
 
         // 승인시간 임의 설정
-        date = Util.convertStringToDate(this.result.getPlanDate(), DEFUALT_DATE_FORMAT1);
-        std = new SimpleDateFormat("yyyy년 MM월 dd 일 18:00", Locale.KOREA);
-        date.setTime(date.getTime() - (((1000 * 60) * 60) * 24));
+//        date = Util.convertStringToDate(this.result.getPlanDate(), DEFUALT_DATE_FORMAT1);
+//        std = new SimpleDateFormat("yyyy년 MM월 dd 일 18:00", Locale.KOREA);
+//        date.setTime(date.getTime() - (((1000 * 60) * 60) * 24));
+        date = new Date();
+        std = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
         convertStrDate = std.format(date);
-        tveAgreeDate.setText(convertStrDate);
+        tveAgreeDate.setText(convertStrDate + " 09:30");
 
         // 도착예정시간
-        date = new Date();
+        date = Util.convertStringToDate(this.result.getPlanEta(), DEFUALT_DATE_FORMAT10);
         std = new SimpleDateFormat("HH:mm", Locale.KOREA);
-        date.setTime(date.getTime() + ((1000 * 60) * 60) * Integer.parseInt(result.getPlanTeet()));
+//        date.setTime(date.getTime() + ((1000 * 60) * 60) * Integer.parseInt(result.getPlanTeet()));
         convertStrDate = std.format(date);
         tveArriveTime.setText(convertStrDate);
 
         // 비행 상세 정보를 조회한다.
         callFlightPlanDetail(result.getPlanId(), result.getPlanSn());
+
+        nativeImplement = INativeImple.getInstance(getContext());
+
     }
 
     /**
@@ -113,8 +133,8 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
      * @since 2017-09-13 오후 11:25
      **/
     private void callFlightPlanDetail(String planId, String planSn) {
-        final LoadingDialog loading = LoadingDialog.create(getContext(), null, null);
-        loading.show();
+
+        showProgress();
 
         FlightPlanService service = FlightPlanService.retrofit.create(FlightPlanService.class);
 
@@ -128,7 +148,7 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
         callback.enqueue(new Callback<NetSecurityModel>() {
             @Override
             public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {
-                loading.dismiss();
+
 
                 if (response.code() == 200) {
 
@@ -145,24 +165,132 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
                             result = flightPlanModel.getFplDetail();
                             route = flightPlanModel.getRoute();
 
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+                                    int size = route.size();
+                                    int i = 0;
+
+                                    nativeImplement.lanClearRoutePosition();
+
+                                    // 시작 위치
+                                    nativeImplement.lanSetRoutePosition(Constants.NAVI_SETPOSITION_START, Double.parseDouble(route.get(0).getLon()), Double.parseDouble(route.get(0).getLat()),
+                                            "start", 0);
+
+                                    // 종료 위치
+                                    nativeImplement.lanSetRoutePosition(Constants.NAVI_SETPOSITION_GOAL, Double.parseDouble(route.get(route.size() - 1).getLon()), Double.parseDouble(route.get(route.size() - 1).getLat()),
+                                            "end", 0);
+
+
+                                    // 경유지 등록
+                                    for (i = 1; i < size - 1; i++) {
+
+                                        nativeImplement.lanSetRoutePosition(Constants.NAVI_SETPOSITION_WAYPOINT, Double.parseDouble(route.get(i).getLon()), Double.parseDouble(route.get(i).getLat()),
+                                                "way" + i, 0);
+
+                                    }
+
+                                    int result = nativeImplement.lanExecuteRP(new RpOption(0, 0));
+
+                                    if (result != -1) {
+
+                                        AirRouteStatus routeStatus = nativeImplement.lanGetRouteInfo();
+                                        final String convertDistance = String.format("%.1f", (float)routeStatus.uTotalDist / (float)1000);
+                                        ((TextViewEx)findViewById(R.id.tve_distance)).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ((TextViewEx)findViewById(R.id.tve_distance)).setText(convertDistance+"Km");
+
+                                            }
+                                        });
+
+
+
+                                    }
+
+
+
+
+//                findViewById(R.id.nlv_view).setVisibility(View.GONE);
+
+                                }
+                            }, 500);
+
                         } else {
                             new ToastUtile().showCenterText(getContext(), flightPlanModel.getResult_msg());
                             dismiss();
                         }
+
+                        dismissProgress();
+
+
                     }
                 } else {
+                    dismissProgress();
                     new ToastUtile().showCenterText(getContext(), getContext().getString(R.string.error_network));
                     dismiss();
+
                 }
             }
 
             @Override
             public void onFailure(Call<NetSecurityModel> call, Throwable t) {
-                loading.dismiss();
+
+                dismissProgress();
                 new ToastUtile().showCenterText(getContext(), getContext().getString(R.string.error_network));
                 dismiss();
             }
         });
+    }
+
+
+    /**
+     * 프로그래스바를 보여준다.
+     *
+     * @author FIESTA
+     * @since 오전 3:50
+     **/
+    private void showProgress() {
+
+        try {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mProgressDialog = new ProgressDialog(getContext(), ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    mProgressDialog.setTitle("");
+                    mProgressDialog.setMessage(getContext().getString(R.string.wait_message));
+                    mProgressDialog.setIndeterminate(true);
+                    mProgressDialog.setCancelable(false);
+                    mProgressDialog.show();
+                }
+            }, 100);
+
+        } catch (Exception ex) {
+
+        }
+    }
+
+    /**
+     * 프로그래스바를 종료한다.
+     *
+     * @author FIESTA
+     * @since 오전 3:50
+     **/
+    private void dismissProgress() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mProgressDialog != null) {
+                    mProgressDialog.dismiss();
+                }
+            }
+        }, 1000);
+
     }
 
     @Override
