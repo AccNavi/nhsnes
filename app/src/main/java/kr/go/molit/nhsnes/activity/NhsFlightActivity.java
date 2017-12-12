@@ -250,6 +250,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private long beforeShowSpeedData = 0;     // 이전에 보여전 속도 데이터 시간
     private long beforeShowAltitudeData = 0;  // 이전에 보여전 고도 데이터 시간
     private long beforeShowDirectionData = 0;  // 이전에 보여전 비행 진행 방향 데이터 시간
+    private long beforeShowDistanceData = 0;  // 이전에 보여전 남은 거리
     private long beforeShowGyroPin = 0;       // 이전에 보여전  자이로 핀 시간
 
 
@@ -800,6 +801,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             // 속도 표시
                                             updateSpeed(airGPSData.uSpeed);
 
+                                            // 남은 거리 표시
+                                            AirRouteStatus route = lanGetRouteInfo();
+
+                                            if (route != null) {
+                                                updateDistance((float)route.uTotalPredictDist/(float)1000);
+                                            }
+
                                             // 자이로값 전달
                                             if (gyroValues != null) {
                                                 airGPSData.fGyroX = gyroValues[0];
@@ -823,8 +831,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
-//                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
-                                            } else if (isWifiConnected) {
+                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
+//                                            } else if (isWifiConnected) {
                                                 // 1초에 한번씩 gps 정보를 맵에게 전달한다.
                                                 lanReceiveGPSData(airGPSData);
                                                 lanExceuteGuide();
@@ -1370,7 +1378,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         av.item[i].rad = Integer.parseInt(data.optString("GIS_RADIUS", "0"));
                                         av.item[i].strEcode = data.optString("QCODE", "0");
                                         av.item[i].strQcode = data.optString("E_CODE", "0");
-                                        ;
+
 
                                     } catch (Exception ex) {
 
@@ -2087,8 +2095,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
                 // TODO: 2017-09-20 테스트폰이 wifi용이라서.. wifi만 우선 체크한다. 빌드할때 아래 주석 풀것
-//                if (isMobileDataEnabled || isWifiConnected) {
-                if (isWifiConnected) {
+                if (isMobileDataEnabled || isWifiConnected) {
+//                if (isWifiConnected) {
 
                     try {
                         runOnUiThread(new Runnable() {
@@ -2658,6 +2666,36 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             // 이전에 진행 방향을 기록한다.
             this.beforeShowDirectionData = Calendar.getInstance().getTimeInMillis();
+            ;
+
+        }
+
+    }
+
+    /**
+     * 비행진행 방향 표시한다.
+     *
+     * @author FIESTA
+     * @since 오전 2:18
+     **/
+    private void updateDistance(final float distance) {
+
+        long now = Calendar.getInstance().getTimeInMillis();
+
+        long calTime = now - this.beforeShowDistanceData;
+
+        if (calTime > SHOW_VALUE_TIME) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mTvDistance.setText(String.format("%.1f", distance));
+
+                }
+            });
+
+            // 이전에 진행 방향을 기록한다.
+            this.beforeShowDistanceData = Calendar.getInstance().getTimeInMillis();
             ;
 
         }
