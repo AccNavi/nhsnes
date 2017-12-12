@@ -11,7 +11,7 @@
         android:id="@+id/abe_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         app:text="회원 정보 입력"
         app:titleIcon="@null" />
 
@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/abe_title"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:textSize="13dp"
         android:text="제시한 입력은 모두 필수 항목입니다."
