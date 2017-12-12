@@ -301,7 +301,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="ASM 전문보기"
+                android:text="AMS 전문보기"
                 android:textColor="@drawable/selector_dialog_btn"
                 android:textSize="16.67sp" />
 
