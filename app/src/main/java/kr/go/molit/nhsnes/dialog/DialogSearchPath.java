@@ -58,8 +58,10 @@ public class DialogSearchPath extends DialogBase implements View.OnClickListener
         this.tv_waypoint.setText(mFlightPlanInfo.getPlanRoute());
         this.tv_plandate.setText(mFlightPlanInfo.getPlanDate());
 
-        ((TextViewEx)findViewById(R.id.tv_total_distance)).setText(mFlightPlanInfo.getTotalDistanc()+" miles");
-        ((TextViewEx)findViewById(R.id.tv_avg_speed)).setText(mFlightPlanInfo.getAvgSpeed()+" Knotd");
+        String convertKm = String.format("%.1f", (float)mFlightPlanInfo.getTotalDistanc()/(float)1000);
+
+        ((TextViewEx)findViewById(R.id.tv_total_distance)).setText(convertKm+" km");
+        ((TextViewEx)findViewById(R.id.tv_avg_speed)).setText(mFlightPlanInfo.getAvgSpeed()+" Knot");
         ((TextViewEx)findViewById(R.id.tv_avg_altitue)).setText(mFlightPlanInfo.getAvgAltitude()+" ft");
         ((TextViewEx)findViewById(R.id.tv_total_flight_time)).setText((mFlightPlanInfo.getTotalFlightTime()/1000)/60+" Min");
         ((TextViewEx)findViewById(R.id.tv_start_time)).setText(mFlightPlanInfo.getStartTime());
