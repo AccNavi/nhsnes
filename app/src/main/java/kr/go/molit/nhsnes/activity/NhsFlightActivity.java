@@ -2916,8 +2916,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         sb.append("Km");
         sb.append("\n");
         sb.append("총 소요시간 : ");
-        sb.append(routeStatus.uTotalTime);
-        sb.append("초");
+        sb.append(String.format("%d",routeStatus.uTotalTime/60));
+        sb.append("분");
         sb.append("\n");
 
         if (routeStatus.waypointList != null) {
@@ -2928,9 +2928,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             for (i = 0; i < size; i++) {
 
-                if (i == 0) {
-                    sb.append("+ 출발지");
-                } else if (i == (size-1)) {
+                 if (i == (size-1)) {
                     sb.append("+ 도착지");
                 } else {
                     routeCount = routeCount + 1;
@@ -2942,8 +2940,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 sb.append("Km");
                 sb.append("\n");
                 sb.append("소요시간 : ");
-                sb.append(routeStatus.waypointList[i].time);
-                sb.append("초");
+                sb.append(String.format("%d",routeStatus.waypointList[i].time/60));
+                sb.append("분");
                 sb.append("\n");
 
             }
