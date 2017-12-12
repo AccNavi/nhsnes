@@ -81,19 +81,19 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
 
 
     /**
-    //정제영
-    //암복호화 예제
-    MagicSE_Util magic = new MagicSE_Util(_context);
-    String test = "테스트 abc 123";
-    //암호화
-    String enc = magic.getEncData(test);
-    //복호화
-    String dec = magic.getDecData(enc);
+     //정제영
+     //암복호화 예제
+     MagicSE_Util magic = new MagicSE_Util(_context);
+     String test = "테스트 abc 123";
+     //암호화
+     String enc = magic.getEncData(test);
+     //복호화
+     String dec = magic.getDecData(enc);
 
-    Log.d("TEST", "원본 : "+test);
-    Log.d("TEST", "암호화 : "+enc);
-    Log.d("TEST", "복호화 : "+dec);
-  **/
+     Log.d("TEST", "원본 : "+test);
+     Log.d("TEST", "암호화 : "+enc);
+     Log.d("TEST", "복호화 : "+dec);
+     **/
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     KeypadScroll.assistActivity(this);
@@ -207,10 +207,10 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
 
         // 개인정보 활용 동의
         String agreeDate = "agree_dat= " +
-                            strNowTime +
-                            "|agree_content=private_agree_info" +
-                            "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
-                            "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
+                strNowTime +
+                "|agree_content=private_agree_info" +
+                "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
+                "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
 
         // 아이디와 비행정보 연동 동의
         String idFlightDate = "agree_dat= " +
@@ -378,8 +378,11 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
 
                 if (resultCode.equalsIgnoreCase("Y")) {
 
-                  StorageUtil.setStorageMode(NhsLoginActivity.this, saveKey, response.optJSONObject("result_data").toString());
+                  try {
+                    StorageUtil.setStorageMode(NhsLoginActivity.this, saveKey, response.optJSONArray("result_data").getJSONObject(0).toString());
+                  }catch (Exception ex) {
 
+                  }
                 }
               }
             }, false);

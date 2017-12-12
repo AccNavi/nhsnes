@@ -149,12 +149,12 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {
         if (requestCode == 100) {
             if(grantResults.length == 6
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                && grantResults[2] == PackageManager.PERMISSION_GRANTED
-                && grantResults[3] == PackageManager.PERMISSION_GRANTED
-                && grantResults[4] == PackageManager.PERMISSION_GRANTED
-                && grantResults[5] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[3] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[4] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[5] == PackageManager.PERMISSION_GRANTED) {
 
                 boolean isNext = checkSettingPermissionCode(NhsIntroActivity.this);
 
@@ -176,19 +176,19 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
             // only for gingerbread and newer versions
             if ( checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
-                )
+                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
+                    )
             {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_SMS}, 100);
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_SMS}, 100);
             } else {
 
                 boolean isNext = checkSettingPermissionCode(NhsIntroActivity.this);
@@ -311,10 +311,10 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
     }
 
     /**
-    * 자동 로그인
-    * @author FIESTA
-    * @since  오후 11:11
-    **/
+     * 자동 로그인
+     * @author FIESTA
+     * @since  오후 11:11
+     **/
     private boolean autoLogin(){
 
         boolean isAutoLogin = StorageUtil.getStorageMode(NhsIntroActivity.this, LOGIN_AUTO);
@@ -330,9 +330,9 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
             // 로그인 요청
             StringEntity param = networkParamUtil.requestLogin(id, pwd);
             NetworkProcess networkProcess = new NetworkProcess(NhsIntroActivity.this,
-                networkUrlUtil.getUserLogin(),
-                param,
-                loginResult, true);
+                    networkUrlUtil.getUserLogin(),
+                    param,
+                    loginResult, true);
             networkProcess.sendEmptyMessage(0);
 
         }
@@ -455,7 +455,7 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
                         if (resultCode.equalsIgnoreCase("Y")) {
 
                             try {
-                                StorageUtil.setStorageMode(NhsIntroActivity.this, saveKey, response.optJSONArray("result_data").get(0).toString());
+                                StorageUtil.setStorageMode(NhsIntroActivity.this, saveKey,  response.optJSONArray("result_data").getJSONObject(0).toString());
                             }catch (Exception ex) {
 
                             }
