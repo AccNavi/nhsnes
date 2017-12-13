@@ -75,7 +75,7 @@
         android:layout_weight="1"
         android:background="#333b48"
         android:gravity="left|center_vertical"
-        android:hint="-을 포함한 숫자만 입력"
+        android:hint="-를 포함한 숫자만 입력"
         android:padding="10dp"
         android:singleLine="true"
         android:textColor="#9d9d9d"
