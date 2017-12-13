@@ -234,6 +234,7 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
                         //dialog.show();
                     }else if (viewType == VIEWTYPE_NHS_FLIGHT_HISTORY_ACT) {
                         DialogSearchPath dialog = new DialogSearchPath(context, data);
+                        dialog.setLogMode(true);
                         //DialogSearchPath dialog = new DialogSearchPath(context, data.getDepartureAerodrome());
                         dialog.show();
                     } else if(viewType == VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP){

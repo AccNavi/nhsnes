@@ -3,6 +3,7 @@ package com.modim.lan.lanandroid;
 import static com.modim.lan.lanandroid.LanStorage.mNative;
 import static com.modim.lan.lanandroid.NativeImplement.lanGetTrajectoryDirectory;
 import static com.modim.lan.lanandroid.NativeImplement.lanLogStartTrajectory;
+import static com.modim.lan.lanandroid.NativeImplement.lanLogStopTrajectory;
 import static com.modim.lan.lanandroid.NativeImplement.lanPoiBySearch;
 import static com.modim.lan.lanandroid.NativeImplement.lanPoiGetList;
 import static com.modim.lan.lanandroid.NativeImplement.lanPretestExecuteRP;
@@ -132,7 +133,7 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   }
 
   /**
-   * 로그 주행
+   * 로그 주행 시작
    *
    * @author FIESTA
    * @since 오전 3:49
@@ -140,6 +141,17 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   public void startLogTrajectory(String logName) {
     lanGetTrajectoryDirectory();
     lanLogStartTrajectory(logName);
+  }
+
+
+  /**
+   * 로그 주행 정지
+   *
+   * @author FIESTA
+   * @since 오전 3:49
+   **/
+  public void stopLogTrajectory() {
+    lanLogStopTrajectory();
   }
 
   public void Init() {

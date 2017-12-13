@@ -60,6 +60,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -283,8 +284,9 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     } else */
                     if (mode == LOG_DRIVE) {
 
-                        test();
-//                        startLogDrive();
+                        String logName = reloadMap();
+//                        test();
+                        startLogDrive(logName);
                         {
 //                            vController.setVisibility(View.VISIBLE);
 //                            vController2.setVisibility(View.GONE);
@@ -382,8 +384,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오전 3:50
      **/
-    private void startLogDrive() {
-        String log = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/GPSLog/TRK_2017_08_03_14_31_20.trk";
+    private void startLogDrive(String fileName) {
+        String log = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/GPSLog/" + fileName;
         this.mNlvView.startLogTrajectory(log);
 
 
@@ -468,12 +470,21 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         super.onDestroy();
         try {
 
-            mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
-            mNative.lanSimulStopTrajectory();
+            stopTtsTimer();
 
+//            if (mode == LOG_DRIVE) {
+//
+//                mNlvView.stopLogTrajectory();   // 로그 비행을 중지한다.
+//
+//            } else {
+//
+//                mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+//                mNative.lanSimulStopTrajectory();   // 중지시킨다.
+//
+//            }
             this.mNlvView.clearRoutePosition();
 
-            stopTtsTimer();
+
 
         } catch (Exception e) {
 
@@ -495,11 +506,24 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             @Override
             public void onClick(View view) {
 
+                if (mNative.lanLogIsPause()) {  // 로그 주행 중이면
+                    mNative.lanLogPauseTrajectory(); // 정지
+                }
+
+                if (mNative.lanSimulIsPause() != 1) {
+                    mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                    mIvPlayState.setImageResource(R.drawable.btn_play_nor);
+                }
+
                 messageDialog = new DialogType1(NhsMapSearchActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        lanSimulStopTrajectory();
+                        if (mode == LOG_DRIVE) {
+                            mNative.lanLogStopTrajectory(); // 로그 주행 정지
+                        } else {
+                            mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                        }
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -513,6 +537,14 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                     @Override
                     public void onClick(View v) {
+
+                        // 재기동
+                        if (mode == LOG_DRIVE) {
+                            mNative.lanLogResumeTrajectory();
+                        } else {
+                            mNative.lanSimulResumeTrajectory();
+                        }
+
                         messageDialog.hideDialog();
                     }
                 });
@@ -1113,7 +1145,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오전 11:24
      **/
-    private void reloadMap() {
+    private String reloadMap() {
                 /*
                 runOnUiThread(new Runnable() {
                     @Override
@@ -1132,7 +1164,17 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
         if (this.flightPlanInfo != null) {
 
+            // TRK_2017_12_13_16_45_09.trk
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+
+            Date date = new Date();
+            date.setTime(flightPlanInfo.getGpsLogDate());
+
+            String logName = "TRK_" + sdf.format(date) + ".trk";
+
             callFlightPlanDetail(this.flightPlanInfo.getPlanId(), this.flightPlanInfo.getPlanSn());
+
+            return logName;
 
         } else {
 
@@ -1265,6 +1307,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 //        }, 1500);
         }
 
+        return "";
     }
 
     /**
@@ -1555,16 +1598,24 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     @Override
                     public void onClick(View v) {
                         //mNative.lanSimulStartTrajectory();
-                        lanSimulStopTrajectory();
+
+                        mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+
+
                         messageDialog.hideDialog();
 
                         vController2.setVisibility(View.VISIBLE);
                         vController.setVisibility(View.GONE);
+
                     }
                 }, getString(R.string.btn_cancel), new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
+
+                        // 재기동
+                        mNative.lanSimulResumeTrajectory();
+
                         messageDialog.hideDialog();
                     }
                 });
@@ -1725,6 +1776,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             setSaveModelList(false);
             mAbeTitle.setTitleText("최근검색");
         } else if (mode == MODE_SIMULATION) {
+            mAbeTitle.setTitleText("모의비행");
+        } else if (mode == LOG_DRIVE) {
             mAbeTitle.setTitleText("모의비행");
         } else {
             mAbeTitle.setTitleText("수동검색");

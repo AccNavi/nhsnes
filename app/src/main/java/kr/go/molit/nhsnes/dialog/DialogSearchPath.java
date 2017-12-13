@@ -11,6 +11,7 @@ import kr.go.molit.nhsnes.activity.NhsMapSearchActivity;
 import kr.go.molit.nhsnes.net.realm.FlightPlanInfo;
 import kr.go.molit.nhsnes.widget.TextViewEx;
 
+import static kr.go.molit.nhsnes.activity.NhsMapSearchActivity.LOG_DRIVE;
 import static kr.go.molit.nhsnes.activity.NhsMapSearchActivity.POPUP_COMPLATE;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.KEY_MODE;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SIMULATION;
@@ -31,6 +32,8 @@ public class DialogSearchPath extends DialogBase implements View.OnClickListener
     TextViewEx tv_plandate;
 
     FlightPlanInfo mFlightPlanInfo = null;
+
+    private boolean isLogMode = false;
 
     public DialogSearchPath(Context context, FlightPlanInfo info) {
         super(context);
@@ -84,6 +87,11 @@ public class DialogSearchPath extends DialogBase implements View.OnClickListener
             case R.id.btn_simulation:
                 Intent searchMap = new Intent(context, NhsMapSearchActivity.class);
                 searchMap.putExtra(KEY_MODE, MODE_SIMULATION);
+
+                if (isLogMode) {
+                    searchMap.putExtra(KEY_MODE, LOG_DRIVE);
+                }
+
                 searchMap.putExtra("data", this.mFlightPlanInfo);
                 searchMap.putExtra(SHOW_POPUP, POPUP_COMPLATE);
                 //searchMap.putExtra(DATA_START, startData);
@@ -97,4 +105,13 @@ public class DialogSearchPath extends DialogBase implements View.OnClickListener
                 break;
         }
     }
+
+    public boolean isLogMode() {
+        return isLogMode;
+    }
+
+    public void setLogMode(boolean logMode) {
+        isLogMode = logMode;
+    }
+
 }
