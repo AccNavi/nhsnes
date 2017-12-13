@@ -2998,8 +2998,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String eData = String.format(getResources().getString(R.string.e_data), location.getLatitude() + "");
-                String nData = String.format(getResources().getString(R.string.n_data), location.getLongitude() + "");
+                String eData = String.format(getResources().getString(R.string.e_data), location.getLongitude() + "");
+                String nData = String.format(getResources().getString(R.string.n_data), location.getLatitude() + "");
                 tvN.setText(nData);
                 tvE.setText(eData);
             }
