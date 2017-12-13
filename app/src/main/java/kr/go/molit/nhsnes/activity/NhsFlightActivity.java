@@ -387,26 +387,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             case REAL_DRIVE:
 
-                mPopup1 = new DialogType1(getContext(), getString(R.string.dialog_weather_title), getString(R.string.dialog_weather_msg), getString(R.string.btn_agree), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mPopup1.hideDialog();
+                // 비행 상세 정보를 조회한다.
+                if (flightPlanInfo != null) {
+                    callFlightPlanDetail(flightPlanInfo.getPlanId(), flightPlanInfo.getPlanSn());
+                } else {
+                    startFlight();
+                }
 
-                        mPopup2 = new DialogType1(getContext(), getString(R.string.dialog_notam_title), getString(R.string.dialog_notam_msg), getString(R.string.btn_agree), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mPopup2.hideDialog();
-                                // 비행 상세 정보를 조회한다.
-                                if (flightPlanInfo != null) {
-                                    callFlightPlanDetail(flightPlanInfo.getPlanId(), flightPlanInfo.getPlanSn());
-                                } else {
-                                    startFlight();
-                                }
-                            }
-                        }, "", null);
-
-                    }
-                }, "", null);
 
                 break;
 
@@ -439,8 +426,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         String startDate = "";
         String endDate = "";
         String isuYear = "";
-
+        boolean isCustomParam = false;
         String apCd = "";   // 공항코드
+
+        NetworkParamUtil networkParamUtil = new NetworkParamUtil();
+        StringEntity param = null;
 
         try {
             String[] start = this.flightPlanInfo.getPlanRoute().split(" ");
@@ -455,9 +445,26 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         switch (type) {
             case 0:
-                title = "관측기상";
-                url = nuu.getWeatherMetar();
-                break;
+//                title = "관측기상";
+//                url = nuu.getWeatherMetar();
+
+                weatherDialog = new DialogType1(NhsFlightActivity.this,
+                        "기상특보", "풍량NW 350.1\n풍속 5.1 노트\n시점 6.2 킬로미터\n기온 8.9도씨\n운고 1500 피트", "확인",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                weatherDialog.hideDialog();
+
+                                //차례대로 보여준다.
+                                int tempType = type + 1;
+                                showWeather(tempType);
+
+
+                            }
+                        }, "", null);
+
+                return;
+
             case 1:
                 title = "기상(Taf) 조회";
                 url = nuu.getWeatherTaf();
@@ -490,14 +497,23 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 endDate = "201711301530";
                 isuYear = "2017";
                 break;
+            case 6:
+                title = "항공고시보(NOTAM)조회";
+                url = nuu.getNotam();
+                param = networkParamUtil.notamParam(getContext());
+                isCustomParam = true;
+                break;
 
         }
 
 
-        NetworkParamUtil networkParamUtil = new NetworkParamUtil();
 
-        StringEntity param = networkParamUtil.getWeather(apCd, StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_TOKEN_KEY, "")
-                , startDate, endDate, isuYear);
+
+        if (!isCustomParam) {
+            param = networkParamUtil.getWeather(apCd, StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_TOKEN_KEY, "")
+                    , startDate, endDate, isuYear);
+        }
+
         final String finalTitle = title;
         NetworkProcess networkProcess = new NetworkProcess(NhsFlightActivity.this,
                 url,
@@ -562,7 +578,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 if (value.equals("null")) {
                                                     value = "데이터 없음";
                                                 }
-                                                sb.append(value);
+                                                sb.append(value.toUpperCase());
                                                 sb.append("\n");
 
                                             } catch (Exception ex) {
@@ -595,7 +611,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         //차례대로 보여준다.
                                         int tempType = type + 1;
 
-                                        if (tempType <= 5) {
+                                        if (tempType <= 6) {
                                             showWeather(tempType);
                                         } else {
                                             showNotams();

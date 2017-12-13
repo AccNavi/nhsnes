@@ -779,13 +779,20 @@ public class NetworkParamUtil {
 
     try {
 
+
+      Date date = new Date();
+      String startDate = "";
+      String endDate = "";
+
       SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-      String startDt = sdf.format(new Date());
+      endDate = sdf.format(date);
+      sdf = new SimpleDateFormat("yyyyMMdd");
+      startDate = sdf.format(date)+"0000";
 
       jsonParams.put("tokenKey", StorageUtil.getStorageModeEx(context, LOGIN_TOKEN_KEY, ""));
       jsonParams.put("dt_gb", "valid_dt");
-      jsonParams.put("start_dt", startDt);
-      jsonParams.put("end_dt", startDt);
+      jsonParams.put("start_dt", startDate);
+      jsonParams.put("end_dt", endDate);
 
       entity = new StringEntity(jsonParams.toString(), "UTF-8");
 
