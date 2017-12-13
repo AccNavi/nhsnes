@@ -73,7 +73,7 @@
                     android:id="@+id/tv_altitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="0.00"
                     android:textColor="@android:color/white"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:text="○"
+                    android:text="°"
                     android:textColor="@android:color/white"
                     android:textSize="10dp"
                     android:textStyle="bold" />
@@ -205,7 +205,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="Km"
+                    android:text="km"
                     android:textColor="@android:color/white"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -247,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:gravity="right"
-                    android:text="Kn"
+                    android:text="kn"
                     android:textColor="@android:color/white"
                     android:textSize="10dp"
                     android:textStyle="bold" />

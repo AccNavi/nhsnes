@@ -47,7 +47,6 @@
                 android:gravity="left|center_vertical"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:text="moon123"
                 android:textColor="#9d9d9d"
                 android:textColorHint="#9d9d9d"
                 android:textSize="12sp" />
@@ -78,7 +77,6 @@
                 android:gravity="left|center_vertical"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:text="문은경"
                 android:textColor="#9d9d9d"
                 android:textColorHint="#9d9d9d"
                 android:textSize="12sp" />
@@ -110,7 +108,6 @@
                 android:hint="-를 제외한 숫자만 입력"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:text="010-4568-1237"
                 android:textColor="#9d9d9d"
                 android:textColorHint="#9d9d9d"
                 android:textSize="12sp" />
