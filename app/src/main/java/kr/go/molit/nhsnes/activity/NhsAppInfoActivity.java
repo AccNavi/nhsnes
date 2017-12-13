@@ -119,38 +119,38 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                     downloadQueue = new LinkedList<>();
 
-                    if (!(vectorVersion.equals(newestVectorVersion))){
-
-                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "4", "MapMain.dat");
-                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
-                                param, Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/",
-                                "MapMain.dat", new NetworkProcessWithFile.OnResultListener() {
-                            @Override
-                            public void onFailure() {
-
-                                if (downloadQueue.size() > downloadStep) {
-                                    downloadStep++;
-                                    downloadQueue.get(downloadStep).execute();
-                                }
-
-                            }
-
-                            @Override
-                            public void onSuccess(File file) {
-                                if (downloadQueue.size() > downloadStep) {
-                                    downloadStep++;
-                                    downloadQueue.get(downloadStep).execute();
-                                }
-                            }
-                        }, true);
-
-                        downloadQueue.add(downloadFile);
-
-                    }
+//                    if (!(vectorVersion.equals(newestVectorVersion))){
+//
+//                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "4", "MapMain.dat");
+//                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
+//                                param, Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/",
+//                                "MapMain.dat", new NetworkProcessWithFile.OnResultListener() {
+//                            @Override
+//                            public void onFailure() {
+//
+//                                if (downloadQueue.size() > downloadStep) {
+//                                    downloadStep++;
+//                                    downloadQueue.get(downloadStep).execute();
+//                                }
+//
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(File file) {
+//                                if (downloadQueue.size() > downloadStep) {
+//                                    downloadStep++;
+//                                    downloadQueue.get(downloadStep).execute();
+//                                }
+//                            }
+//                        }, true);
+//
+//                        downloadQueue.add(downloadFile);
+//
+//                    }
 
                     if (!(demVersion.equals(newestDemVersion))) {
 
-                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "3", "DemMain.dat");
+                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "6", "DemMain.dat");
                         NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
                                 param, Environment.getExternalStorageDirectory().getAbsolutePath()+"/ACC_Navi/Map_Data/",
                                 "DemMain.dat", new NetworkProcessWithFile.OnResultListener() {
