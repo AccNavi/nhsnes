@@ -466,25 +466,25 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 return;
 
             case 1:
-                title = "기상(Taf) 조회";
+                title = "기상(TAF) 조회";
                 url = nuu.getWeatherTaf();
                 startDate = "201708150000";
                 endDate = "201708150600";
                 break;
             case 2:
-                title = "기상(Wrng) 조회";
+                title = "기상(WRNG) 조회";
                 url = nuu.getWeatherWrng();
                 startDate = "201708230800";
                 endDate = "201708231000";
                 break;
             case 3:
-                title = "기상(Sigmet) 조회";
+                title = "기상(SIGMET) 조회";
                 url = nuu.getWeatherSigmet();
                 startDate = "201707160000";
                 endDate = "201707162359";
                 break;
             case 4:
-                title = "기상(Airmet) 조회";
+                title = "기상(AIRMET) 조회";
                 url = nuu.getWeatherAirmet();
                 startDate = "201707160000";
                 endDate = "201707162359";
