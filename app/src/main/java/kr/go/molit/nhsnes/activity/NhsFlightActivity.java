@@ -507,8 +507,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         }
 
 
-
-
         if (!isCustomParam) {
             param = networkParamUtil.getWeather(apCd, StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_TOKEN_KEY, "")
                     , startDate, endDate, isuYear);
@@ -678,7 +676,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input1-1.txt", " ", true);
                     }
                 } else if (callsign.equals("fplkdw")) {
-                    Log.d("test0","start1");
+                    Log.d("test0", "start1");
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input2.txt", " ", true);
                 } else if (callsign.equals("fplnow")) {
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input3.txt", " ", true);
@@ -691,7 +689,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("test1","start");
+                    Log.d("test1", "start");
 
                     try {
 
@@ -701,7 +699,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         // 시나리오 좌표를 설정한다.
                         setTestRoute(callsign);
-                        Log.d("test2","start");
+                        Log.d("test2", "start");
                         // 경로 확정
                         int result = mNlvView.executeRP(NhsFlightActivity.this, 0, 0, new View.OnClickListener() {
                             @Override
@@ -729,22 +727,24 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 }
                             }
                         });
-                        Log.d("test3","start");
+                        Log.d("test3", "start");
 
                         if (result != -1) {
+
+                            // 항적 정보 데이터 저장 시작
+                            setSaveTimer();
 
                             testDriveTimer = new Timer();
                             testDriveTimerTask = new TimerTask() {
                                 @Override
                                 public void run() {
-                                    Log.d("test4","start");
+                                    Log.d("test4", "start");
 
                                     int size = testDrivePointList.length;
 
                                     if (testDriveIndex < size) {
 
                                         try {
-
 
 
                                             String temp = testDrivePointList[testDriveIndex];
@@ -773,7 +773,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                         && !endLat.isEmpty() && !endLon.isEmpty()) {
 
                                                     // 시작 위치
-                                                    if ((airGPSData.uLat == (float) Double.parseDouble(startLat) && airGPSData.uLon ==(float) Double.parseDouble(startLon))) {
+                                                    if ((airGPSData.uLat == (float) Double.parseDouble(startLat) && airGPSData.uLon == (float) Double.parseDouble(startLon))) {
 
                                                         isSkipTts = true;
 
@@ -821,7 +821,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             AirRouteStatus route = lanGetRouteInfo();
 
                                             if (route != null) {
-                                                updateDistance((float)route.uTotalPredictDist/(float)1000);
+                                                updateDistance((float) route.uTotalPredictDist / (float) 1000);
                                             }
 
                                             // 자이로값 전달
@@ -831,8 +831,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 airGPSData.fGyroZ = gyroValues[2];
                                             }
 
-                                            boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
-                                            boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
 
 
                                             if (callsign.equals("fplwon") &&    // 시나리오2 이고, 좌표 값이 같다면, 시나리오 종료
@@ -847,11 +845,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
-                                            } else if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
-//                                            } else if (isWifiConnected) {
-                                                // 1초에 한번씩 gps 정보를 맵에게 전달한다.
-                                                lanReceiveGPSData(airGPSData);
-                                                lanExceuteGuide();
                                             }
 
 //                                            int lvl = getZoomLevel((int) airGPSData.uAltitude, (int) airGPSData.uSpeed);
@@ -864,7 +857,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                             testDriveIndex += testDrivePlus;
 
                                         }
-                                        Log.d("test5","start");
+                                        Log.d("test5", "start");
                                     } else {
 
                                         // 시나리오가 끝났으면 tts를 중지한다.
@@ -872,7 +865,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                         // 시나리오 종료
                                         stopTestDriveTimer();
-                                        Log.d("test6","start");
+                                        Log.d("test6", "start");
 
                                         // 시나리오가 끝나면 5초 뒤에 종료 팝업창을 띄운다.
                                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -927,7 +920,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     }
                 }
             }, 1000);
-
 
             new Handler().postDelayed(new Runnable() {
 
@@ -1390,7 +1382,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         av.item[i].uMinFL = Integer.parseInt(data.optString("MIN_FL", "0"));
                                         av.item[i].uMaxFL = Integer.parseInt(data.optString("MAX_FL", "0"));
                                         av.item[i].cGisType = (gisType.equalsIgnoreCase("CIRCLE") ? '1' : '0');
-                                        Log.d("gistype",gisType);
+                                        Log.d("gistype", gisType);
                                         av.item[i].rad = Integer.parseInt(data.optString("GIS_RADIUS", "0"));
                                         av.item[i].strEcode = data.optString("QCODE", "0");
                                         av.item[i].strQcode = data.optString("E_CODE", "0");
@@ -1989,63 +1981,103 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             public void run() {
 
                 try {
-                    if (NhsFlightActivity.super.currentLocation != null) {
 
-                        try {
 
-                            float bear = 0;
+                    try {
 
-                            // 방향각을 구한다.
-                            if (beforeLocation != null) {
-                                bear = Util.bearingP1toP2(beforeLocation.getLatitude(), beforeLocation.getLongitude(),
-                                        NhsFlightActivity.super.currentLocation.getLatitude(),
-                                        NhsFlightActivity.super.currentLocation.getLongitude());
+                        float bear = 0;
+                        String temp = "";
+                        String[] pos = null;
+                        AirGPSData airGPSData = new AirGPSData();
 
-                                if (Float.isNaN(bear)) {
-                                    bear = 0;
+                        // 시나리오 비행일떄
+                        if (isTestDrive) {
+
+                            int size = testDrivePointList.length;
+
+                            if (testDriveIndex < size) {
+                                temp = testDrivePointList[testDriveIndex];
+                            } else {
+                                temp = testDrivePointList[size - 1];
+                            }
+
+                            pos = temp.split(",");
+
+                            if (!temp.isEmpty()) {
+
+                                airGPSData.uLat = (float) Double.parseDouble(pos[1]);
+                                airGPSData.uLon = (float) Double.parseDouble(pos[0]);
+                                airGPSData.uSpeed = Float.parseFloat(pos[4]);
+                                airGPSData.uBear = Float.parseFloat(pos[3]);
+                                airGPSData.uAltitude = Integer.parseInt(pos[2]);
+
+                                if (gyroValues != null) {
+                                    airGPSData.fGyroX = gyroValues[0];
+                                    airGPSData.fGyroY = gyroValues[1];
+                                    airGPSData.fGyroZ = gyroValues[2];
                                 }
+
+                                boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
+                                boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
+
+
+                                if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
+//                                            } else if (isWifiConnected) {
+                                    // 1초에 한번씩 gps 정보를 맵에게 전달한다.
+                                    lanReceiveGPSData(airGPSData);
+                                    lanExceuteGuide();
+                                }
+
                             }
 
+                        } else {    // 실제 주행일떄
 
-                            AirGPSData airGPSData = new AirGPSData();
+                            if (NhsFlightActivity.super.currentLocation != null) {
+                                if (beforeLocation != null) {
+                                    bear = Util.bearingP1toP2(beforeLocation.getLatitude(), beforeLocation.getLongitude(),
+                                            NhsFlightActivity.super.currentLocation.getLatitude(),
+                                            NhsFlightActivity.super.currentLocation.getLongitude());
 
-                            airGPSData.uLat = (float) NhsFlightActivity.super.currentLocation.getLatitude();
-                            airGPSData.uLon = (float) NhsFlightActivity.super.currentLocation.getLongitude();
+                                    if (Float.isNaN(bear)) {
+                                        bear = 0;
+                                    }
+                                }
 
-                            airGPSData.uSpeed = (float) currentSpeed;
-                            airGPSData.uBear = bear;
-                            airGPSData.uAltitude = (float) NhsFlightActivity.super.currentLocation.getAltitude();
+                                airGPSData.uLat = (float) NhsFlightActivity.super.currentLocation.getLatitude();
+                                airGPSData.uLon = (float) NhsFlightActivity.super.currentLocation.getLongitude();
 
-                            if (gyroValues != null) {
-                                airGPSData.fGyroX = gyroValues[0];
-                                airGPSData.fGyroY = gyroValues[1];
-                                airGPSData.fGyroZ = gyroValues[2];
-                            }
+                                airGPSData.uSpeed = (float) currentSpeed;
+                                airGPSData.uBear = bear;
+                                airGPSData.uAltitude = (float) NhsFlightActivity.super.currentLocation.getAltitude();
 
-                            Log.d("calGps", "android gps lat : " + NhsFlightActivity.super.currentLocation.getLatitude() + "");
-                            Log.d("calGps", "android gps long : " + NhsFlightActivity.super.currentLocation.getLongitude() + "");
-                            Log.d("calGps", "uLat : " + airGPSData.uLat + "");
-                            Log.d("calGps", "uLon : " + airGPSData.uLon + "");
-                            Log.d("calGps", "uSpeed : " + airGPSData.uSpeed + "");
-                            Log.d("calGps", "uBear : " + airGPSData.uBear + "");
-                            Log.d("calGps", "uAltitude : " + airGPSData.uAltitude + "");
+                                if (gyroValues != null) {
+                                    airGPSData.fGyroX = gyroValues[0];
+                                    airGPSData.fGyroY = gyroValues[1];
+                                    airGPSData.fGyroZ = gyroValues[2];
+                                }
 
-                            if (!isTestDrive) {
+                                Log.d("calGps", "android gps lat : " + NhsFlightActivity.super.currentLocation.getLatitude() + "");
+                                Log.d("calGps", "android gps long : " + NhsFlightActivity.super.currentLocation.getLongitude() + "");
+                                Log.d("calGps", "uLat : " + airGPSData.uLat + "");
+                                Log.d("calGps", "uLon : " + airGPSData.uLon + "");
+                                Log.d("calGps", "uSpeed : " + airGPSData.uSpeed + "");
+                                Log.d("calGps", "uBear : " + airGPSData.uBear + "");
+                                Log.d("calGps", "uAltitude : " + airGPSData.uAltitude + "");
 
                                 lanReceiveGPSData(airGPSData);
                                 lanExceuteGuide();
+
+                                beforeLocation = NhsFlightActivity.super.currentLocation;
+
+                                updateDirection(airGPSData.uBear);
                             }
 
-                            beforeLocation = NhsFlightActivity.super.currentLocation;
-
-                            updateDirection(airGPSData.uBear);
-
-//                    boolean is = lanIsTrajectory();
-                            Log.d("test", "etst");
-                        } catch (Exception ex) {
-
                         }
+
+                    } catch (Exception ex) {
+
                     }
+
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -2928,11 +2960,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         StringBuilder sb = new StringBuilder();
         sb.append("총 거리 : ");
-        sb.append(String.format("%.1f", ((float)routeStatus.uTotalDist/(float)1000)));
+        sb.append(String.format("%.1f", ((float) routeStatus.uTotalDist / (float) 1000)));
         sb.append("Km");
         sb.append("\n");
         sb.append("총 소요시간 : ");
-        sb.append(String.format("%d",routeStatus.uTotalTime/60));
+        sb.append(String.format("%d", routeStatus.uTotalTime / 60));
         sb.append("분");
         sb.append("\n");
 
@@ -2944,7 +2976,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
             for (i = 0; i < size; i++) {
 
-                 if (i == (size-1)) {
+                if (i == (size - 1)) {
                     sb.append("+ 도착지");
                 } else {
                     routeCount = routeCount + 1;
@@ -2952,11 +2984,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 }
                 sb.append("\n");
                 sb.append("거리 : ");
-                sb.append(String.format("%.1f", (float)routeStatus.waypointList[i].dist/(float)1000));
+                sb.append(String.format("%.1f", (float) routeStatus.waypointList[i].dist / (float) 1000));
                 sb.append("Km");
                 sb.append("\n");
                 sb.append("소요시간 : ");
-                sb.append(String.format("%d",routeStatus.waypointList[i].time/60));
+                sb.append(String.format("%d", routeStatus.waypointList[i].time / 60));
                 sb.append("분");
                 sb.append("\n");
 
