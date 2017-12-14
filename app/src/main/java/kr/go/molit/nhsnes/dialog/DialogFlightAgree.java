@@ -104,9 +104,15 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
         tveDate.setText(convertStrDate + " " + this.result.getCallsign());
 
         // 승인시간 설정
-        date = Util.convertStringToDate(this.result.getPlanArvDate(), DEFUALT_DATE_FORMAT4);
-        std = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.KOREA);
-        tveAgreeDate.setText(std.format(date));
+        if (this.result.getPlanArvDate().isEmpty() || this.result.getPlanArvDate().equalsIgnoreCase("null")) {
+            tveAgreeDate.setText("정보없음");
+        } else{
+            date = Util.convertStringToDate(this.result.getPlanArvDate(), DEFUALT_DATE_FORMAT4);
+            std = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.KOREA);
+            tveAgreeDate.setText(std.format(date));
+        }
+
+
 
         // 도착예정시간
         date = Util.convertStringToDate(this.result.getPlanEta(), DEFUALT_DATE_FORMAT10);
