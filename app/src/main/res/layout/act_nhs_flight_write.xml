@@ -924,7 +924,6 @@
                         android:id="@+id/et_7_1"
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
-
                         android:layout_height="30dp"
                         android:text=""
                         app:type="kor" />
@@ -1020,7 +1019,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1038,7 +1037,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    app:type="number"
+                    app:type="kor"
                     android:text="" />
 
 
@@ -1269,7 +1268,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1288,7 +1287,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    app:type="number"
+                    app:type="kor"
                     android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1306,7 +1305,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1323,7 +1322,7 @@
                     android:id="@+id/et_13_4"
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
-
+                    app:type="kor"
                     android:layout_height="wrap_content"
                     android:text="" />
 
@@ -1349,7 +1348,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1366,7 +1365,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
 
@@ -1384,7 +1383,7 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-
+                    app:type="kor"
                     android:text="" />
 
             </LinearLayout>
