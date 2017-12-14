@@ -493,7 +493,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             case 5:
                 title = "항공고시보(SNOWTAM) 조회";
                 url = nuu.getSnotam();
-                apCd = "";
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
                 isuYear = todaydate.substring(0,4);
