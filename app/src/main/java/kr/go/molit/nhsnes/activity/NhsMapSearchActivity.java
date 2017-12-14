@@ -630,7 +630,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             case NhsSelectPointActivity.MODE_ROUTE_SEARCH:
 
                 // 즐겨찾기는 표시하지 않는다.
-                if (mType != TYPE_FAVORITE) {
+                if (mType != TYPE_FAVORITE && mType != TYPE_SEARCH_RECENT) {
 
                     switch (this.routeSearchStep) {
 
