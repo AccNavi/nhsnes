@@ -927,7 +927,7 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="30dp"
-                        android:text=" "
+                        android:text=""
                         app:type="kor" />
 
                 </LinearLayout>
@@ -994,7 +994,7 @@
                         android:gravity="left"
                         android:lines="2"
                         android:padding="10dp"
-                        android:text=" "
+                        android:text=""
                         app:type="kor" />
                 </LinearLayout>
 
@@ -1022,7 +1022,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1040,7 +1040,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     app:type="number"
-                    android:text=" " />
+                    android:text="" />
 
 
             </LinearLayout>
@@ -1271,7 +1271,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     android:id="@+id/textViewEx"
@@ -1290,7 +1290,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     app:type="number"
-                    android:text=" " />
+                    android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1308,7 +1308,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1326,7 +1326,7 @@
                     android:layout_width="40dp"
 
                     android:layout_height="wrap_content"
-                    android:text=" " />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -1351,7 +1351,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1368,7 +1368,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1386,7 +1386,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
 
-                    android:text=" " />
+                    android:text="" />
 
             </LinearLayout>
 
