@@ -1461,11 +1461,11 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             }
         } else if (resultCode == RESULT_CANCELED){
 
-            planDeparture = "";
-            planArrival = "";
-            ((TextViewEx) findViewById(R.id.et_3_2)).setText("");
-            ((TextViewEx) findViewById(R.id.et_6_1)).setText("");
-            ((EditText) findViewById(R.id.ed_route)).setText("");
+//            planDeparture = "";
+//            planArrival = "";
+//            ((TextViewEx) findViewById(R.id.et_3_2)).setText("");
+//            ((TextViewEx) findViewById(R.id.et_6_1)).setText("");
+//            ((EditText) findViewById(R.id.ed_route)).setText("");
 
         }
     }

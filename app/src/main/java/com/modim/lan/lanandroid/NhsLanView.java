@@ -458,9 +458,25 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
 
       showDialogRoute(context, "금지구역", "금지구역이 있습니다\n우회하시겠습니까?", onClickListener);
 
-    } else if (testValue == 25) { // 공역으로 피해서 간다면
+    } else if (testValue == 25 || testValue == 1) { // 공역으로 피해서 간다면
 
       result = mNative.lanExecuteRP(option);
+
+      switch (result) {
+
+        case 2:
+          showDialogRoute2(context, "경로탐색 실패", "시작지가 목적지 부근", onClickListener);
+          break;
+
+        case 3:
+          showDialogRoute2(context, "경로탐색 실패", "시작지가 경유지 부근", onClickListener);
+          break;
+
+        case 4:
+          showDialogRoute2(context, "경로탐색 실패", "경유지가 목적지 부근", onClickListener);
+          break;
+
+      }
 
     }
 
@@ -504,6 +520,54 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
 
     alert_btn_ok.setText("확인");
     alert_btn_cancel.setText("취소");
+
+    alert_btn_cancel.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+        onClickListener.onClick(view);
+      }
+    });
+
+    alert_btn_ok.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+        onClickListener.onClick(view);
+      }
+    });
+
+    //팝업 바탕 알파값 주기
+    dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+    lp.dimAmount= 0.95f;
+    dialog.getWindow().setAttributes(lp);
+    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+    dialog.show();
+  }
+
+  public void showDialogRoute2(Context context, String title, String msg, final OnClickListener onClickListener){
+
+    dialog = new Dialog(context);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    //팝업 주위를 눌러도 창 닫히지 않음
+    dialog.setCanceledOnTouchOutside(false);
+
+    dialog.setContentView(R.layout.dialog_popup_type1);
+
+    TextView alert_title = (TextView)dialog.findViewById(R.id.alert_title);
+    TextView alert_msg = (TextView)dialog.findViewById(R.id.alert_msg);
+
+    alert_title.setText(title);
+    alert_msg.setText(msg);
+
+    TextViewEx alert_btn_ok = (TextViewEx) dialog.findViewById(R.id.alert_btn_ok);
+    TextViewEx alert_btn_cancel = (TextViewEx) dialog.findViewById(R.id.alert_btn_cancel);
+
+    alert_btn_ok.setVisibility(View.GONE);
+    alert_btn_cancel.setText("확인");
 
     alert_btn_cancel.setOnClickListener(new OnClickListener() {
       @Override
