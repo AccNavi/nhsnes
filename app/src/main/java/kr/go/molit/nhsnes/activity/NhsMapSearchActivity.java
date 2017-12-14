@@ -1256,8 +1256,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                         dataRoute = spritStart[i].split(" ");
 
-                        double x = Double.parseDouble(dataRoute[1]);
-                        double y = Double.parseDouble(dataRoute[0]);
+                        double x = Double.parseDouble(dataRoute[0]);
+                        double y = Double.parseDouble(dataRoute[1]);
 
                         Log.i("JeLib", "3:::" + x + ", " + y);
 

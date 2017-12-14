@@ -560,8 +560,6 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
         // 다이얼로그 취소 버튼 숨기기..
         this.dialog.findViewById(R.id.alert_btn_cancel).setVisibility(View.GONE);
 
-      } else {
-        result = 0;
       }
 
     }catch (Exception ex){
