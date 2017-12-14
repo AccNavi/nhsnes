@@ -1627,6 +1627,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                         // 재기동
                         mNative.lanSimulResumeTrajectory();
+                        mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
 
                         messageDialog.hideDialog();
                     }
@@ -1993,6 +1994,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
             mNative.lanSimulStartTrajectory();  // 시뮬레이터 준비 시작
             mNative.lanSimulResumeTrajectory(); // 시뮬레이터 시작
+            mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
             stopTtsTimer();
             new Handler().postDelayed(new Runnable() {
                 @Override
