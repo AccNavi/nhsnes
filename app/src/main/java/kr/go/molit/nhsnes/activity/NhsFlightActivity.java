@@ -284,7 +284,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 1;
+    private int testDrivePlus = 10;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -935,6 +935,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         // 시나리오가 끝났으면 tts를 중지한다.
                                         stopTtsTimer();
 
+                                        // 항적 종료
+                                        stopSaveTimer();
+
                                         // 시나리오 종료
                                         stopTestDriveTimer();
                                         Log.d("test6", "start");
@@ -947,12 +950,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-
                                                         showExitDialog();
-
                                                     }
-
                                                 });
+
 
                                             }
                                         }, 5000);
@@ -3963,8 +3964,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                 try {
 
-                    stopSenderTimer();
-                    stopSaveTimer();
+//                    stopSenderTimer();
+//                    stopSaveTimer();
 
                     // Realm을 초기화합니다.
                     Realm.init(mContext);
