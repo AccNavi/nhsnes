@@ -138,6 +138,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import io.realm.Realm;
 import kr.go.molit.nhsnes.Network.NetworkProcess;
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.DateTimeUtil;
 import kr.go.molit.nhsnes.common.MagicSE_Util;
 import kr.go.molit.nhsnes.common.NetworkParamUtil;
 import kr.go.molit.nhsnes.common.NetworkUrlUtil;
@@ -440,7 +441,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         } catch (Exception ex) {
 
         }
-
+        String todaydate = DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT7);
         NetworkUrlUtil nuu = new NetworkUrlUtil();
 
         switch (type) {
@@ -468,34 +469,34 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             case 1:
                 title = "기상(TAF) 조회";
                 url = nuu.getWeatherTaf();
-                startDate = "201708150000";
-                endDate = "201708150600";
+                startDate = todaydate.substring(0,8)+"0000";
+                endDate = todaydate;
                 break;
             case 2:
                 title = "기상(WRNG) 조회";
                 url = nuu.getWeatherWrng();
-                startDate = "201708230800";
-                endDate = "201708231000";
+                startDate = todaydate.substring(0,8)+"0000";
+                endDate = todaydate;
                 break;
             case 3:
                 title = "기상(SIGMET) 조회";
                 url = nuu.getWeatherSigmet();
-                startDate = "201707160000";
-                endDate = "201707162359";
+                startDate = todaydate.substring(0,8)+"0000";
+                endDate = todaydate;
                 break;
             case 4:
                 title = "기상(AIRMET) 조회";
                 url = nuu.getWeatherAirmet();
-                startDate = "201707160000";
-                endDate = "201707162359";
+                startDate = todaydate.substring(0,8)+"0000";
+                endDate = todaydate;
                 break;
             case 5:
                 title = "항공고시보(SNOWTAM) 조회";
                 url = nuu.getSnotam();
                 apCd = "";
-                startDate = "201711010000";
-                endDate = "201711301530";
-                isuYear = "2017";
+                startDate = todaydate.substring(0,8)+"0000";
+                endDate = todaydate;
+                isuYear = todaydate.substring(0,4);
                 break;
             case 6:
                 title = "항공고시보(NOTAM)조회";

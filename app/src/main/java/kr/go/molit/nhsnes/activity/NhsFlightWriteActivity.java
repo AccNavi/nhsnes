@@ -298,6 +298,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         buttonEdit.setOnClickListener(this);
         buttonList = (FrameLayout) findViewById(R.id.bt_list);
         buttonList.setOnClickListener(this);
+        findViewById(R.id.layout_load).setOnClickListener(this);
 
         actionbar = (ActionBarEx) findViewById(R.id.action_bar);
 
@@ -607,6 +608,9 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         setCheckSumData();
         Toast.makeText(this, "수정을 완료하였습니다.", Toast.LENGTH_SHORT).show();
         break;*/
+            case R.id.layout_load:
+                finish();
+                break;
             case R.id.bt_list:
                 finish();
                 break;

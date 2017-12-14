@@ -119,34 +119,34 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                     downloadQueue = new LinkedList<>();
 
-//                    if (!(vectorVersion.equals(newestVectorVersion))){
-//
-//                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "4", "MapMain.dat");
-//                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
-//                                param, Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/",
-//                                "MapMain.dat", new NetworkProcessWithFile.OnResultListener() {
-//                            @Override
-//                            public void onFailure() {
-//
-//                                if (downloadQueue.size() > downloadStep) {
-//                                    downloadStep++;
-//                                    downloadQueue.get(downloadStep).execute();
-//                                }
-//
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(File file) {
-//                                if (downloadQueue.size() > downloadStep) {
-//                                    downloadStep++;
-//                                    downloadQueue.get(downloadStep).execute();
-//                                }
-//                            }
-//                        }, true);
-//
-//                        downloadQueue.add(downloadFile);
-//
-//                    }
+                    if (!(vectorVersion.equals(newestVectorVersion))){
+
+                        org.apache.http.entity.StringEntity param = new NetworkParamUtil().requestDownloadMap(NhsAppInfoActivity.this, "4", "MapMain.dat");
+                        NetworkProcessWithFile downloadFile = new NetworkProcessWithFile(NhsAppInfoActivity.this, new NetworkUrlUtil().getDownloadMap(),
+                                param, Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/",
+                                "MapMain.dat", new NetworkProcessWithFile.OnResultListener() {
+                            @Override
+                            public void onFailure() {
+
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                if (downloadQueue.size() > downloadStep) {
+                                    downloadStep++;
+                                    downloadQueue.get(downloadStep).execute();
+                                }
+                            }
+                        }, true);
+
+                        downloadQueue.add(downloadFile);
+
+                    }
 
                     if (!(demVersion.equals(newestDemVersion))) {
 
@@ -196,18 +196,18 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
                     downloadQueue.add(downloadFile);
                     downloadQueue.get(downloadStep).execute();
 
-
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            copyAssets("Dem.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Dem/");
-//                            copyAssets("MapMain.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Vector/");
-//                            Toast.makeText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show();
-//                            tvMapUpdate.setTextColor(getResources().getColor(R.color.listDivider));
-//                            llMapUpdate.setBackgroundResource(R.drawable.border_corner_gray);
-//                        }
-//                    }, 1000);
-
+/*
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            copyAssets("Dem.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Dem/");
+                            copyAssets("MapMain.dat", Environment.getExternalStorageDirectory() + "/Acc_Navi/Map_Data/Vector/");
+                            Toast.makeText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                            tvMapUpdate.setTextColor(getResources().getColor(R.color.listDivider));
+                            llMapUpdate.setBackgroundResource(R.drawable.border_corner_gray);
+                        }
+                    }, 1000);
+*/
                 }
             });
         } else {
