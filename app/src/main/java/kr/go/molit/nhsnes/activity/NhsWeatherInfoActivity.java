@@ -85,9 +85,9 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
                             location.getLatitude(), // 위도
                             location.getLongitude(), // 경도
                             1); // 얻어올 값의 개수
+
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
                 }
 
                 //  gps 프로그래스바를 멈춘다.
@@ -99,6 +99,25 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
 
                         // 지명을 가져온다.
                         myLocation = list.get(0).getLocality();
+
+                        if(myLocation == null || myLocation.length() <= 0){
+                            new ToastUtile().showCenterText(getContext(), "현재 위치를 가져오지 못했습니다.\n다시 시도해 주세요.");
+                        }else{
+                            if(myLocation.equals("전라북도"))
+                                myLocation = "전북";
+                            else if(myLocation.equals("전라남도"))
+                                myLocation = "전남";
+                            else if(myLocation.equals("충청북도"))
+                                myLocation = "충북";
+                            else if(myLocation.equals("충청남도"))
+                                myLocation = "충남";
+                            else if(myLocation.equals("경상북도"))
+                                myLocation = "경북";
+                            else if(myLocation.equals("경상남도"))
+                                myLocation = "경남";
+                            else
+                                myLocation = myLocation.substring(0, 2);
+                        }
 
                         // 날씨를 조회한다.
                         getWeather();
@@ -125,7 +144,6 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
         super.getLocation();
 
     }
-
 
     /**
      * 날씨 정보를 가져온다.
@@ -301,7 +319,7 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
         }
 
         // 정보를 화면에 뿌린다.
-        this.tveLocation.setText("대구 : 맑음");
+        this.tveLocation.setText(myLocation + " : 맑음");
         this.tveWd.setText(wd);                     // 풍향
         this.tveWspd.setText(wspd);                 // 풍속
         this.tveVis.setText(vis);                   // 시정

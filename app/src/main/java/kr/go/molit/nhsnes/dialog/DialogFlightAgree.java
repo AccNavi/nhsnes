@@ -10,6 +10,7 @@ import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SEARCH_IN_
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SIMULATION;
 import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT1;
 import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT10;
+import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT4;
 import static kr.go.molit.nhsnes.common.DateTimeUtil.DEFUALT_DATE_FORMAT8;
 
 import android.app.ProgressDialog;
@@ -102,14 +103,10 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
         String convertStrDate = std.format(date);
         tveDate.setText(convertStrDate + " " + this.result.getCallsign());
 
-        // 승인시간 임의 설정
-//        date = Util.convertStringToDate(this.result.getPlanDate(), DEFUALT_DATE_FORMAT1);
-//        std = new SimpleDateFormat("yyyy년 MM월 dd 일 18:00", Locale.KOREA);
-//        date.setTime(date.getTime() - (((1000 * 60) * 60) * 24));
-        date = new Date();
-        std = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
-        convertStrDate = std.format(date);
-        tveAgreeDate.setText(convertStrDate + " 09:30");
+        // 승인시간 설정
+        date = Util.convertStringToDate(this.result.getPlanArvDate(), DEFUALT_DATE_FORMAT4);
+        std = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.KOREA);
+        tveAgreeDate.setText(std.format(date));
 
         // 도착예정시간
         date = Util.convertStringToDate(this.result.getPlanEta(), DEFUALT_DATE_FORMAT10);
