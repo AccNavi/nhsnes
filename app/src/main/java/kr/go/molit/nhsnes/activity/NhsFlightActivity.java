@@ -322,6 +322,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private String endLat = "38.022285";         // 37.882626
     private String endLon = "128.726990";         // 127.737572
 
+    private int lastHashcode = 0;
+    private Date d1 = new Date();
+    private Date d2 = new Date();
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1267,7 +1272,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         }
     }
 
-
     /**
      * 상황을 알려주는 tts 타이머
      *
@@ -1308,7 +1312,44 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             GuideType guide = new GuideType();
                             LanStorage.mNative.lanNaviEvent(guide);
                             String strGuide = guide.szGuideText;
-                            playTTS(strGuide);
+
+                            d2 = new Date();
+                            long diffTime = d2.getTime() - d1.getTime();
+                            int curHash = strGuide.hashCode();
+
+                            // 이전 텍스트와 현재 텍스트가 다르거나 3초이상 시간이 지나갔으면 발성한다.
+                            if(curHash == lastHashcode)
+                            {
+                                if(diffTime >= 3000)
+                                {
+                                    playTTS(strGuide);
+                                    d1 = new Date();
+                                }
+
+                                // 이벤트 큐 삭제
+                                while(true)
+                                {
+                                    int uTypeDummy = LanStorage.mNative.lanNaviEventType();
+                                    if(uTypeDummy == Constants.NAVI_EVT_ALARM)
+                                    {
+                                        AlarmType alarmDummy = new AlarmType();
+                                        LanStorage.mNative.lanNaviEvent(alarmDummy);
+                                    }
+                                    else if(uTypeDummy == Constants.NAVI_EVT_GUIDE) {
+                                        GuideType guideDummy = new GuideType();
+                                        LanStorage.mNative.lanNaviEvent(guideDummy);
+                                    }
+                                    else
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                playTTS(strGuide);
+                                d1 = new Date();
+                            }
+                            lastHashcode = curHash;
+
 
                             if (strGuide.indexOf("목적지 부근입니다") > -1) {
                                 stopTestDriveTimer();
