@@ -405,7 +405,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 } else {
                     startFlight();
                 }
-                start5secodTts();
+//                start5secodTts();
                 break;
 
 
@@ -434,14 +434,42 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         StringEntity param = null;
 
         try {
-            String[] start = this.flightPlanInfo.getPlanRoute().split(" ");
+//            String[] start = this.flightPlanInfo.getStartDate().split(" ");
             StringBuffer strBuffer = new StringBuffer();
-            lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
+
+            if (isTestDrive) {
+                if (this.flightPlanInfo.getCallsign().equals("fplccw")) {    // 시나리오 1
+
+                    lanGetPortCodeName(126.794442, 37.558825, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplwon")) {  // 시나리오 2
+
+                    lanGetPortCodeName(127.013864, 37.281467, strBuffer);
+
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplkdw")) {  // 시나리오 3
+
+                    lanGetPortCodeName(127.733290, 37.882018, strBuffer);
+
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplnow")) {  // 시나리오 4
+
+                    lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+
+                }
+
+            } else {
+
+                lanGetPortCodeName(Double.parseDouble(this.route.get(0).getLon()), Double.parseDouble(this.route.get(0).getLat()), strBuffer);
+
+            }
             apCd = strBuffer.toString().split("@@")[0];
+
         } catch (Exception ex) {
 
         }
-        String todaydate = DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT7);
+
+        String todaydate = DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT11);
         NetworkUrlUtil nuu = new NetworkUrlUtil();
 
         switch (type) {
@@ -471,6 +499,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 url = nuu.getWeatherTaf();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
+
+//                startDate = "201708150000";
+//                endDate = "201708150600";
+
                 break;
             case 2:
                 title = "기상(WRNG) 조회";
@@ -480,12 +512,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 break;
             case 3:
                 title = "기상(SIGMET) 조회";
+                apCd = "";
                 url = nuu.getWeatherSigmet();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
                 break;
             case 4:
                 title = "기상(AIRMET) 조회";
+                apCd = "";
                 url = nuu.getWeatherAirmet();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
@@ -557,33 +591,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 try {
                                     JSONArray resultData = response.optJSONArray("result_data");
 
-                                    int size = resultData.length();
-                                    int i = 0;
-
-                                    for (i = 0; i < size; i++) {
-
-                                        Iterator iterator = resultData.optJSONObject(i).keys();
-
-
-                                        while (iterator.hasNext()) {
-
-                                            try {
-
-                                                String key = (String) iterator.next();
-                                                String value = resultData.getJSONObject(i).get(key).toString();
-                                                sb.append(key);
-                                                sb.append(" : ");
-                                                if (value.equals("null")) {
-                                                    value = "데이터 없음";
-                                                }
-                                                sb.append(value.toUpperCase());
-                                                sb.append("\n");
-
-                                            } catch (Exception ex) {
-
-                                            }
-                                        }
-                                    }
+                                    sb = getJsonData(sb, resultData);
 
                                 } catch (Exception ex) {
                                     sb.append("데이터가 없습니다.");
@@ -622,6 +630,65 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                 }, true);
         networkProcess.sendEmptyMessage(0);
+
+    }
+
+    private StringBuilder getJsonData(StringBuilder sb, JSONArray resultData){
+
+        int size = resultData.length();
+        int i = 0;
+
+        for (i = 0; i < size; i++) {
+
+            Iterator iterator = resultData.optJSONObject(i).keys();
+
+
+            while (iterator.hasNext()) {
+
+                try {
+
+                    String key = (String) iterator.next();
+
+                    boolean isNull = resultData.getJSONObject(i).isNull(key);
+
+                    if (!isNull) {
+
+                        Object valueObj = resultData.getJSONObject(i).get(key);
+
+                        if (valueObj instanceof String) {
+
+                            String value = valueObj.toString();
+                            sb.append(key);
+                            sb.append(" : ");
+                            if (value.equals("null")) {
+                                value = "데이터 없음";
+                            }
+                            sb.append(value.toUpperCase());
+                            sb.append("\n");
+
+                        } else if (valueObj instanceof JSONArray) {
+
+                            JSONArray jsonArray = (JSONArray) valueObj;
+                            sb = getJsonData(sb, jsonArray);
+
+                        }
+
+                    } else {
+                        sb.append(key);
+                        sb.append(" : ");
+                        sb.append("데이터 없음");
+                        sb.append("\n");
+                    }
+
+
+                } catch (Exception ex) {
+
+                }
+            }
+
+        }
+
+        return sb;
 
     }
 

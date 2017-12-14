@@ -23,7 +23,7 @@ public class DateTimeUtil {
 	public final static String DEFUALT_DATE_FORMAT7		= "yyyyMMddHHmmss";
 	public final static String DEFUALT_DATE_FORMAT8		= "MMM dd yyyy";
 	public final static String DEFUALT_DATE_FORMAT10		= "HHmm";
-
+	public final static String DEFUALT_DATE_FORMAT11		= "yyyyMMddHHmm";
 	public final static String DATE_FORMAT_PICTURE		= "MM월dd일";
 	public final static String DATE_FORMAT_PICTURE_ITEM	= "MM/dd HH:mm";
 	public final static String DATE_FORMAT_GAME_DATE	= "HH:mm";
