@@ -174,6 +174,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private FlightPlanInfo flightPlanInfo = null;
     private String flightId = "";
     private ArrayList<FlightRouteModel> route;  // 경로
+    private boolean isSimulStop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -506,12 +507,17 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             @Override
             public void onClick(View view) {
 
-                if (mNative.lanLogIsPause()) {  // 로그 주행 중이면
-                    mNative.lanLogPauseTrajectory(); // 정지
+                isSimulStop = false;
+
+                if (mode == LOG_DRIVE) {
+                    if (!mNative.lanLogIsPause()) {  // 로그 주행 중이면
+                        mNative.lanLogPauseTrajectory(); // 정지
+                    }
                 }
 
                 if (mNative.lanSimulIsPause() != 1) {
                     mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                    isSimulStop = true;
                     mIvPlayState.setImageResource(R.drawable.btn_play_nor);
                 }
 
@@ -522,7 +528,9 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         if (mode == LOG_DRIVE) {
                             mNative.lanLogStopTrajectory(); // 로그 주행 정지
                         } else {
-                            mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                            if (isSimulStop){
+                                mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                            }
                         }
 
                         new Handler().postDelayed(new Runnable() {
@@ -891,7 +899,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                                 routeWaypointCnt += 1;
                                                 isAppedMapPin = true;
 
-                                                mNlvView.executeRPDirect(0, 0);
+//                                                mNlvView.executeRPDirect(0, 0);
 
                                                 // 경로 확정 된 내용 최근검색 되도록 추가
                                                 mRealm.beginTransaction();
@@ -1571,7 +1579,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     return;
                 }
 
-                mNlvView.setMapViewmode(2);   // NAVIVIEW_BIRDVIEW
+                //mNlvView.setMapViewmode(2);   // NAVIVIEW_BIRDVIEW
 
                 // 모의주행중 인지 체크
                 if (mNative.lanSimulIsPause() == 1) {    // 일시정지중
@@ -1589,8 +1597,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             // 모의비행 종료버튼튼
             else if (R.id.tv_controll_close == v.getId()) {
 
+                isSimulStop = false;
+
                 if (mNative.lanSimulIsPause() != 1) {
                     mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                    isSimulStop= true;
                     mIvPlayState.setImageResource(R.drawable.btn_play_nor);
                 }
 
@@ -1599,8 +1610,9 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     public void onClick(View v) {
                         //mNative.lanSimulStartTrajectory();
 
-                        mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
-
+                        if (isSimulStop) {
+                            mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                        }
 
                         messageDialog.hideDialog();
 
@@ -1615,6 +1627,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                         // 재기동
                         mNative.lanSimulResumeTrajectory();
+                        mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
 
                         messageDialog.hideDialog();
                     }
@@ -1981,6 +1994,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
             mNative.lanSimulStartTrajectory();  // 시뮬레이터 준비 시작
             mNative.lanSimulResumeTrajectory(); // 시뮬레이터 시작
+            mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
             stopTtsTimer();
             new Handler().postDelayed(new Runnable() {
                 @Override
