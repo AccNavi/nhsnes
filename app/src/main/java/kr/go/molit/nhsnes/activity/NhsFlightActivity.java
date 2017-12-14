@@ -1270,6 +1270,18 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             this.ttsTimer.cancel();
             this.ttsTimer = null;
         }
+        try {
+
+            if (this.mTts != null) {
+                this.mTts.stop();
+                this.mTts.shutdown();
+            }
+
+
+        } catch (Exception e) {
+
+        }
+
     }
 
     /**
@@ -2221,6 +2233,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         if (this.saveTimer != null) {
             this.saveTimer.cancel();
+            this.saveTimer = null;
         }
     }
 
@@ -2599,6 +2612,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void stopSenderTimer() {
         if (this.senderTimer != null) {
             this.senderTimer.cancel();
+            this.senderTimer = null;
         }
     }
 
@@ -2611,6 +2625,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void stopTestDriveTimer() {
         if (this.testDriveTimer != null) {
             this.testDriveTimer.cancel();
+            this.testDriveTimer = null;
         }
     }
 
@@ -3393,17 +3408,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-
-            if (this.mTts != null) {
-                this.mTts.stop();
-                this.mTts.shutdown();
-            }
-
-
-        } catch (Exception e) {
-
-        }
 
         // 지상 관제센터 전송 중지
         stopSenderTimer();
@@ -3417,7 +3421,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         // tts 타이머 종료
         stopTtsTimer();
 
-        mNlvView.clearRoutePosition();
+//        mNlvView.clearRoutePosition();
     }
 
     @Override
