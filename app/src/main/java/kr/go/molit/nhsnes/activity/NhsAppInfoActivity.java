@@ -264,10 +264,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
             @Override
             public void onClick(View v) {
 
-                llBgNewApp.setBackgroundResource(R.drawable.border_corner_gray);
-                tvNewApp.setTextColor(v.getResources().getColor(R.color.listDivider));
-                llBgNewApp.setOnClickListener(null);
-                newAppDialgo.hideDialog();
+                NhsAppInfoActivity.this.finish();
 
             }
         });
