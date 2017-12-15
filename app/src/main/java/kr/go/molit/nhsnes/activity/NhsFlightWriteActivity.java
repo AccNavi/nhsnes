@@ -172,6 +172,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
      * @since 2017-09-13 오후 11:25
      **/
     private void callFlightPlanDetail(String planId, String planSn) {
+        if(planId==null || planSn ==null)return;
         final LoadingDialog loading = LoadingDialog.create(mContext, null, null);
         loading.show();
 
