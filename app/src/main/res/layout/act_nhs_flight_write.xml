@@ -1535,7 +1535,7 @@
                             android:gravity="left"
                             android:lines="7"
                             android:padding="10dp"
-                            android:text="ddd"
+                            android:text=""
                             app:type="kor" />
                     </LinearLayout>
 
