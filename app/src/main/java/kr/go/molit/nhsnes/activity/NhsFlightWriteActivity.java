@@ -59,6 +59,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.modim.lan.lanandroid.NativeImplement.lanGetPortCodeName;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_ACRFTCD;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_MBR_ID;
 import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_NAME;
@@ -172,6 +173,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
      * @since 2017-09-13 오후 11:25
      **/
     private void callFlightPlanDetail(String planId, String planSn) {
+        if(planId==null || planSn ==null)return;
         final LoadingDialog loading = LoadingDialog.create(mContext, null, null);
         loading.show();
 
@@ -1447,12 +1449,20 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             if (requestCode == NhsSelectPointActivity.MODE_DEPARTURE) { // 출발 검색 결과
 
                 planDeparture = data.getExtras().getString(DATA_START);
-                ((TextViewEx) findViewById(R.id.et_3_2)).setText("ZZZZ");
+                String[] start = planDeparture.split(" ");
+                StringBuffer strBuffer = new StringBuffer();
+                lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
+                String apCd = strBuffer.toString().split("@@")[0];
+                ((TextViewEx) findViewById(R.id.et_3_2)).setText(apCd);
 
             } else if (requestCode == NhsSelectPointActivity.MODE_ARRIVAL) {  // 도착지 검색 결과
 
                 planArrival = data.getExtras().getString(DATA_END);
-                ((TextViewEx) findViewById(R.id.et_6_1)).setText("ZZZZ");
+                String[] start = planArrival.split(" ");
+                StringBuffer strBuffer = new StringBuffer();
+                lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
+                String apCd = strBuffer.toString().split("@@")[0];
+                ((TextViewEx) findViewById(R.id.et_6_1)).setText(apCd);
 
             } else if (requestCode == NhsSelectPointActivity.MODE_ROUTE) {  // 경유지 검색 결과
 
