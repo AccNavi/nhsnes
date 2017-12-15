@@ -74,6 +74,8 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
     private NativeImplement nativeImplement;
     private ProgressDialog mProgressDialog;
 
+    private TextViewEx tveTitle = null;
+
     public DialogFlightAgree(@NonNull Context context, FlightPlanInfo result) {
         super(context);
         this.result = result;
@@ -95,6 +97,7 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
         TextViewEx tveDate = (TextViewEx) findViewById(R.id.tve_date);
         TextViewEx tveAgreeDate = (TextViewEx) findViewById(R.id.tve_agree_date);
         TextViewEx tveArriveTime = (TextViewEx) findViewById(R.id.tve_arrive_time);
+        tveTitle = (TextViewEx) findViewById(R.id.tv_title);
 
         // title 제목을 설정한다
         Date date = Util.convertStringToDate(this.result.getPlanDate(), DEFUALT_DATE_FORMAT1);
@@ -120,6 +123,45 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
 //        date.setTime(date.getTime() + ((1000 * 60) * 60) * Integer.parseInt(result.getPlanTeet()));
         convertStrDate = std.format(date);
         tveArriveTime.setText(convertStrDate);
+
+        // 상황에 맞게 타이틀 및 버튼 비/활성화를 한다.
+        if (result.getPlanStatus().equalsIgnoreCase("01")) {    // 승인
+
+            tveTitle.post(new Runnable() {
+                @Override
+                public void run() {
+                    tveTitle.setText("승인 완료");
+                    findViewById(R.id.bt_menu1).setClickable(true);
+                    findViewById(R.id.bt_menu2).setClickable(true);
+                    findViewById(R.id.btn_view).setClickable(true);
+                }
+            });
+
+        } else if (result.getPlanStatus().equalsIgnoreCase("99")) { // 거절
+
+            tveTitle.post(new Runnable() {
+                @Override
+                public void run() {
+                    tveTitle.setText("승인 거절");
+                    findViewById(R.id.bt_menu1).setClickable(false);
+                    findViewById(R.id.bt_menu2).setClickable(false);
+                    findViewById(R.id.btn_view).setClickable(false);
+                }
+            });
+
+        } else if (result.getPlanStatus().equalsIgnoreCase("00")) { // 대기
+
+            tveTitle.post(new Runnable() {
+                @Override
+                public void run() {
+                    tveTitle.setText("승인 대기");
+                    findViewById(R.id.bt_menu1).setClickable(false);
+                    findViewById(R.id.bt_menu2).setClickable(false);
+                    findViewById(R.id.btn_view).setClickable(false);
+                }
+            });
+
+        }
 
         // 비행 상세 정보를 조회한다.
         callFlightPlanDetail(result.getPlanId(), result.getPlanSn());

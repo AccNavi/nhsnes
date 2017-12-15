@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 
 import kr.go.molit.nhsnes.R;
@@ -54,6 +55,8 @@ public class EditTextEx extends android.support.v7.widget.AppCompatEditText {
                 setInputType(InputType.TYPE_CLASS_TEXT);
                 break;
             case 3:		// 영어
+
+//                setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"));
                 setPrivateImeOptions("defaultInputmode=english;");
                 break;
             case 4:		// 비번

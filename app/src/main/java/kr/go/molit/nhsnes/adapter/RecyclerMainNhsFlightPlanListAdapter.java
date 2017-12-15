@@ -229,10 +229,7 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
             type3.bgLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(null != data.getPlanStatus() && data.getPlanStatus().trim().equals("99")){
-                        //DialogFlightDeny dialog = new DialogFlightDeny(context, data);
-                        //dialog.show();
-                    }else if (viewType == VIEWTYPE_NHS_FLIGHT_HISTORY_ACT) {
+                    if (viewType == VIEWTYPE_NHS_FLIGHT_HISTORY_ACT) {
                         DialogSearchPath dialog = new DialogSearchPath(context, data);
                         dialog.setLogMode(true);
                         //DialogSearchPath dialog = new DialogSearchPath(context, data.getDepartureAerodrome());
@@ -245,8 +242,10 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
                         intent.putExtra(DialogSelectFlightPlain.INTENT_PLAN_TYPE, viewType);
                         context.startActivity(intent);
                     } else {
-                        DialogSelectFlightPlain dialog = new DialogSelectFlightPlain(context, data);
-                        dialog.show();
+                        if (null != data.getPlanStatus()) {
+                            DialogSelectFlightPlain dialog = new DialogSelectFlightPlain(context, data);
+                            dialog.show();
+                        }
                     }
                 }
             });
