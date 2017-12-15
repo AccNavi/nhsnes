@@ -463,9 +463,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                             }
                         }, "", null);
-
                 return;
-
             case 1:
                 title = "기상(TAF) 조회";
                 url = nuu.getWeatherTaf();
