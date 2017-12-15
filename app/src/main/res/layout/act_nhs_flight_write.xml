@@ -950,6 +950,7 @@
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                         android:inputType="textEmailAddress"
                         android:text=""
+                        android:maxLength="4"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -977,6 +978,7 @@
                         android:layout_height="30dp"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                         android:inputType="textEmailAddress"
+                        android:maxLength="4"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -1021,6 +1023,7 @@
                         android:lines="2"
                         android:padding="10dp"
                         android:text=""
+                        android:maxLength="100"
                         app:type="eng" />
                 </LinearLayout>
 
@@ -1050,6 +1053,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="4"
                     app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1069,6 +1073,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="3"
                     app:type="eng" />
 
 
@@ -1303,6 +1308,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="3"
                     app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1324,6 +1330,7 @@
                     android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
+                    android:maxLength="2"
                     android:text=""
                     app:type="eng" />
 
@@ -1346,6 +1353,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="1"
                     app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1367,6 +1375,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="6"
                     app:type="eng" />
 
             </LinearLayout>
@@ -1395,6 +1404,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="20"
                     app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1415,6 +1425,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="20"
                     app:type="eng" />
 
 
@@ -1436,6 +1447,7 @@
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                     android:inputType="textEmailAddress"
                     android:text=""
+                    android:maxLength="20"
                     app:type="eng" />
 
             </LinearLayout>
