@@ -608,12 +608,18 @@ public class NetworkParamUtil {
 
     try {
 
-      jsonParams.put("ap_cd", apCd);
+      if (!apCd.isEmpty()) {
+        jsonParams.put("ap_cd", apCd);
+      }
       jsonParams.put("tokenKey", tokenKey);
       jsonParams.put("start_dt", startDate);
       jsonParams.put("end_dt", endDate);
-      jsonParams.put("isu_year", isu_year);
 
+      if (!isu_year.isEmpty()) {
+        jsonParams.put("isu_year", isu_year);
+      }
+
+      Log.d("weatherlog", jsonParams.toString());
 
       entity = new StringEntity(jsonParams.toString(), "UTF-8");
 

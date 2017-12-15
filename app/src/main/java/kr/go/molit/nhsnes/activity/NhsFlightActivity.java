@@ -322,6 +322,11 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private String endLat = "38.022285";         // 37.882626
     private String endLon = "128.726990";         // 127.737572
 
+    private int lastHashcode = 0;
+    private Date d1 = new Date();
+    private Date d2 = new Date();
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -405,7 +410,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 } else {
                     startFlight();
                 }
-                start5secodTts();
+//                start5secodTts();
                 break;
 
 
@@ -434,14 +439,42 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         StringEntity param = null;
 
         try {
-            String[] start = this.flightPlanInfo.getPlanRoute().split(" ");
+//            String[] start = this.flightPlanInfo.getStartDate().split(" ");
             StringBuffer strBuffer = new StringBuffer();
-            lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
+
+            if (isTestDrive) {
+                if (this.flightPlanInfo.getCallsign().equals("fplccw")) {    // 시나리오 1
+
+                    lanGetPortCodeName(126.794442, 37.558825, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplwon")) {  // 시나리오 2
+
+                    lanGetPortCodeName(127.013864, 37.281467, strBuffer);
+
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplkdw")) {  // 시나리오 3
+
+                    lanGetPortCodeName(127.733290, 37.882018, strBuffer);
+
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplnow")) {  // 시나리오 4
+
+                    lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+
+                }
+
+            } else {
+
+                lanGetPortCodeName(Double.parseDouble(this.route.get(0).getLon()), Double.parseDouble(this.route.get(0).getLat()), strBuffer);
+
+            }
             apCd = strBuffer.toString().split("@@")[0];
+
         } catch (Exception ex) {
 
         }
-        String todaydate = DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT7);
+
+        String todaydate = DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT11);
         NetworkUrlUtil nuu = new NetworkUrlUtil();
 
         switch (type) {
@@ -469,6 +502,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 url = nuu.getWeatherTaf();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
+
+//                startDate = "201708150000";
+//                endDate = "201708150600";
+
                 break;
             case 2:
                 title = "기상(WRNG) 조회";
@@ -478,12 +515,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 break;
             case 3:
                 title = "기상(SIGMET) 조회";
+                apCd = "";
                 url = nuu.getWeatherSigmet();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
                 break;
             case 4:
                 title = "기상(AIRMET) 조회";
+                apCd = "";
                 url = nuu.getWeatherAirmet();
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
@@ -491,7 +530,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             case 5:
                 title = "항공고시보(SNOWTAM) 조회";
                 url = nuu.getSnotam();
-                apCd = "";
                 startDate = todaydate.substring(0,8)+"0000";
                 endDate = todaydate;
                 isuYear = todaydate.substring(0,4);
@@ -556,33 +594,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 try {
                                     JSONArray resultData = response.optJSONArray("result_data");
 
-                                    int size = resultData.length();
-                                    int i = 0;
-
-                                    for (i = 0; i < size; i++) {
-
-                                        Iterator iterator = resultData.optJSONObject(i).keys();
-
-
-                                        while (iterator.hasNext()) {
-
-                                            try {
-
-                                                String key = (String) iterator.next();
-                                                String value = resultData.getJSONObject(i).get(key).toString();
-                                                sb.append(key);
-                                                sb.append(" : ");
-                                                if (value.equals("null")) {
-                                                    value = "데이터 없음";
-                                                }
-                                                sb.append(value.toUpperCase());
-                                                sb.append("\n");
-
-                                            } catch (Exception ex) {
-
-                                            }
-                                        }
-                                    }
+                                    sb = getJsonData(sb, resultData);
 
                                 } catch (Exception ex) {
                                     sb.append("데이터가 없습니다.");
@@ -621,6 +633,65 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                 }, true);
         networkProcess.sendEmptyMessage(0);
+
+    }
+
+    private StringBuilder getJsonData(StringBuilder sb, JSONArray resultData){
+
+        int size = resultData.length();
+        int i = 0;
+
+        for (i = 0; i < size; i++) {
+
+            Iterator iterator = resultData.optJSONObject(i).keys();
+
+
+            while (iterator.hasNext()) {
+
+                try {
+
+                    String key = (String) iterator.next();
+
+                    boolean isNull = resultData.getJSONObject(i).isNull(key);
+
+                    if (!isNull) {
+
+                        Object valueObj = resultData.getJSONObject(i).get(key);
+
+                        if (valueObj instanceof String) {
+
+                            String value = valueObj.toString();
+                            sb.append(key);
+                            sb.append(" : ");
+                            if (value.equals("null")) {
+                                value = "데이터 없음";
+                            }
+                            sb.append(value.toUpperCase());
+                            sb.append("\n");
+
+                        } else if (valueObj instanceof JSONArray) {
+
+                            JSONArray jsonArray = (JSONArray) valueObj;
+                            sb = getJsonData(sb, jsonArray);
+
+                        }
+
+                    } else {
+                        sb.append(key);
+                        sb.append(" : ");
+                        sb.append("데이터 없음");
+                        sb.append("\n");
+                    }
+
+
+                } catch (Exception ex) {
+
+                }
+            }
+
+        }
+
+        return sb;
 
     }
 
@@ -862,6 +933,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         // 시나리오가 끝났으면 tts를 중지한다.
                                         stopTtsTimer();
 
+                                        // 항적 종료
+                                        stopSaveTimer();
+
                                         // 시나리오 종료
                                         stopTestDriveTimer();
                                         Log.d("test6", "start");
@@ -874,12 +948,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-
                                                         showExitDialog();
-
                                                     }
-
                                                 });
+
 
                                             }
                                         }, 5000);
@@ -1197,8 +1269,19 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             this.ttsTimer.cancel();
             this.ttsTimer = null;
         }
-    }
+        try {
 
+            if (this.mTts != null) {
+                this.mTts.stop();
+                this.mTts.shutdown();
+            }
+
+
+        } catch (Exception e) {
+
+        }
+
+    }
 
     /**
      * 상황을 알려주는 tts 타이머
@@ -1240,7 +1323,44 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             GuideType guide = new GuideType();
                             LanStorage.mNative.lanNaviEvent(guide);
                             String strGuide = guide.szGuideText;
-                            playTTS(strGuide);
+
+                            d2 = new Date();
+                            long diffTime = d2.getTime() - d1.getTime();
+                            int curHash = strGuide.hashCode();
+
+                            // 이전 텍스트와 현재 텍스트가 다르거나 3초이상 시간이 지나갔으면 발성한다.
+                            if(curHash == lastHashcode)
+                            {
+                                if(diffTime >= 3000)
+                                {
+                                    playTTS(strGuide);
+                                    d1 = new Date();
+                                }
+
+                                // 이벤트 큐 삭제
+                                while(true)
+                                {
+                                    int uTypeDummy = LanStorage.mNative.lanNaviEventType();
+                                    if(uTypeDummy == Constants.NAVI_EVT_ALARM)
+                                    {
+                                        AlarmType alarmDummy = new AlarmType();
+                                        LanStorage.mNative.lanNaviEvent(alarmDummy);
+                                    }
+                                    else if(uTypeDummy == Constants.NAVI_EVT_GUIDE) {
+                                        GuideType guideDummy = new GuideType();
+                                        LanStorage.mNative.lanNaviEvent(guideDummy);
+                                    }
+                                    else
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                playTTS(strGuide);
+                                d1 = new Date();
+                            }
+                            lastHashcode = curHash;
+
 
                             if (strGuide.indexOf("목적지 부근입니다") > -1) {
                                 stopTestDriveTimer();
@@ -2112,6 +2232,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         if (this.saveTimer != null) {
             this.saveTimer.cancel();
+            this.saveTimer = null;
         }
     }
 
@@ -2490,6 +2611,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void stopSenderTimer() {
         if (this.senderTimer != null) {
             this.senderTimer.cancel();
+            this.senderTimer = null;
         }
     }
 
@@ -2502,6 +2624,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void stopTestDriveTimer() {
         if (this.testDriveTimer != null) {
             this.testDriveTimer.cancel();
+            this.testDriveTimer = null;
         }
     }
 
@@ -3284,17 +3407,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-
-            if (this.mTts != null) {
-                this.mTts.stop();
-                this.mTts.shutdown();
-            }
-
-
-        } catch (Exception e) {
-
-        }
 
         // 지상 관제센터 전송 중지
         stopSenderTimer();
@@ -3308,7 +3420,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         // tts 타이머 종료
         stopTtsTimer();
 
-        mNlvView.clearRoutePosition();
+//        mNlvView.clearRoutePosition();
     }
 
     @Override
@@ -3850,8 +3962,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                 try {
 
-                    stopSenderTimer();
-                    stopSaveTimer();
+//                    stopSenderTimer();
+//                    stopSaveTimer();
 
                     // Realm을 초기화합니다.
                     Realm.init(mContext);
