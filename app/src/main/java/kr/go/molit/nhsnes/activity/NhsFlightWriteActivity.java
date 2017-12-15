@@ -44,6 +44,7 @@ import kr.go.molit.nhsnes.dialog.DialogFlightRoutList;
 import kr.go.molit.nhsnes.dialog.DialogSelectFlightPlain;
 import kr.go.molit.nhsnes.dialog.LoadingDialog;
 import kr.go.molit.nhsnes.model.FlightRouteModel;
+import kr.go.molit.nhsnes.model.NhsFlightHistoryModel;
 import kr.go.molit.nhsnes.net.model.FlightPlanModel;
 import kr.go.molit.nhsnes.net.model.NetSecurityModel;
 import kr.go.molit.nhsnes.net.model.TpmDepartureModel;
@@ -634,6 +635,39 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                 startActivityForResult(routePointIntent, NhsSelectPointActivity.MODE_ROUTE);
                 break;
             case R.id.bt_edit:
+
+                if (viewType == VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP) {
+
+                    mRealm.executeTransaction(new Realm.Transaction() {
+
+                        @Override
+                        public void execute(Realm realm) {
+
+                            try {
+
+                                getModel();
+
+                                realm.copyToRealmOrUpdate(mFlightPlanInfo);
+
+
+
+                            } catch (io.realm.exceptions.RealmPrimaryKeyConstraintException keyEx) {
+
+                                new ToastUtile().showCenterText(NhsFlightWriteActivity.this, "Flight Identity 값이 존재합니다.");
+                                ((EditTextEx) findViewById(R.id.et_1_1)).requestFocus();
+                            } finally {
+
+                                NhsFlightWriteActivity.this.finish();
+                                new ToastUtile().showCenterText(mContext, "수정 되었습니다.");
+
+                            }
+                        }
+                    });
+
+                    break;
+                }
+
+
             case R.id.layout_send:
 
                 // 우선 저장
@@ -1007,43 +1041,48 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
                     try {
 
+                        long idx = 0;
+
+                        try {
+
+                            Number currentIdNum = realm.where(FlightPlanInfo.class).max("idx");
+
+
+                            if (currentIdNum == null) {
+                                idx = 1;
+                            } else {
+                                idx = currentIdNum.intValue() + 1;
+                            }
+
+                        }catch (Exception ex){
+
+                        }
+
                         String currentCallsign = ((EditTextEx) findViewById(R.id.et_1_1)).getText().toString();
 
                         if (mFlightPlanInfo != null) {
 
-
-                            mFlightPlanInfo = realm.where(FlightPlanInfo.class).equalTo("callsign", currentCallsign).findFirst();
-
-                            // 사용자가 flight identity 를 변경해을 경우 새로 저장
-                            if (mFlightPlanInfo == null) {
-
-                                mFlightPlanInfo = realm.createObject(FlightPlanInfo.class, currentCallsign);
-                                getModel();
-
-                            } else {
-
-                                // 수정
-                                getModel();
-
-                            }
-
-                            NhsFlightWriteActivity.this.finish();
-                            new ToastUtile().showCenterText(mContext, "임시저장 되었습니다.");
+                            mFlightPlanInfo = realm.createObject(FlightPlanInfo.class, idx);
+                            mFlightPlanInfo.setCallsign(currentCallsign);
+                            getModel();
 
                         } else {
 
-                            mFlightPlanInfo = realm.createObject(FlightPlanInfo.class, currentCallsign);
+                            mFlightPlanInfo = realm.createObject(FlightPlanInfo.class, idx);
+                            mFlightPlanInfo.setCallsign(currentCallsign);
                             getModel();
 
-
-                            NhsFlightWriteActivity.this.finish();
-                            new ToastUtile().showCenterText(mContext, "임시저장 되었습니다.");
                         }
+
+
                     } catch (io.realm.exceptions.RealmPrimaryKeyConstraintException keyEx) {
 
                         new ToastUtile().showCenterText(NhsFlightWriteActivity.this, "Flight Identity 값이 존재합니다.");
                         ((EditTextEx) findViewById(R.id.et_1_1)).requestFocus();
                     } finally {
+
+                        NhsFlightWriteActivity.this.finish();
+                        new ToastUtile().showCenterText(mContext, "임시저장 되었습니다.");
 
                     }
                 }
@@ -1088,7 +1127,11 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                         mFlightPlanInfo.setMessageType(FlightPlanInfo.TYPE_MESSAGE_CHG);
                     } else {
                         mFlightPlanInfo.setMessageType(FlightPlanInfo.TYPE_MESSAGE_FPL);
-                        mFlightPlanInfo.setCallsign(((EditTextEx) findViewById(R.id.et_1_1)).getText().toString());
+                        try {
+                            mFlightPlanInfo.setCallsign(((EditTextEx) findViewById(R.id.et_1_1)).getText().toString());
+                        }catch (Exception ex) {
+
+                        }
                     }
                 }
             }
