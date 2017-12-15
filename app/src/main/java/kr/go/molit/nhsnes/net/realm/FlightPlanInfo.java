@@ -41,6 +41,7 @@ public class FlightPlanInfo extends RealmObject implements Serializable {
     }
 
     @PrimaryKey
+    private long idx;
     private String callsign;
     private String planId;
     private String planSn;
@@ -95,7 +96,6 @@ public class FlightPlanInfo extends RealmObject implements Serializable {
     private String acrftColor;
     private String captainPhone;
     private String planPresent;
-    private long idx;
     private Integer saveType;
     private String flightId;
     private long createAt;

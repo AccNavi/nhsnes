@@ -420,7 +420,6 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
                         @Override
                         public void onClick(View v) {
                             deleteDialog2.hideDialog();
-                            finish();
                         }
                     });
                 } else {
@@ -458,7 +457,6 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
                         @Override
                         public void onClick(View v) {
                             deleteDialog2.hideDialog();
-                            finish();
                         }
                     });
                 }

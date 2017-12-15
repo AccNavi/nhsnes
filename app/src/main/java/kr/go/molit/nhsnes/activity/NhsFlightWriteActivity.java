@@ -649,8 +649,6 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
                                 realm.copyToRealmOrUpdate(mFlightPlanInfo);
 
-
-
                             } catch (io.realm.exceptions.RealmPrimaryKeyConstraintException keyEx) {
 
                                 new ToastUtile().showCenterText(NhsFlightWriteActivity.this, "Flight Identity 값이 존재합니다.");
