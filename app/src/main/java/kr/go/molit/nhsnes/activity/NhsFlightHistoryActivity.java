@@ -25,6 +25,7 @@ import io.realm.RealmResults;
 import kr.go.molit.nhsnes.R;
 import kr.go.molit.nhsnes.adapter.RecyclerMainNhsFlightPlanListAdapter;
 import kr.go.molit.nhsnes.common.Util;
+import kr.go.molit.nhsnes.dialog.DialogType2;
 import kr.go.molit.nhsnes.model.NhsFlightHistoryModel;
 import kr.go.molit.nhsnes.model.NhsFlightPlainModel;
 import kr.go.molit.nhsnes.model.NhsFlightPlanListModel;
@@ -42,6 +43,8 @@ public class NhsFlightHistoryActivity extends NhsBaseFragmentActivity implements
     RecyclerView rvList;
     EditTextEx etSearch;
     List<FlightPlanInfo> pushList = new ArrayList<>();
+
+    private DialogType2 deleteDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -171,58 +174,73 @@ public class NhsFlightHistoryActivity extends NhsBaseFragmentActivity implements
             // 삭제하기
             case R.id.bt_delete:
 
-                Realm realm = Realm.getDefaultInstance();
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
+                RecyclerMainNhsFlightPlanListAdapter adapter = (RecyclerMainNhsFlightPlanListAdapter) rvList.getAdapter();
+                SparseArray<FlightPlanInfo> selectedItemIds = adapter.getSelectedItemIds();
 
-                        RecyclerMainNhsFlightPlanListAdapter adapter = (RecyclerMainNhsFlightPlanListAdapter) rvList.getAdapter();
+                if (selectedItemIds == null || selectedItemIds.size() == 0) {
 
-                        SparseArray<FlightPlanInfo> selectedItemIds = adapter.getSelectedItemIds();
-                        int i = 0;
-                        int size = selectedItemIds.size();
-                        RealmQuery<NhsFlightHistoryModel> result = realm.where(NhsFlightHistoryModel.class);
-
-                        for (i = 0; i < size; i++) {
-
-                            final int key = selectedItemIds.keyAt(i);
-                            result.equalTo("idx", selectedItemIds.get(key).getIdx());
-
-                            if (i < size-1) {
-                                result.or();
-                            }
+                    deleteDialog = new DialogType2(NhsFlightHistoryActivity.this, "", "삭제할 데이터를 선택해주세요.", getString(R.string.btn_confirm), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deleteDialog.hideDialog();
                         }
+                    });
 
-                        RealmResults<NhsFlightHistoryModel> findData = result.findAll();
+                } else {
 
-                        size = findData.size();
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.executeTransactionAsync(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
 
-                        for (i=0; i<size; i++) {
+                            RecyclerMainNhsFlightPlanListAdapter adapter = (RecyclerMainNhsFlightPlanListAdapter) rvList.getAdapter();
 
-                            try {
-                                // trk 파일 삭제
-                                SimpleDateFormat sif = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-                                String fileName = sif.format(new Date(selectedItemIds.get(i).getGpsLogDate()));
-                                File file = new File(NativeImplement.GPS_LOG_DATA_PATH + "TRK_" + fileName + ".trk");
+                            SparseArray<FlightPlanInfo> selectedItemIds = adapter.getSelectedItemIds();
+                            int i = 0;
+                            int size = selectedItemIds.size();
+                            RealmQuery<NhsFlightHistoryModel> result = realm.where(NhsFlightHistoryModel.class);
 
-                                // 파일이 있으면 파일 삭제
-                                if (file.exists()) {
-                                    file.delete();
+                            for (i = 0; i < size; i++) {
+
+                                final int key = selectedItemIds.keyAt(i);
+                                result.equalTo("idx", selectedItemIds.get(key).getIdx());
+
+                                if (i < size - 1) {
+                                    result.or();
                                 }
-                            }catch (Exception ex) {
+                            }
+
+                            RealmResults<NhsFlightHistoryModel> findData = result.findAll();
+
+                            size = findData.size();
+
+                            for (i = 0; i < size; i++) {
+
+                                try {
+                                    // trk 파일 삭제
+                                    SimpleDateFormat sif = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+                                    String fileName = sif.format(new Date(selectedItemIds.get(i).getGpsLogDate()));
+                                    File file = new File(NativeImplement.GPS_LOG_DATA_PATH + "TRK_" + fileName + ".trk");
+
+                                    // 파일이 있으면 파일 삭제
+                                    if (file.exists()) {
+                                        file.delete();
+                                    }
+                                } catch (Exception ex) {
+
+                                }
 
                             }
 
+                            if (findData != null) {
+                                findData.deleteAllFromRealm();
+                            }
+
+                            loadDataList();
+
                         }
-
-                        if (findData!=null) {
-                            findData.deleteAllFromRealm();
-                        }
-
-                        loadDataList();
-
-                    }
-                });
+                    });
+                }
         }
 
 

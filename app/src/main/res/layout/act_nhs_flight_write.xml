@@ -58,10 +58,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="6"
-                            android:text="FF"
-                            android:inputType="textEmailAddress"
                             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                            app:type="eng"/>
+                            android:inputType="textEmailAddress"
+                            android:text="FF"
+                            app:type="eng" />
 
                     </LinearLayout>
 
@@ -84,10 +84,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="6"
-                            android:text="003206"
-                            android:inputType="textEmailAddress"
                             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                            app:type="eng"/>
+                            android:inputType="textEmailAddress"
+                            android:text="003206"
+                            app:type="eng" />
 
 
                     </LinearLayout>
@@ -110,9 +110,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="6"
-                            android:text="RXPSPPX"
-                            android:inputType="textEmailAddress"
                             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                            android:inputType="textEmailAddress"
+                            android:text="RXPSPPX"
                             app:type="eng" />
 
 
@@ -143,9 +143,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_weight="6"
-                            android:text="FPL"
-                            android:inputType="textEmailAddress"
                             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                            android:inputType="textEmailAddress"
+                            android:text="FPL"
                             app:type="eng" />
 
                     </LinearLayout>
@@ -205,9 +205,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="6"
-                        android:maxLength="10"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -329,9 +329,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="6"
-                        android:maxLength="2"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="2"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -369,10 +369,10 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text=""
-                        android:maxLength="4"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="4"
+                        android:text=""
                         app:type="eng" />
 
 
@@ -458,9 +458,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="6"
-                        android:maxLength="4"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="4"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -584,11 +584,11 @@
                         style="@style/editTextBoxAppearanceWithClick"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                         android:duplicateParentState="true"
                         android:enabled="false"
-                        android:text=""
                         android:inputType="textEmailAddress"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:text=""
                         app:type="eng" />
 
                 </LinearLayout>
@@ -626,9 +626,9 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:maxLength="5"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="5"
                         app:type="eng" />
 
 
@@ -719,7 +719,6 @@
                             android:layout_weight="1">
 
                             <EditText
-                                android:text=""
                                 android:id="@+id/ed_route"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -730,6 +729,7 @@
                                 android:inputType="textMultiLine"
                                 android:maxLines="5"
                                 android:scrollbars="vertical"
+                                android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14dp" />
                         </LinearLayout>
@@ -851,9 +851,9 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:maxLength="5"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="5"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -892,11 +892,11 @@
 
                     <kr.go.molit.nhsnes.widget.EditTextEx
                         android:id="@+id/et_6_2"
-                        android:maxLength="4"
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        app:type="number"  />
+                        android:maxLength="4"
+                        app:type="number" />
 
                 </LinearLayout>
 
@@ -947,9 +947,9 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text=""
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
+                        android:text=""
                         app:type="eng" />
 
                 </LinearLayout>
@@ -975,8 +975,8 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:inputType="textEmailAddress"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                        android:inputType="textEmailAddress"
                         app:type="eng" />
 
                 </LinearLayout>
@@ -1015,12 +1015,12 @@
                         style="@style/editTextBoxAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                         android:gravity="left"
+                        android:inputType="textEmailAddress"
                         android:lines="2"
                         android:padding="10dp"
                         android:text=""
-                        android:inputType="textEmailAddress"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                         app:type="eng" />
                 </LinearLayout>
 
@@ -1047,10 +1047,10 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1066,10 +1066,10 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
 
             </LinearLayout>
@@ -1297,12 +1297,13 @@
                 <kr.go.molit.nhsnes.widget.EditTextEx
                     android:id="@+id/et_13_1"
                     style="@style/editTextBoxSmallAppearance"
-                    android:layout_width="40dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     android:id="@+id/textViewEx"
@@ -1318,20 +1319,22 @@
                 <kr.go.molit.nhsnes.widget.EditTextEx
                     android:id="@+id/et_13_2"
                     style="@style/editTextBoxSmallAppearance"
-                    android:layout_width="40dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
+                    android:layout_weight="1"
                     android:text="Cover"
                     android:textSize="10sp" />
 
@@ -1340,18 +1343,19 @@
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
+                    android:layout_weight="1"
                     android:text="Color"
                     android:textSize="10sp" />
 
@@ -1359,11 +1363,11 @@
                     android:id="@+id/et_13_4"
                     style="@style/editTextBoxSmallAppearance"
                     android:layout_width="40dp"
-                    android:inputType="textEmailAddress"
-                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
                     android:layout_height="wrap_content"
-                    android:text="" />
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
             </LinearLayout>
 
@@ -1385,12 +1389,13 @@
                 <kr.go.molit.nhsnes.widget.EditTextEx
                     android:id="@+id/et_14_1"
                     style="@style/editTextBoxSmallAppearance"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
                     style="@style/textViewTitleWhiteSmallAppearance2"
@@ -1404,12 +1409,13 @@
                 <kr.go.molit.nhsnes.widget.EditTextEx
                     android:id="@+id/et_14_2"
                     style="@style/editTextBoxSmallAppearance"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
 
                 <kr.go.molit.nhsnes.widget.TextViewEx
@@ -1424,12 +1430,13 @@
                 <kr.go.molit.nhsnes.widget.EditTextEx
                     android:id="@+id/et_14_3"
                     style="@style/editTextBoxSmallAppearance"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"
                     android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                    app:type="eng"
-                    android:text="" />
+                    android:inputType="textEmailAddress"
+                    android:text=""
+                    app:type="eng" />
 
             </LinearLayout>
 
@@ -1577,13 +1584,13 @@
                             style="@style/editTextBoxAppearance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                             android:gravity="left"
+                            android:inputType="textEmailAddress"
                             android:lines="7"
                             android:padding="10dp"
                             android:text=""
-                            android:inputType="textEmailAddress"
-                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                            app:type="eng"/>
+                            app:type="eng" />
                     </LinearLayout>
 
                 </LinearLayout>
