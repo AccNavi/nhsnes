@@ -1458,7 +1458,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             } else if (requestCode == NhsSelectPointActivity.MODE_ARRIVAL) {  // 도착지 검색 결과
 
                 planArrival = data.getExtras().getString(DATA_END);
-                String[] start = planDeparture.split(" ");
+                String[] start = planArrival.split(" ");
                 StringBuffer strBuffer = new StringBuffer();
                 lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
                 String apCd = strBuffer.toString().split("@@")[0];
