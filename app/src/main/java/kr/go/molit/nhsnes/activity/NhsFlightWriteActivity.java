@@ -635,14 +635,25 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             layoutSuperLight.setVisibility(View.VISIBLE);
             ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
         } else {
-            /*
-            String doccd = model.getPlanDoccd();
-            if (doccd != null && doccd.trim().equals("01")) {
-                ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
+            Log.d("JeLib","------------------");
+            Log.d("JeLib","------------------");
+            Log.d("JeLib","------------------");
+            Log.d("JeLib","------------------");
+
+            if (isEditMode) {
+                String doccd = model.getPlanDoccd();
+                Log.d("JeLib","doccd--"+doccd);
+                if (doccd != null && doccd.trim().equals("01")) {
+                    layoutSuperLight.setVisibility(View.VISIBLE);
+                    ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
+                } else {
+                    layoutSuperLight.setVisibility(View.GONE);
+                    ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
+                }
             } else {
+                layoutSuperLight.setVisibility(View.GONE);
                 ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
-            }*/
-            ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
+            }
         }
     }
 
@@ -945,7 +956,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                                 Log.d("JeLib",""+r.getLat()+":::"+r.getLon());
                                 routeList.add(routeMap);
                             }
-                            
+
                             /*
                             String[] start = mFlightPlanInfo.getPlanDeparture().split(" ");
                             String[] end = mFlightPlanInfo.getPlanArrival().split(" ");
