@@ -927,6 +927,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                         if (routeData.isEmpty()) {
                                             routeData = curPos.x + " " + curPos.y + "\n";
                                         } else {
+
+                                            // 마지막에 \n이 없으면 붙인다.
+                                            if (routeData.lastIndexOf("\n") != routeData.length()-1) {
+                                                routeData += "\n";
+                                            }
+
                                             routeData += (curPos.x + " " + curPos.y + "\n");
                                         }
                                     }

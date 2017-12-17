@@ -49,6 +49,7 @@ import java.util.TimerTask;
 import kr.go.molit.nhsnes.R;
 import kr.go.molit.nhsnes.activity.NhsFlightActivity;
 import kr.go.molit.nhsnes.common.StorageUtil;
+import kr.go.molit.nhsnes.common.ToastUtile;
 import kr.go.molit.nhsnes.interfaces.OnClickOptionMapMenu;
 import kr.go.molit.nhsnes.interfaces.OnLongClickOptionMapMenu;
 import kr.go.molit.nhsnes.widget.TextViewEx;
@@ -624,6 +625,10 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
 
         // 다이얼로그 취소 버튼 숨기기..
         this.dialog.findViewById(R.id.alert_btn_cancel).setVisibility(View.GONE);
+
+      } else if (result != 0) {
+
+        new ToastUtile().showCenterText(context, "좌표를 찍을 수 없습니다(Code : " + result + ")");
 
       }
 
