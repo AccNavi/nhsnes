@@ -253,7 +253,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            startTtsTimer();
+                                                    //        startTtsTimer();
                                                         }
                                                     }, 1000);
 
