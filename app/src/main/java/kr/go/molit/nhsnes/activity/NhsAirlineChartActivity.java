@@ -129,6 +129,11 @@ public class NhsAirlineChartActivity extends NhsBaseFragmentActivity {
 //                                intent.putExtra(CALL_CALSS_NAME, NhsAirlineChartActivity.class.getName());
 //                                startActivity(intent);
                                 }
+
+                                @Override
+                                public void onStart(String fileName) {
+
+                                }
                             });
 
                         }

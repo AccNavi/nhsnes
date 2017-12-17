@@ -79,6 +79,11 @@ public class NhsAirlineWeatherActivity extends NhsBaseFragmentActivity {
                 new ToastUtile().showCenterText(NhsAirlineWeatherActivity.this, "다운로드 완료");
                 rvList.getAdapter().notifyDataSetChanged();
             }
+
+            @Override
+            public void onStart(String fileName) {
+
+            }
         });
 
     }

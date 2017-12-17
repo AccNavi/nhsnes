@@ -40,6 +40,8 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
 
         public void onSuccess(File file);
 
+        public void onStart(String fileName);
+
     }
 
     private ProgressDialog mProgressDialog;
@@ -86,6 +88,10 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
         } catch(Exception e){
 
         }
+        if (onResult != null) {
+            onResult.onStart(fileName);
+        }
+
     }
 
     @Override
