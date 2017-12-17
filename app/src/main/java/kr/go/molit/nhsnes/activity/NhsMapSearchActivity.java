@@ -307,7 +307,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 //                    testZoom();
 
                     // 프로그래스바를 종료한다.
-                    dismissProgress();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismissProgress();
+                        }
+                    },3000);
 
                 }
             }
