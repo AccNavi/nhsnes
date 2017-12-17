@@ -71,19 +71,21 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
     protected void onPreExecute() {
         // TODO Auto-generated method stub
         super.onPreExecute();
+        try {
+            if (this.showProgressBar) {
 
-        if (this.showProgressBar) {
+                this.mProgressDialog = new ProgressDialog(this.context, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                this.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                this.mProgressDialog.setTitle("");
+                this.mProgressDialog.setMessage(this.context.getString(R.string.wait_message));
+                this.mProgressDialog.setIndeterminate(true);
+                this.mProgressDialog.setCancelable(false);
+                this.mProgressDialog.show();
 
-            this.mProgressDialog = new ProgressDialog(this.context, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
-            this.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            this.mProgressDialog.setTitle("");
-            this.mProgressDialog.setMessage(this.context.getString(R.string.wait_message));
-            this.mProgressDialog.setIndeterminate(true);
-            this.mProgressDialog.setCancelable(false);
-            this.mProgressDialog.show();
+            }
+        } catch(Exception e){
 
         }
-
     }
 
     @Override
@@ -167,7 +169,11 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
         }
 
         if (this.showProgressBar) {
-            mProgressDialog.dismiss();
+            try {
+                mProgressDialog.dismiss();
+            } catch (Exception e){
+
+            }
         }
 
     }

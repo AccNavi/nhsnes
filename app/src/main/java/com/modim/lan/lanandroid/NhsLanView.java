@@ -325,9 +325,6 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
         }
         break;
         case R.id.btnGeoMove: {
-          Log.d("JeLib","1111111111111111111111");
-          Log.d("JeLib","1111111111111111111111");
-          Log.d("JeLib","1111111111111111111111");
           lanSearchMapPreviewStart(1265840630, 373358870);
         }
         break;
@@ -342,9 +339,6 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   };
 
   public void onStop() {
-    Log.d("JeLib","----------------------------------");
-    Log.d("JeLib","----------------------------------");
-    Log.d("JeLib","----------------------------------");
     try {
       if (task != null) {
         task.cancel();
@@ -355,9 +349,6 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   }
 
   public void onPause() {
-    Log.d("JeLib","-----------onPause-----------");
-    Log.d("JeLib","---------onPause-------");
-    Log.d("JeLib","---------onPause---------");
     try {
       mSensorManager.unregisterListener(this);
 //      mSensorManager.unregisterListener(mGyroLis);
@@ -367,9 +358,6 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
   }
 
   public void onResume() {
-    Log.d("JeLib","--------onResume-----------");
-    Log.d("JeLib","--------onResume------");
-    Log.d("JeLib","--------onResume---------");
     try {
 //
       mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_UI);

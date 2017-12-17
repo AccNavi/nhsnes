@@ -57,35 +57,37 @@ public class DialogBase extends AppCompatDialog {
      **/
     private void setUsbReceiver()
     {
-        mSerial = new FTDriver((UsbManager) getContext().getSystemService(Context.USB_SERVICE));
-        mUsbReceiver = new UsbReceiver(getContext(), mSerial);
-
         try {
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-            filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-            getContext().registerReceiver(mUsbReceiver, filter);
-        }catch (Exception ex) {
+            mSerial = new FTDriver((UsbManager) getContext().getSystemService(Context.USB_SERVICE));
+            mUsbReceiver = new UsbReceiver(getContext(), mSerial);
 
-        }
-        // load default baud rate
-        mBaudrate = mUsbReceiver.loadDefaultBaudrate();
+            try {
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+                filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+                getContext().registerReceiver(mUsbReceiver, filter);
+            } catch (Exception ex) {
 
-        // for requesting permission
-        // setPermissionIntent() before begin()
-        PendingIntent permissionIntent = PendingIntent.getBroadcast(getContext(), 0, new Intent(ACTION_USB_PERMISSION), 0);
-        mSerial.setPermissionIntent(permissionIntent);
-        Log.d("usb","FTDriver beginning");
+            }
+            // load default baud rate
+            mBaudrate = mUsbReceiver.loadDefaultBaudrate();
 
-        if (mSerial.begin(mBaudrate)) {
-            Log.d("usb", "FTDriver began");
-            mUsbReceiver.loadDefaultSettingValues();
-            mUsbReceiver.mainloop();
-        }
-        else
-        {
-            Log.d("usb", "FTDriver no connection");
+            // for requesting permission
+            // setPermissionIntent() before begin()
+            PendingIntent permissionIntent = PendingIntent.getBroadcast(getContext(), 0, new Intent(ACTION_USB_PERMISSION), 0);
+            mSerial.setPermissionIntent(permissionIntent);
+            Log.d("usb", "FTDriver beginning");
+
+            if (mSerial.begin(mBaudrate)) {
+                Log.d("usb", "FTDriver began");
+                mUsbReceiver.loadDefaultSettingValues();
+                mUsbReceiver.mainloop();
+            } else {
+                Log.d("usb", "FTDriver no connection");
 //            Toast.makeText(this, "no connection", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -102,12 +104,16 @@ public class DialogBase extends AppCompatDialog {
      * @since 2017-10-30 오전 10:25
      **/
     private void setUnUsbRecevier(){
-        if (this.mUsbReceiver != null) {
-            try {
-                getContext().unregisterReceiver(this.mUsbReceiver);
-            }catch (Exception ex){
+        try {
+            if (this.mUsbReceiver != null) {
+                try {
+                    getContext().unregisterReceiver(this.mUsbReceiver);
+                } catch (Exception ex) {
 
+                }
             }
+        } catch(Exception e){
+
         }
     }
 

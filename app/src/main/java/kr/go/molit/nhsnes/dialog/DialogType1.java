@@ -33,13 +33,15 @@ public class DialogType1{
 
 
     public DialogType1(Context context){
-
-        _context = context;
+        if(_context==null) {
+            _context = context;
+        }
     }
 
     public DialogType1(Context context, String title, String msg, String ok, View.OnClickListener okListener, String cancel, View.OnClickListener cancelListener){
-
-        _context = context;
+        if(_context==null) {
+            _context = context;
+        }
         // 일반 팝업 다이얼로그로 진입 => 버튼 2개
         showCustomDialog(title, msg, ok, okListener, cancel, cancelListener);
     }
@@ -51,8 +53,13 @@ public class DialogType1{
      * @brief
      */
     public void hideDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+        try {
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+                //dialog = null;
+            }
+        } catch (Exception e){
+
         }
     }
 
@@ -64,11 +71,16 @@ public class DialogType1{
      * @brief
      */
     public boolean isShowDialog(){
-        if(dialog != null && dialog.isShowing()){
-            return true;
-        }else{
-            return false;
+        try {
+            if(dialog != null && dialog.isShowing()){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e){
+
         }
+        return false;
     }
 
     /**

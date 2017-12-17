@@ -351,12 +351,13 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             layoutButtonDefault.setVisibility(View.GONE);
             findViewById(R.id.layout_save).setVisibility(View.GONE);
             findViewById(R.id.layout_load).setVisibility(View.GONE);
-            layoutEdit.setVisibility(View.VISIBLE);
+
             findViewById(R.id.edit_mode).setVisibility(View.VISIBLE);
             if (!this.isTmp) {
+                layoutEdit.setVisibility(View.VISIBLE);
                 callFlightPlanDetail(planid, planSn);
             } else {
-
+                layoutEdit.setVisibility(View.GONE);
             }
 
         } else {

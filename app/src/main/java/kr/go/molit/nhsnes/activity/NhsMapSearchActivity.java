@@ -42,6 +42,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -175,6 +176,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private String flightId = "";
     private ArrayList<FlightRouteModel> route;  // 경로
     private boolean isSimulStop = false;
+
+    private View v_overlay  =   null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -357,14 +360,32 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오전 3:50
      **/
+    private View overView = null;
     private void showProgress() {
-        this.progressDialog = new ProgressDialog(NhsMapSearchActivity.this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        this.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        this.progressDialog.setTitle("");
-        this.progressDialog.setMessage(NhsMapSearchActivity.this.getString(R.string.wait_message));
-        this.progressDialog.setIndeterminate(true);
-        this.progressDialog.setCancelable(false);
-        this.progressDialog.show();
+
+        try {
+            /*
+            this.progressDialog = new ProgressDialog(NhsMapSearchActivity.this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            this.progressDialog.setTitle("");
+            this.progressDialog.setMessage(NhsMapSearchActivity.this.getString(R.string.wait_message));
+            this.progressDialog.setIndeterminate(true);
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.show();
+            */
+            if(v_overlay == null) {
+                v_overlay = findViewById(R.id.v_overlay);
+                v_overlay.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d("JeLib","방지");
+                        return false;
+                    }
+                });
+            }
+        } catch (Exception e){
+
+        }
     }
 
     /**
@@ -374,9 +395,18 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @since 오전 3:50
      **/
     private void dismissProgress() {
+        try {
+            /*
+            if (this.progressDialog != null) {
+                this.progressDialog.dismiss();
+            }*/
+            if(v_overlay != null) {
+                v_overlay.setVisibility(View.GONE);
+                v_overlay.setOnTouchListener(null);
+                v_overlay = null;
+            }
+        } catch (Exception e){
 
-        if (this.progressDialog != null) {
-            this.progressDialog.dismiss();
         }
     }
 
