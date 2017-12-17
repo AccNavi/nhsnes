@@ -738,14 +738,20 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                             fpl.put("planPurpose", mFlightPlanInfo.getPlanPurpose());
                             fpl.put("planNumber", mFlightPlanInfo.getPlanNumber());
 
-                            fpl.put("planDoccd", mFlightPlanInfo.getPlanDoccd());
+                            if(((CheckBox) findViewById(R.id.cb_light)).isChecked()){
+                                mFlightPlanInfo.setPlanDoccd("01");
+                                fpl.put("planDoccd", "01");
+                            } else {
+                                mFlightPlanInfo.setPlanDoccd("00");
+                                fpl.put("planDoccd", "00");
+                            }
 
                             fpl.put("acrftType", mFlightPlanInfo.getAcrftType());
                             fpl.put("wakeTurbcat", mFlightPlanInfo.getWakeTurbcat().substring(0, 1));
                             fpl.put("planEquipment", mFlightPlanInfo.getPlanEquipment());
                             //fpl.put("planDeparture",mFlightPlanInfo.getPlanDeparture());
 
-                            //fpl.put("planEtd", findViewById(R.id.et_3_3).toString());
+                            fpl.put("planEtd", ((EditTextEx)findViewById(R.id.et_3_3)).getText().toString());
                             fpl.put("planAtd", mFlightPlanInfo.getPlanAtd());
                             fpl.put("cruisingSpeed", mFlightPlanInfo.getCruisingSpeed());
                             fpl.put("flightLevel", mFlightPlanInfo.getFlightLevel());
