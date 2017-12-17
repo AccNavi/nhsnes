@@ -393,22 +393,31 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
                     return;
                 }*/
 
-
+                Log.d("JeLib", "-------------------1-----------");
                 if (selectedTab == TAB_TMP_SELECTED) {
                     deleteDialog2 = new DialogType1(NhsFlightPlanListActivity.this, "임시저장 삭제", getString(R.string.fpl_message_5), getString(R.string.btn_confirm), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             deleteDialog2.hideDialog();
-
+                            Log.d("JeLib", "------------------------------");
                             List<FlightPlanInfo> deletes = mRecyclerMainNhsFlightPlanListAdapter.getData();
                             for (int i = 0; i < mRecyclerMainNhsFlightPlanListAdapter.getItemCount(); i++) {
-                                FlightPlanInfo info = selected2.get(i);
-                                if (info != null) {
-                                    Log.i("TEST", "info.delete();");
-                                    info.delete();
-                                    deletes.remove(info);
+                                try {
+                                    FlightPlanInfo info = selected2.get(i);
+                                    if (info != null) {
+                                        Log.d("JeLib", "info.delete();");
+                                        info.delete();
+                                        Log.d("JeLib", "-------------------");
+                                        //deletes.remove(info);
+                                    }
+                                }catch(Exception e){
+
                                 }
                             }
+                            flightPlanList = new FlightPlanInfo().find(NhsFlightPlainModel.FindType.TMP.ordinal());
+                            mRecyclerMainNhsFlightPlanListAdapter.setData(flightPlanList, RecyclerMainNhsFlightPlanListAdapter.VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP);
+                            ((TextViewEx) findViewById(R.id.tv_total)).setText(flightPlanList.size() + "");
+
                             Log.i("TEST", "notifyDataSetChanged");
                             mRecyclerMainNhsFlightPlanListAdapter.notifyDataSetChanged();
 
