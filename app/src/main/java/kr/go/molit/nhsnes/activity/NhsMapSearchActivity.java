@@ -937,7 +937,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                 break;
 
                             case R.id.btn_cancel:
-
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------경로확정-------");
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------------------------");
                                 try {
                                     // 경로 확정
                                     int resultCode = mNlvView.executeRP(NhsMapSearchActivity.this, 0, 0, new View.OnClickListener() {

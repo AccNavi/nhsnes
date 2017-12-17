@@ -355,6 +355,9 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
 
                         if (selectedTab == TAB_TMP_SELECTED) {
                             intent.putExtra("isTmp", true);
+                            intent.putExtra(DialogSelectFlightPlain.INTENT_PLAN_DATA, ""+selected.get(0).getIdx());
+                        } else {
+
                         }
 
                         startActivity(intent);

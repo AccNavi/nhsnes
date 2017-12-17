@@ -195,12 +195,15 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
             });
         } else if (holder instanceof NhsFlightListHolderType3) {
             final NhsFlightListHolderType3 type3 = (NhsFlightListHolderType3) holder;
+            String callsign = "";
+            try {
+                callsign = data.getCallsign();
+                if (callsign == null) {
+                    callsign = data.getAcrftCd();
+                }
+            } catch(Exception e){
 
-            String callsign = data.getCallsign();
-            if(callsign==null){
-                callsign = data.getAcrftCd();
             }
-
             if (data.getPlanDate() != null) {
                 type3.tvTitle.setText(callsign + " " + data.getAcrftType() + "(" + data.getPlanDate() + ")");
             } else {
@@ -261,8 +264,9 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
                         Context context = type3.tvTitle.getContext();
                         // 임시저장 클릭
                         Intent intent = new Intent (context, NhsFlightWriteActivity.class);
-                        intent.putExtra(DialogSelectFlightPlain.INTENT_PLAN_DATA, data.getCallsign());
+                        intent.putExtra(DialogSelectFlightPlain.INTENT_PLAN_DATA, ""+data.getIdx());
                         intent.putExtra(DialogSelectFlightPlain.INTENT_PLAN_TYPE, viewType);
+                        intent.putExtra("isTmp", true);
                         context.startActivity(intent);
                     } else {
                         if (null != data.getPlanStatus()) {
