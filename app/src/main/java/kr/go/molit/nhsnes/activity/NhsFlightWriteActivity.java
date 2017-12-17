@@ -380,6 +380,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
     private void setFlightData(FlightPlanInfo model) {
         //NhsFlightPlainModel model = NhsFlightPlainModel.getOneById(planId);
+        if(route == null)route = new ArrayList<FlightRouteModel>();
+
         if (null == model) {
             return;
         }
@@ -1547,6 +1549,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+
+            if(route == null)route = new ArrayList<FlightRouteModel>();
 
             if (requestCode == NhsSelectPointActivity.MODE_DEPARTURE) { // 출발 검색 결과
                 String planDeparture = data.getExtras().getString(DATA_START);
