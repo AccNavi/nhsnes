@@ -384,7 +384,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         Log.d("JeLib","방지");
-                        return false;
+                        return true;
                     }
                 });
             }
