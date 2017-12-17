@@ -377,6 +377,11 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
                                             new ToastUtile().showCenterText(NhsAipInfoActivity.this, "다운로드 완료");
                                             rvList.getAdapter().notifyDataSetChanged();
                                         }
+
+                                        @Override
+                                        public void onStart(String fileName) {
+
+                                        }
                                     });
 
                                 }
@@ -461,6 +466,11 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
                     @Override
                     public void onSuccess(File file) {
                         allDownload();
+                    }
+
+                    @Override
+                    public void onStart(String fileName) {
+
                     }
 
                 }, false);
@@ -562,6 +572,11 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
                                     new ToastUtile().showCenterText(NhsAipInfoActivity.this, "다운로드 완료");
                                     rvList.getAdapter().notifyDataSetChanged();
                                 }
+
+                                @Override
+                                public void onStart(String fileName) {
+
+                                }
                             });
 
                         }
@@ -652,6 +667,11 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
                 public void onSuccess(File file) {
                     loadDoyupList();
                     new ToastUtile().showCenterText(NhsAipInfoActivity.this, "다운로드 완료");
+                }
+
+                @Override
+                public void onStart(String fileName) {
+
                 }
             });
 

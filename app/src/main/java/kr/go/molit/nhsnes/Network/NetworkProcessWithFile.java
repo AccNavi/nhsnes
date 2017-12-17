@@ -40,6 +40,8 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
 
         public void onSuccess(File file);
 
+        public void onStart(String fileName);
+
     }
 
     private ProgressDialog mProgressDialog;
@@ -54,7 +56,7 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
     private boolean isSucc = false;
 
     public NetworkProcessWithFile(Context context, String direction,
-                                  StringEntity param, String downloadPath, String fileName, OnResultListener onResult, boolean showProgressBar) {
+                                     StringEntity param, String downloadPath, String fileName, OnResultListener onResult, boolean showProgressBar) {
 
         this.direction = direction;
         this.param = param;
@@ -82,6 +84,10 @@ public class NetworkProcessWithFile extends AsyncTask<Void, Integer, Void> {
             this.mProgressDialog.setCancelable(false);
             this.mProgressDialog.show();
 
+        }
+
+        if (onResult != null) {
+            onResult.onStart(fileName);
         }
 
     }
