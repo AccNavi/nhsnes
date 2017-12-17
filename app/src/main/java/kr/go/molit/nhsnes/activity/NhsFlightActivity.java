@@ -381,6 +381,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         if(mode == NONE_DRIVE){
             sdf = new SimpleDateFormat("HH:mm:ss");
+            this.startDate = sdf.format(new Date());
             ((TextView) findViewById(R.id.tv_ete_eta)).setText(sdf.format(new Date()));
         }
     }
@@ -3425,6 +3426,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         stopTtsTimer();
 
 //        mNlvView.clearRoutePosition();
+        System.gc();
     }
 
     @Override
