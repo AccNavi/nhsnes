@@ -727,8 +727,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                                 fpl.put("planSn", mFlightPlanInfo.getPlanSn());
 //          }
                             }
-                            fpl
-                                    .put("planPriority", mFlightPlanInfo.getPlanPriority());
+                            fpl.put("planPriority", mFlightPlanInfo.getPlanPriority());
                             fpl.put("planFltm", DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT9));
                             fpl.put("planRqstdept", "1111");//부서코드
                             fpl.put("planDate", DateTimeUtil.date(DateTimeUtil.DEFUALT_DATE_FORMAT1));
@@ -746,7 +745,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                             fpl.put("planEquipment", mFlightPlanInfo.getPlanEquipment());
                             //fpl.put("planDeparture",mFlightPlanInfo.getPlanDeparture());
 
-                            fpl.put("planEtd", findViewById(R.id.et_3_3).toString());
+                            //fpl.put("planEtd", findViewById(R.id.et_3_3).toString());
                             fpl.put("planAtd", mFlightPlanInfo.getPlanAtd());
                             fpl.put("cruisingSpeed", mFlightPlanInfo.getCruisingSpeed());
                             fpl.put("flightLevel", mFlightPlanInfo.getFlightLevel());
@@ -974,8 +973,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                                                     mRealm.executeTransaction(new Realm.Transaction() {
                                                         @Override
                                                         public void execute(Realm realm) {
-
-                                                            RealmResults<FlightPlanInfo> result = realm.where(FlightPlanInfo.class).equalTo("callsign", mFlightPlanInfo.getCallsign()).findAll();
+                                                            RealmResults<FlightPlanInfo> result = realm.where(FlightPlanInfo.class).equalTo("idx", mFlightPlanInfo.getIdx()).findAll();
                                                             result.deleteAllFromRealm();
 
                                                         }
