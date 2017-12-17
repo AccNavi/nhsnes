@@ -365,7 +365,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오전 3:50
      **/
-    private View overView = null;
     private void showProgress() {
 
         try {
