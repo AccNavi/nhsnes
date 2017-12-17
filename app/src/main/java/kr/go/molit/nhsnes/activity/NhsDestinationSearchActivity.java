@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -105,7 +106,7 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
     private Dialog mDialog;     // 기본 다이얼로그
 
     private Realm mRealm;
-
+    private View v_overlay = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,8 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         // Realm을 초기화합니다.
         Realm.init(mContext);
         mRealm = Realm.getDefaultInstance();
+
+        showProgress();
 
         Bundle data = getIntent().getExtras();
         Log.d("JeLib","--------1---------");
@@ -127,7 +130,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
 
         setLayout();
-
+        
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismissProgress();
+            }
+        },3000);
     }
 
     @Override
@@ -149,6 +158,41 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     }
 
+    private void showProgress() {
+
+        try {
+            if(v_overlay == null) {
+                v_overlay = findViewById(R.id.v_overlay);
+                v_overlay.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d("JeLib","방지");
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception e){
+
+        }
+    }
+
+    /**
+     * 프로그래스바를 종료한다.
+     *
+     * @author FIESTA
+     * @since 오전 3:50
+     **/
+    private void dismissProgress() {
+        try {
+            if(v_overlay != null) {
+                v_overlay.setVisibility(View.GONE);
+                v_overlay.setOnTouchListener(null);
+                v_overlay = null;
+            }
+        } catch (Exception e){
+
+        }
+    }
     private void searchList(String mPOIText){
         byte[] strKSC5601 = null;
         try {

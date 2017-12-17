@@ -635,11 +635,6 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             layoutSuperLight.setVisibility(View.VISIBLE);
             ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
         } else {
-            Log.d("JeLib","------------------");
-            Log.d("JeLib","------------------");
-            Log.d("JeLib","------------------");
-            Log.d("JeLib","------------------");
-
             if (isEditMode) {
                 String doccd = model.getPlanDoccd();
                 Log.d("JeLib","doccd--"+doccd);
