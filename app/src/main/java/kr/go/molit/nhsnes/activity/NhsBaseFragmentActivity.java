@@ -412,32 +412,34 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      **/
     private void setUsbReceiver()
     {
-        mSerial = new FTDriver((UsbManager) getSystemService(Context.USB_SERVICE));
-        mUsbReceiver = new UsbReceiver(this, mSerial);
+        try {
+            mSerial = new FTDriver((UsbManager) getSystemService(Context.USB_SERVICE));
+            mUsbReceiver = new UsbReceiver(this, mSerial);
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction (UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        filter.addAction (UsbManager.ACTION_USB_DEVICE_DETACHED);
-        registerReceiver (mUsbReceiver, filter);
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+            filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+            registerReceiver(mUsbReceiver, filter);
 
-        // load default baud rate
-        mBaudrate = mUsbReceiver.loadDefaultBaudrate();
+            // load default baud rate
+            mBaudrate = mUsbReceiver.loadDefaultBaudrate();
 
-        // for requesting permission
-        // setPermissionIntent() before begin()
-        PendingIntent permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-        mSerial.setPermissionIntent(permissionIntent);
-        Log.d("usb","FTDriver beginning");
+            // for requesting permission
+            // setPermissionIntent() before begin()
+            PendingIntent permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+            mSerial.setPermissionIntent(permissionIntent);
+            Log.d("usb", "FTDriver beginning");
 
-        if (mSerial.begin(mBaudrate)) {
-            Log.d("usb", "FTDriver began");
-            mUsbReceiver.loadDefaultSettingValues();
-            mUsbReceiver.mainloop();
-        }
-        else
-        {
-            Log.d("usb", "FTDriver no connection");
+            if (mSerial.begin(mBaudrate)) {
+                Log.d("usb", "FTDriver began");
+                mUsbReceiver.loadDefaultSettingValues();
+                mUsbReceiver.mainloop();
+            } else {
+                Log.d("usb", "FTDriver no connection");
 //            Toast.makeText(this, "no connection", Toast.LENGTH_SHORT).show();
+            }
+        } catch(Exception e){
+
         }
     }
 
@@ -448,10 +450,13 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      * @since 2017-10-30 오전 10:25
      **/
     private void setUnUsbRecevier(){
-        if (this.mUsbReceiver != null) {
-            unregisterReceiver(this.mUsbReceiver);
-        }
+        try {
+            if (this.mUsbReceiver != null) {
+                unregisterReceiver(this.mUsbReceiver);
+            }
+        }catch(Exception e){
 
+        }
     }
 
     @Override

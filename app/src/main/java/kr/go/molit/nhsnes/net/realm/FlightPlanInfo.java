@@ -1,6 +1,7 @@
 package kr.go.molit.nhsnes.net.realm;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -773,6 +774,22 @@ public class FlightPlanInfo extends RealmObject implements Serializable {
         RealmResults<FlightPlanInfo> results = realm.where(FlightPlanInfo.class).findAll();
         for(int i = 0 ; i < results.size() ; i++){
             if(null != results.get(i).getCallsign() && results.get(i).getCallsign().equals(_callsign)){
+                info = results.get(i);
+            }
+        }
+
+        realm.close();
+        return info;
+    }
+
+    public FlightPlanInfo findIdx(long _idx)
+    {
+        FlightPlanInfo info = null;
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<FlightPlanInfo> results = realm.where(FlightPlanInfo.class).findAll();
+        for(int i = 0 ; i < results.size() ; i++){
+            Log.d("JeLib","idx::"+results.get(i).getIdx()+" "+_idx);
+            if(results.get(i).getIdx() == _idx){
                 info = results.get(i);
             }
         }

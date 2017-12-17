@@ -42,6 +42,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -176,6 +177,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private ArrayList<FlightRouteModel> route;  // 경로
     private boolean isSimulStop = false;
 
+    private View v_overlay  =   null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,7 +207,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
         getMode();
 
-        setupTTS();
+        //setupTTS();
 
         setLayout();
 
@@ -248,15 +251,16 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                                                 // 모의 주행
                                                 case R.id.btn_flight:
+                                                    /*
                                                     stopTtsTimer();
 
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                    //        startTtsTimer();
+                                                            startTtsTimer();
                                                         }
                                                     }, 1000);
-
+                                                    */
                                                     vController.setVisibility(View.VISIBLE);
                                                     dialogComplateSelectMap.dismiss();
                                                     break;
@@ -303,7 +307,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 //                    testZoom();
 
                     // 프로그래스바를 종료한다.
-                    dismissProgress();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismissProgress();
+                        }
+                    },3000);
 
                 }
             }
@@ -356,14 +365,32 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오전 3:50
      **/
+    private View overView = null;
     private void showProgress() {
-        this.progressDialog = new ProgressDialog(NhsMapSearchActivity.this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        this.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        this.progressDialog.setTitle("");
-        this.progressDialog.setMessage(NhsMapSearchActivity.this.getString(R.string.wait_message));
-        this.progressDialog.setIndeterminate(true);
-        this.progressDialog.setCancelable(false);
-        this.progressDialog.show();
+
+        try {
+            /*
+            this.progressDialog = new ProgressDialog(NhsMapSearchActivity.this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            this.progressDialog.setTitle("");
+            this.progressDialog.setMessage(NhsMapSearchActivity.this.getString(R.string.wait_message));
+            this.progressDialog.setIndeterminate(true);
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.show();
+            */
+            if(v_overlay == null) {
+                v_overlay = findViewById(R.id.v_overlay);
+                v_overlay.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d("JeLib","방지");
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception e){
+
+        }
     }
 
     /**
@@ -373,9 +400,18 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @since 오전 3:50
      **/
     private void dismissProgress() {
+        try {
+            /*
+            if (this.progressDialog != null) {
+                this.progressDialog.dismiss();
+            }*/
+            if(v_overlay != null) {
+                v_overlay.setVisibility(View.GONE);
+                v_overlay.setOnTouchListener(null);
+                v_overlay = null;
+            }
+        } catch (Exception e){
 
-        if (this.progressDialog != null) {
-            this.progressDialog.dismiss();
         }
     }
 
@@ -471,7 +507,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         super.onDestroy();
         try {
 
-            stopTtsTimer();
+//            stopTtsTimer();
 
 //            if (mode == LOG_DRIVE) {
 //
@@ -506,57 +542,59 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         mAbeTitle.setOnBackClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    isSimulStop = false;
 
-                isSimulStop = false;
-
-                if (mode == LOG_DRIVE) {
-                    if (!mNative.lanLogIsPause()) {  // 로그 주행 중이면
-                        mNative.lanLogPauseTrajectory(); // 정지
-                    }
-                }
-
-                if (mNative.lanSimulIsPause() != 1) {
-                    mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
-                    isSimulStop = true;
-                    mIvPlayState.setImageResource(R.drawable.btn_play_nor);
-                }
-
-                messageDialog = new DialogType1(NhsMapSearchActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (mode == LOG_DRIVE) {
-                            mNative.lanLogStopTrajectory(); // 로그 주행 정지
-                        } else {
-                            if (isSimulStop){
-                                mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
-                            }
+                    if (mode == LOG_DRIVE) {
+                        if (!mNative.lanLogIsPause()) {  // 로그 주행 중이면
+                            mNative.lanLogPauseTrajectory(); // 정지
                         }
+                    }
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
+                    if (mNative.lanSimulIsPause() != 1) {
+                        mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                        isSimulStop = true;
+                        mIvPlayState.setImageResource(R.drawable.btn_play_nor);
+                    }
+
+                    messageDialog = new DialogType1(NhsMapSearchActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (mode == LOG_DRIVE) {
+                                mNative.lanLogStopTrajectory(); // 로그 주행 정지
+                            } else {
+                                if (isSimulStop) {
+                                    mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                                }
                             }
-                        }, 500);
 
-                    }
-                }, getString(R.string.btn_cancel), new View.OnClickListener() {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 500);
 
-                    @Override
-                    public void onClick(View v) {
-
-                        // 재기동
-                        if (mode == LOG_DRIVE) {
-                            mNative.lanLogResumeTrajectory();
-                        } else {
-                            mNative.lanSimulResumeTrajectory();
                         }
+                    }, getString(R.string.btn_cancel), new View.OnClickListener() {
 
-                        messageDialog.hideDialog();
-                    }
-                });
+                        @Override
+                        public void onClick(View v) {
 
+                            // 재기동
+                            if (mode == LOG_DRIVE) {
+                                mNative.lanLogResumeTrajectory();
+                            } else {
+                                mNative.lanSimulResumeTrajectory();
+                            }
+
+                            messageDialog.hideDialog();
+                        }
+                    });
+                }catch(Exception e){
+
+                }
             }
         });
 
@@ -623,7 +661,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     public void onClick(AirPoint curPos) {
 
         Log.d("clicklistener", "CLICK!");
-
+        if(vController.getVisibility() == View.VISIBLE)return;
         switch (this.mode) {
 
             // 경로탐색일 경우
@@ -686,28 +724,31 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         switch (view.getId()) {
 
                             case R.id.btn_complate:
+                                try {
+                                    int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_START, curPos.x, curPos.y, "start name", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                                int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_START, curPos.x, curPos.y, "start name", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                                        }
+                                    });
 
+                                    if (result == 0) {
+                                        startData = curPos.x + " " + curPos.y;
+
+                                        if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+
+
+                                            resultData(true);
+
+                                        } else {
+
+                                            routeSearchStep += 1;
+                                            isAppedMapPin = true;
+
+                                        }
                                     }
-                                });
+                                } catch(Exception e){
 
-                                if (result == 0) {
-                                    startData = curPos.x + " " + curPos.y;
-
-                                    if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-
-
-                                        resultData(true);
-
-                                    } else {
-
-                                        routeSearchStep += 1;
-                                        isAppedMapPin = true;
-
-                                    }
                                 }
                                 break;
 
@@ -716,31 +757,33 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                             // 즐겨찾기 추가
                             case R.id.btn_add_favorite:
+                                try {
+                                    dialogFavorites = new DialogAddFavorites(mContext,
+                                            new DialogAddFavorites.IFavorite() {
 
-                                dialogFavorites = new DialogAddFavorites(mContext,
-                                        new DialogAddFavorites.IFavorite() {
+                                                @Override
+                                                public void onSave(final String name) {
 
-                                            @Override
-                                            public void onSave(final String name) {
+                                                    mRealm.beginTransaction();
+                                                    NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
+                                                    favorite.setName(name);
+                                                    favorite.setStartData(curPos.x + " " + curPos.y);
+                                                    mRealm.commitTransaction();
 
-                                                mRealm.beginTransaction();
-                                                NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
-                                                favorite.setName(name);
-                                                favorite.setStartData(curPos.x + " " + curPos.y);
-                                                mRealm.commitTransaction();
+                                                    Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
+                                                }
 
-                                                Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
-                                            }
+                                                @Override
+                                                public void onCancel() {
 
-                                            @Override
-                                            public void onCancel() {
+                                                }
+                                            });
+                                    dialogFavorites.setStart(curPos.x + " " + curPos.y);
+                                    dialogFavorites.setSingleMode("출발지");
+                                    dialogFavorites.show();
+                                }catch(Exception e){
 
-                                            }
-                                        });
-                                dialogFavorites.setStart(curPos.x + " " + curPos.y);
-                                dialogFavorites.setSingleMode("출발지");
-                                dialogFavorites.show();
-
+                                }
                                 break;
 
                         }
@@ -776,25 +819,28 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         switch (view.getId()) {
 
                             case R.id.btn_complate:
+                                try {
+                                    int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_GOAL, curPos.x, curPos.y, "goal name", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                                int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_GOAL, curPos.x, curPos.y, "goal name", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                                        }
+                                    });
 
-                                    }
-                                });
+                                    if (result == 0) {
+                                        endData = curPos.x + " " + curPos.y;
 
-                                if (result == 0) {
-                                    endData = curPos.x + " " + curPos.y;
-
-                                    if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-                                        resultData(true);
-                                    } else {
-                                        //mNative.lanSetRoutePosition(Constants.NAVI_SETPOSITION_GOAL, curPos.x, curPos.y);
+                                        if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+                                            resultData(true);
+                                        } else {
+                                            //mNative.lanSetRoutePosition(Constants.NAVI_SETPOSITION_GOAL, curPos.x, curPos.y);
 //                                    mNative.lanExecuteRP();
-                                        routeSearchStep += 1;
-                                        isAppedMapPin = true;
+                                            routeSearchStep += 1;
+                                            isAppedMapPin = true;
+                                        }
                                     }
+                                } catch(Exception e){
+
                                 }
                                 break;
 
@@ -804,31 +850,33 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                             // 즐겨찾기 추가
                             case R.id.btn_add_favorite:
+                                try {
+                                    dialogFavorites = new DialogAddFavorites(mContext,
+                                            new DialogAddFavorites.IFavorite() {
 
-                                dialogFavorites = new DialogAddFavorites(mContext,
-                                        new DialogAddFavorites.IFavorite() {
+                                                @Override
+                                                public void onSave(final String name) {
 
-                                            @Override
-                                            public void onSave(final String name) {
+                                                    mRealm.beginTransaction();
+                                                    NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
+                                                    favorite.setName(name);
+                                                    favorite.setEndData(curPos.x + " " + curPos.y);
+                                                    mRealm.commitTransaction();
 
-                                                mRealm.beginTransaction();
-                                                NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
-                                                favorite.setName(name);
-                                                favorite.setEndData(curPos.x + " " + curPos.y);
-                                                mRealm.commitTransaction();
+                                                    Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
+                                                }
 
-                                                Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
-                                            }
+                                                @Override
+                                                public void onCancel() {
 
-                                            @Override
-                                            public void onCancel() {
+                                                }
+                                            });
+                                    dialogFavorites.setEnd(curPos.x + " " + curPos.y);
+                                    dialogFavorites.setSingleMode("도착지");
+                                    dialogFavorites.show();
+                                } catch(Exception e){
 
-                                            }
-                                        });
-                                dialogFavorites.setEnd(curPos.x + " " + curPos.y);
-                                dialogFavorites.setSingleMode("도착지");
-                                dialogFavorites.show();
-
+                                }
                                 break;
 
                         }
@@ -868,138 +916,149 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                             // 경유지 추가
                             case R.id.btn_complate:
+                                try {
+                                    int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, curPos.x, curPos.y, "watpoint name", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                                int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, curPos.x, curPos.y, "watpoint name", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                                        }
+                                    });
 
+                                    if (result == 0) {
+                                        if (routeData.isEmpty()) {
+                                            routeData = curPos.x + " " + curPos.y + "\n";
+                                        } else {
+                                            routeData += (curPos.x + " " + curPos.y + "\n");
+                                        }
                                     }
-                                });
+                                } catch(Exception e){
 
-                                if (result == 0) {
-                                    if (routeData.isEmpty()) {
-                                        routeData = curPos.x + " " + curPos.y + "\n";
-                                    } else {
-                                        routeData += (curPos.x + " " + curPos.y + "\n");
-                                    }
                                 }
                                 break;
 
                             case R.id.btn_cancel:
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------경로확정-------");
+                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib","--------------------------");
+                                try {
+                                    // 경로 확정
+                                    int resultCode = mNlvView.executeRP(NhsMapSearchActivity.this, 0, 0, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            switch (view.getId()) {
 
-
-                                // 경로 확정
-                                int resultCode = mNlvView.executeRP(NhsMapSearchActivity.this, 0, 0, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        switch (view.getId()) {
-
-                                            case R.id.alert_btn_ok:
-                                                //mNative.lanExecuteRP();
-                                                routeWaypointCnt += 1;
-                                                isAppedMapPin = true;
+                                                case R.id.alert_btn_ok:
+                                                    //mNative.lanExecuteRP();
+                                                    routeWaypointCnt += 1;
+                                                    isAppedMapPin = true;
 
 //                                                mNlvView.executeRPDirect(0, 0);
 
-                                                // 경로 확정 된 내용 최근검색 되도록 추가
-                                                mRealm.beginTransaction();
-                                                NhsSearchWayPointModel searchWayPoint = mRealm.createObject(NhsSearchWayPointModel.class, NhsSearchWayPointModel.findAll().size() + 1);
-                                                searchWayPoint.setName("" + new SimpleDateFormat("MM/dd HH:mm:ss").format(System.currentTimeMillis()));
-                                                searchWayPoint.setStartData(startData);
-                                                searchWayPoint.setEndData(endData);
-                                                searchWayPoint.setRouteData(routeData);
-                                                mRealm.commitTransaction();
+                                                    // 경로 확정 된 내용 최근검색 되도록 추가
+                                                    mRealm.beginTransaction();
+                                                    NhsSearchWayPointModel searchWayPoint = mRealm.createObject(NhsSearchWayPointModel.class, NhsSearchWayPointModel.findAll().size() + 1);
+                                                    searchWayPoint.setName("" + new SimpleDateFormat("MM/dd HH:mm:ss").format(System.currentTimeMillis()));
+                                                    searchWayPoint.setStartData(startData);
+                                                    searchWayPoint.setEndData(endData);
+                                                    searchWayPoint.setRouteData(routeData);
+                                                    mRealm.commitTransaction();
 
-                                                if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-                                                    resultData(true);
-                                                }
+                                                    if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+                                                        resultData(true);
+                                                    }
 
-                                                break;
+                                                    break;
 
-                                            case R.id.alert_btn_cancel:
-                                                routeWaypointCnt = 0;
-                                                routeSearchStep = 0;
-                                                mNlvView.clearRoutePosition();
-                                                if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-                                                    resultData(false);
-                                                }
-                                                break;
+                                                case R.id.alert_btn_cancel:
+                                                    routeWaypointCnt = 0;
+                                                    routeSearchStep = 0;
+                                                    mNlvView.clearRoutePosition();
+                                                    if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+                                                        resultData(false);
+                                                    }
+                                                    break;
 
+
+                                            }
+                                        }
+                                    });
+
+
+                                    if (resultCode == 0 && !(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+
+                                        resultData(true);
+
+                                    } else if (resultCode != 0 && !(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+
+
+                                    } else {
+
+                                        if (0 == resultCode) {
+                                            //mNative.lanExecuteRP();
+                                            routeWaypointCnt += 1;
+                                            isAppedMapPin = true;
+
+                                            // 경로 확정 된 내용 최근검색 되도록 추가
+                                            mRealm.beginTransaction();
+                                            NhsSearchWayPointModel searchWayPoint = mRealm.createObject(NhsSearchWayPointModel.class, NhsSearchWayPointModel.findAll().size() + 1);
+                                            searchWayPoint.setName("" + new SimpleDateFormat("MM/dd HH:mm:ss").format(System.currentTimeMillis()));
+                                            searchWayPoint.setStartData(startData);
+                                            searchWayPoint.setEndData(endData);
+                                            searchWayPoint.setRouteData(routeData);
+                                            mRealm.commitTransaction();
+
+                                            if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
+                                                resultData(true);
+                                            }
+                                        } else if (resultCode != -1) {
+                                            rpErrorMsg(resultCode);
+
+                                            // 위치 클리어
+                                            lanClearRoutePosition();
+
+                                            routeWaypointCnt = 0;
+                                            routeSearchStep = 0;
 
                                         }
-                                    }
-                                });
-
-
-                                if (resultCode == 0 && !(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-
-                                    resultData(true);
-
-                                } else if (resultCode != 0 && !(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-
-
-                                } else {
-
-                                    if (0 == resultCode) {
-                                        //mNative.lanExecuteRP();
-                                        routeWaypointCnt += 1;
-                                        isAppedMapPin = true;
-
-                                        // 경로 확정 된 내용 최근검색 되도록 추가
-                                        mRealm.beginTransaction();
-                                        NhsSearchWayPointModel searchWayPoint = mRealm.createObject(NhsSearchWayPointModel.class, NhsSearchWayPointModel.findAll().size() + 1);
-                                        searchWayPoint.setName("" + new SimpleDateFormat("MM/dd HH:mm:ss").format(System.currentTimeMillis()));
-                                        searchWayPoint.setStartData(startData);
-                                        searchWayPoint.setEndData(endData);
-                                        searchWayPoint.setRouteData(routeData);
-                                        mRealm.commitTransaction();
-
-                                        if (!(mode == NhsSelectPointActivity.MODE_ROUTE_SEARCH)) {
-                                            resultData(true);
-                                        }
-                                    } else if (resultCode != -1) {
-                                        rpErrorMsg(resultCode);
-
-                                        // 위치 클리어
-                                        lanClearRoutePosition();
-
-                                        routeWaypointCnt = 0;
-                                        routeSearchStep = 0;
 
                                     }
+                                } catch(Exception e){
 
                                 }
-
                                 break;
 
                             // 즐겨찾기 추가
                             case R.id.btn_add_favorite:
+                                try {
+                                    dialogFavorites = new DialogAddFavorites(mContext,
+                                            new DialogAddFavorites.IFavorite() {
 
-                                dialogFavorites = new DialogAddFavorites(mContext,
-                                        new DialogAddFavorites.IFavorite() {
+                                                @Override
+                                                public void onSave(final String name) {
 
-                                            @Override
-                                            public void onSave(final String name) {
+                                                    mRealm.beginTransaction();
+                                                    NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
+                                                    favorite.setName(name);
+                                                    favorite.setRouteData(curPos.x + " " + curPos.y);
+                                                    mRealm.commitTransaction();
 
-                                                mRealm.beginTransaction();
-                                                NhsFavoriteModel favorite = mRealm.createObject(NhsFavoriteModel.class, NhsFavoriteModel.findAll().size() + 1);
-                                                favorite.setName(name);
-                                                favorite.setRouteData(curPos.x + " " + curPos.y);
-                                                mRealm.commitTransaction();
+                                                    Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
+                                                }
 
-                                                Toast.makeText(mContext, R.string.save_favorite, Toast.LENGTH_SHORT).show();
-                                            }
+                                                @Override
+                                                public void onCancel() {
 
-                                            @Override
-                                            public void onCancel() {
+                                                }
+                                            });
+                                    dialogFavorites.setRoute(curPos.x + " " + curPos.y);
+                                    dialogFavorites.setSingleMode("경유지");
+                                    dialogFavorites.show();
 
-                                            }
-                                        });
-                                dialogFavorites.setRoute(curPos.x + " " + curPos.y);
-                                dialogFavorites.setSingleMode("경유지");
-                                dialogFavorites.show();
+                                } catch(Exception e){
 
-
+                                }
                                 break;
 
                         }
@@ -1520,8 +1579,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                 // 경로 생성 안됬을 경우
                 setSimulateDriving();
 
-                stopTtsTimer();
-
+                //stopTtsTimer();
+                /*
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1529,7 +1588,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     }
                 }, 1000);
 
-
+                */
                 break;
 
             // 컨트롤러2 하단 닫기
@@ -1838,6 +1897,13 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                 NhsMapSearchActivity.super.setGpsListener(new OnGpsListener() {
                                     @Override
                                     public void onLocationChanged(Location location) {
+                                        Log.d("JeLib","-------------onLocationChanged---------");
+                                        Log.d("JeLib","-------------onLocationChanged---------");
+                                        Log.d("JeLib","-------------onLocationChanged---------");
+                                        Log.d("JeLib","-------------onLocationChanged---------");
+                                        Log.d("JeLib","-------------onLocationChanged---------");
+
+                                        NhsMapSearchActivity.super.setGpsListener(null);
 
                                         NhsMapSearchActivity.super.dismissGpsProgress();
 
@@ -1974,18 +2040,23 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private void setSimulateDriving() {
         // 경로 생성 안됬을 경우
         if (mNative.lanIsRoute() == 0) {
-            if (null != mDialog) {
-                mDialog.dismiss();
-            }
-
-            DialogType2 dTpye2 = new DialogType2(mContext, getString(R.string.err_title), getString(R.string.err_message_6), getString(R.string.btn_confirm), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            try {
+                if (null != mDialog) {
                     mDialog.dismiss();
+                    mDialog = null;
                 }
-            });
-            mDialog = dTpye2.getDialog();
 
+                DialogType2 dTpye2 = new DialogType2(mContext, getString(R.string.err_title), getString(R.string.err_message_6), getString(R.string.btn_confirm), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                        mDialog = null;
+                    }
+                });
+                mDialog = dTpye2.getDialog();
+            } catch(Exception e){
+                mDialog = null;
+            }
         } else {
 
             // 경로가 있을 경우
@@ -1995,14 +2066,15 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             mNative.lanSimulStartTrajectory();  // 시뮬레이터 준비 시작
             mNative.lanSimulResumeTrajectory(); // 시뮬레이터 시작
             mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
-            stopTtsTimer();
+            //stopTtsTimer();
+            /*
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     startTtsTimer();
                 }
             }, 1000);
-
+               */
 
         }
     }

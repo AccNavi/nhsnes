@@ -104,42 +104,45 @@ public class DialogASMTelegram extends DialogBase implements View.OnClickListene
                         String resultCode = response.optString("result_code");
 
                         if (resultCode.equalsIgnoreCase("Y")) {
+                            try {
+                                JSONArray resultData = response.optJSONArray("result_data");
 
-                            JSONArray resultData = response.optJSONArray("result_data");
+                                StringBuilder sb = new StringBuilder();
 
-                            StringBuilder sb = new StringBuilder();
+                                int size = resultData.length();
+                                if (size > 0) {
+                                    int i = 0;
 
-                            int size = resultData.length();
-                            if(size > 0) {
-                                int i = 0;
+                                    for (i = 0; i < size; i++) {
 
-                                for (i = 0; i < size; i++) {
-
-                                    Iterator iterator = resultData.optJSONObject(i).keys();
+                                        Iterator iterator = resultData.optJSONObject(i).keys();
 
 
-                                    while (iterator.hasNext()) {
+                                        while (iterator.hasNext()) {
 
-                                        try {
+                                            try {
 
-                                            String key = (String) iterator.next();
-                                            String value = resultData.getJSONObject(i).get(key).toString();
-                                            sb.append(key);
-                                            sb.append(" : ");
-                                            sb.append(value);
-                                            sb.append("\n");
+                                                String key = (String) iterator.next();
+                                                String value = resultData.getJSONObject(i).get(key).toString();
+                                                sb.append(key);
+                                                sb.append(" : ");
+                                                sb.append(value);
+                                                sb.append("\n");
 
-                                        } catch (Exception ex) {
+                                            } catch (Exception ex) {
 
+                                            }
                                         }
+
+
                                     }
 
 
+                                    tveAsm.setText(sb.toString());
+                                } else {
+                                    tveAsm.setText("수신데이터 없습니다.");
                                 }
-
-
-                                tveAsm.setText(sb.toString());
-                            } else {
+                            } catch (Exception e){
                                 tveAsm.setText("수신데이터 없습니다.");
                             }
                         }else {

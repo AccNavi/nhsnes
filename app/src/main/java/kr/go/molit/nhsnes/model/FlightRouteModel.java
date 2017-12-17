@@ -17,6 +17,7 @@ public class FlightRouteModel implements Serializable{
     private String lon = "";
     private String elev = "";
     private String heading = "";
+    private String rType = "";
 
     public String getStepNum() {
         return stepNum;
@@ -75,7 +76,11 @@ public class FlightRouteModel implements Serializable{
     }
 
 
+    public String getrType() {
+        return rType;
+    }
 
-
-
+    public void setrType(String rType) {
+        this.rType = rType;
+    }
 }

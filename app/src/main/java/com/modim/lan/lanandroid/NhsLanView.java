@@ -610,6 +610,7 @@ public class NhsLanView extends FrameLayout implements SensorEventListener {
 
   public int setRoutePosition(Context context, int pos_type, double fx, double fy, String strName, OnClickListener onClickListener) {
     Log.d("JeLib", "fx:" + fx + " fy:" + fy);
+    Log.d("JeLib","context"+context.getClass().getSimpleName());
     //AirPoint curPos =  mNative.lanScreenToMap(fx, fy);
     int result = 0;
 
