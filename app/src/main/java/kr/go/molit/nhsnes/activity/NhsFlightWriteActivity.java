@@ -557,12 +557,14 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             layoutSuperLight.setVisibility(View.VISIBLE);
             ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
         } else {
+            /*
             String doccd = model.getPlanDoccd();
             if (doccd != null && doccd.trim().equals("01")) {
                 ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
             } else {
                 ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
-            }
+            }*/
+            ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
         }
     }
 
