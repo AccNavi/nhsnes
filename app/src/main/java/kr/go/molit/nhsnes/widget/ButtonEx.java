@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.FontUtil;
 
 /**
  * 버튼에서 커스텀 폰트를 사용하기 위한 클래스
@@ -14,11 +15,11 @@ import kr.go.molit.nhsnes.R;
  **/
 
 public class ButtonEx extends android.support.v7.widget.AppCompatButton {
-
+/*
     private static Typeface sNormal = null;
     private static Typeface sBold = null;
     private static Typeface sBarunBold = null;
-
+*/
     public ButtonEx(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setCustomFont(context, attrs);
@@ -41,17 +42,17 @@ public class ButtonEx extends android.support.v7.widget.AppCompatButton {
 
         switch (customFont) {
             case 0:		// REGULAR
-                if ( (font = getRegular(context)) != null) {
+                if ( (font = FontUtil.getRegular(context)) != null) {
                     setTypeface(font);
                 }
                 break;
             case 1:		// BOLD
-                if ( (font = getBold(context)) != null) {
+                if ( (font = FontUtil.getBold(context)) != null) {
                     setTypeface(font);
                 }
                 break;
             case 2:		// Nanum Barun Bold
-                if ( (font = getBarunBold(context)) != null) {
+                if ( (font = FontUtil.getBarunBold(context)) != null) {
                     setTypeface(font);
                 }
                 break;
@@ -60,7 +61,7 @@ public class ButtonEx extends android.support.v7.widget.AppCompatButton {
         }
         arrType.recycle();
     }
-
+/*
     public Typeface getRegular(Context context) {
         if (sNormal == null) {
             try {
@@ -90,4 +91,5 @@ public class ButtonEx extends android.support.v7.widget.AppCompatButton {
         }
         return sBarunBold;
     }
+*/
 }

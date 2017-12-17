@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.FontUtil;
 
 /**
  * 커스텀 폰트를 사용하기 위한 클래스
@@ -15,11 +16,11 @@ import kr.go.molit.nhsnes.R;
  **/
 
 public class TextViewEx extends android.support.v7.widget.AppCompatTextView {
-
+/*
     private static Typeface sNormal = null;
     private static Typeface sBold = null;
     private static Typeface sBarunBold = null;
-
+*/
     public TextViewEx(Context context) {
         super(context);
     }
@@ -50,17 +51,17 @@ public class TextViewEx extends android.support.v7.widget.AppCompatTextView {
 
         switch (fontType) {
             case 0:		// Nanum Bold
-                if ( (font = getRegular(context)) != null) {
+                if ( (font = FontUtil.getRegular(context)) != null) {
                     setTypeface(font);
                 }
                 break;
             case 1:		// Nanum ExtraBold
-                if ( (font = getBold(context)) != null) {
+                if ( (font = FontUtil.getBold(context)) != null) {
                     setTypeface(font);
                 }
                 break;
             case 2:		// Nanum Barun Bold
-                if ( (font = getBarunBold(context)) != null) {
+                if ( (font = FontUtil.getBarunBold(context)) != null) {
                     setTypeface(font);
                 }
                 break;
@@ -81,7 +82,7 @@ public class TextViewEx extends android.support.v7.widget.AppCompatTextView {
                 break;
         }
     }
-
+/*
     public Typeface getRegular(Context context) {
         if (sNormal == null) {
             try {
@@ -111,4 +112,5 @@ public class TextViewEx extends android.support.v7.widget.AppCompatTextView {
         }
         return sBarunBold;
     }
+*/
 }

@@ -8,6 +8,7 @@ import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.FontUtil;
 
 /**
  * 커스텀 폰트를 사용하기 위한 클래스
@@ -16,10 +17,10 @@ import kr.go.molit.nhsnes.R;
  **/
 
 public class EditTextEx extends android.support.v7.widget.AppCompatEditText {
-
+/*
     private static Typeface sNormal = null;
     private static Typeface sBold = null;
-
+*/
     public EditTextEx(Context context) {
         super(context);
     }
@@ -42,7 +43,7 @@ public class EditTextEx extends android.support.v7.widget.AppCompatEditText {
     }
 
     public void	setCustomStyle(Context context, int fontType) {
-        setTypeface(getRegular(context));
+        setTypeface(FontUtil.getRegular(context));
 
         switch (fontType) {
             case 0:		// 숫자
@@ -69,7 +70,7 @@ public class EditTextEx extends android.support.v7.widget.AppCompatEditText {
                 break;
         }
     }
-
+/*
     public Typeface getRegular(Context context) {
         if (sNormal == null) {
             try {
@@ -89,4 +90,5 @@ public class EditTextEx extends android.support.v7.widget.AppCompatEditText {
         }
         return sBold;
     }
+*/
 }

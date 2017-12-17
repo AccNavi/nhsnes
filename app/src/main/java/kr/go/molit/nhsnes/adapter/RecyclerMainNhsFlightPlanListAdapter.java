@@ -38,7 +38,7 @@ import kr.go.molit.nhsnes.widget.TextViewEx;
 public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<FlightPlanInfo> nhsFlightPlanListModelList;
-    private SparseArray<FlightPlanInfo> selectedIds;
+    //private SparseArray<FlightPlanInfo> selectedIds;
     private int viewType;
     private Context context;
     public static final int VIEWTYPE_NHS_MAIN_ACT_RECENT = 0;
@@ -85,9 +85,11 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
     }
 
     public void Clear(){
+        /*
         if(this.selectedIds!=null){
             this.selectedIds.clear();
-        }
+        }*/
+
         if(this.nhsFlightPlanListModelList!=null) {
             this.nhsFlightPlanListModelList.clear();
         }
@@ -96,11 +98,21 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
 
     @Nullable
     public SparseArray<FlightPlanInfo> getSelectedItemIds() {
+        SparseArray<FlightPlanInfo> selectedIds = new SparseArray<FlightPlanInfo>();
+        int count = 0;
+        for(FlightPlanInfo info : nhsFlightPlanListModelList){
+            if(info.isCheck()) {
+                selectedIds.put(count, info);
+                count++;
+            }
+        }
+        return selectedIds;
+        /*
         if (selectedIds == null || selectedIds.size() == 0) {
             return null;
         } else {
             return selectedIds;
-        }
+        }*/
     }
 
     @Override
@@ -204,16 +216,22 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
                 type3.cbPossible.setChecked(false);
             }
 
-            if(selectedIds != null && selectedIds.get(position)!=null){
+            if(data.isCheck()){
                 type3.cbSquare.setChecked(true);
             } else {
                 type3.cbSquare.setChecked(false);
             }
-
+            /*
+            if(selectedIds != null && selectedIds.get(position)!=null){
+                type3.cbSquare.setChecked(true);
+            } else {
+                type3.cbSquare.setChecked(false);
+            }*/
 
             type3.cbSquare.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    /*
                     if (selectedIds == null) {
                         selectedIds = new SparseArray<>();
                     }
@@ -222,8 +240,13 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
                         selectedIds.put(position, data);
                     } else {
                         selectedIds.remove(position);
+                    }*/
+                    if (isChecked) {
+                       data.setCheck(true);
+                    } else {
+                        data.setCheck(false);
                     }
-                    Log.d("##", selectedIds.toString());
+                    //Log.d("##", selectedIds.toString());
                 }
             });
             type3.bgLayout.setOnClickListener(new View.OnClickListener() {

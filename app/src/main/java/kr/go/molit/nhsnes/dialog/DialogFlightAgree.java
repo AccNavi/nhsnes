@@ -208,7 +208,7 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
                         if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
 
                             result = flightPlanModel.getFplDetail();
-                            route = flightPlanModel.getRoute();
+                            route = (ArrayList)flightPlanModel.getRoute();
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override

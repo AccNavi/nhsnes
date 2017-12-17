@@ -237,7 +237,6 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
             this.flightPlanList = new FlightPlanInfo().find(NhsFlightPlainModel.FindType.TMP.ordinal());
             mRecyclerMainNhsFlightPlanListAdapter.setData(flightPlanList, RecyclerMainNhsFlightPlanListAdapter.VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP);
             ((TextViewEx) findViewById(R.id.tv_total)).setText(flightPlanList.size() + "");
-            Log.d("JeLib", "this.flightPlanList.size()::" + this.flightPlanList.size());
         }
     }
 
@@ -368,7 +367,6 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
                         saveDialog2.hideDialog();
                     }
                 });
-
 
                 break;
 

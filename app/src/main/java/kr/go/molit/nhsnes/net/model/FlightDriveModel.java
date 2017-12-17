@@ -1,5 +1,7 @@
 package kr.go.molit.nhsnes.net.model;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -66,6 +68,12 @@ public class FlightDriveModel {
   }
 
   public List<AlmostAcrftModel> getList() {
+    if(list.getClass().equals(String.class)){
+      Log.d("JeLib","--------String--------");
+      Log.d("JeLib","--------String--------");
+      Log.d("JeLib","--------String--------");
+      return null;
+    }
     return list;
   }
 

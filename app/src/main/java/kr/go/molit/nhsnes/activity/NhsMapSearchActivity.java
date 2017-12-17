@@ -1356,7 +1356,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
 
                             flightPlanInfo = flightPlanModel.getFplDetail();
-                            route = flightPlanModel.getRoute();
+                            route = (ArrayList)flightPlanModel.getRoute();
                             flightPlanInfo.setFlightId(flightId);
 
                             // 비행을 시작한다.

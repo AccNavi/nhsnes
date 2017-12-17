@@ -131,32 +131,37 @@ public class DialogFlightRoutList extends DialogBase implements View.OnClickList
                 flightPlanList.clear();
 
                 mRecyclerMainNhsFlightPlanListAdapter.Clear();
+                try {
+                    if (response.code() == 200) {
 
-                if(response.code() == 200){
+                        NetSecurityModel netSecurityModel = response.body();
 
-                    NetSecurityModel netSecurityModel = response.body();
+                        if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
 
-                    if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
+                            String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
+                            Log.d("JeLib","dec:::::::"+dec);
+                            FlightPlanModel flightPlanModel = new Gson().fromJson(dec, FlightPlanModel.class);
+                            Log.d("JeLib", "flightPlanModel:"+flightPlanModel);
+                            if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
+                                flightPlanList = flightPlanModel.getList();
+                                if (flightPlanModel.getList() != null) {
+                                    Log.d("JeLib","-----"+flightPlanModel.getList().getClass());
+                                    if(flightPlanModel.getList()!=null) {
+                                        mRecyclerMainNhsFlightPlanListAdapter.setData(flightPlanModel.getList(), VIEWTYPE_NHS_FLIGHT_PLAN_GET_ROUTE);
+                                    }
+                                }
 
-                        String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
-
-                        FlightPlanModel flightPlanModel = new Gson().fromJson(dec, FlightPlanModel.class);
-
-                        if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
-                            flightPlanList = flightPlanModel.getList();
-                            if (flightPlanModel.getList() != null) {
-
-                                mRecyclerMainNhsFlightPlanListAdapter.setData(flightPlanModel.getList(), VIEWTYPE_NHS_FLIGHT_PLAN_GET_ROUTE);
-
+                            } else {
+                                new ToastUtile().showCenterText(getContext(), flightPlanModel.getResult_msg());
                             }
-
-                        } else {
-                            new ToastUtile().showCenterText(getContext(), flightPlanModel.getResult_msg());
                         }
-                    }
-                } else {
-                    Log.d("JeLib","----------1-----------");
+
+                    } else {
+                        Log.d("JeLib", "----------1-----------");
 //                    new ToastUtile().showCenterText(getContext(), getContext().getString(R.string.error_network));
+                    }
+                } catch (Exception e){
+                    Log.d("JeLib", "e:"+e.getMessage());
                 }
             }
 

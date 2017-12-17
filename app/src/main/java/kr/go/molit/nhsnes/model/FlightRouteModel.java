@@ -10,7 +10,7 @@ import java.io.Serializable;
 **/
 public class FlightRouteModel implements Serializable{
 
-    private String stepNum = "";
+    public String stepNum = "";
     private String areaId = "";
     private String areaNm = "";
     private String lat = "";

@@ -1,5 +1,7 @@
 package kr.go.molit.nhsnes.net.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -31,6 +33,12 @@ public class AirChartListModel {
     }
 
     public ArrayList<AirChartListItemModel> getResult_data() {
+        if(result_data.getClass().equals(String.class)){
+            Log.d("JeLib","--------String--------");
+            Log.d("JeLib","--------String--------");
+            Log.d("JeLib","--------String--------");
+            return null;
+        }
         return result_data;
     }
 

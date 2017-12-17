@@ -15,6 +15,7 @@ import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import kr.go.molit.nhsnes.model.NhsFlightPlainModel;
 
@@ -107,6 +108,17 @@ public class FlightPlanInfo extends RealmObject implements Serializable {
     private String startTime;   // 시작 시간
     private String endTime;     // 도착 시간
     private long totalFlightTime;   // 총 비행 시간(밀리세컨드)
+
+    @Ignore //저장안됨
+    private boolean isCheck;
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
 
     public String getStartDate() {
         return startDate;

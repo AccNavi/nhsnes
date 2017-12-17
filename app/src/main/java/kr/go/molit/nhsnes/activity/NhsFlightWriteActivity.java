@@ -2,6 +2,7 @@ package kr.go.molit.nhsnes.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOutOfMemoryException;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -112,8 +113,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
     private ArrayList<FlightRouteModel> route;  // 경로
     private String flightId = "";   // 비행 시작 보고때 받은 고유 ID
 
-    private String planDeparture = "";
-    private String planArrival = "";
+    //private String planDeparture = "";
+    //private String planArrival = "";
 
     private boolean isFailed = true; //비행계획서 전송실패 후 재전송 확인을 위한 플래그 값
 
@@ -123,6 +124,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_nhs_flight_write);
         this.mContext = this;
+
         Realm.init(mContext);
         mRealm = Realm.getDefaultInstance();
 
@@ -131,39 +133,48 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         this.planSn = getIntent().getStringExtra(INTENT_PLAN_SN);
         this.isTmp = getIntent().getBooleanExtra("isTmp", false);
         this.isEditMode= !(getIntent().getBooleanExtra(IS_NEW_MODE, false));
-
+        Log.d("JeLib","isSuperLight:"+isSuperLight);
 //        if (!isEditMode) {
 //            isEditMode = (planid != null);
 //        }
+        try {
+            Log.i("TEST", "isEditMode:::" + isEditMode);
+            setLayout();
 
-        Log.i("TEST", "isEditMode:::" + isEditMode);
-        setLayout();
+            Bundle data = getIntent().getExtras();
+            String getCallsign = "";
 
-        Bundle data = getIntent().getExtras();
-        String getCallsign = "";
+            if (data != null) {
 
-        if (data != null) {
+                getCallsign = data.getString(DialogSelectFlightPlain.INTENT_PLAN_DATA);
+                this.viewType = data.getInt(DialogSelectFlightPlain.INTENT_PLAN_TYPE, VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_ALL);
 
-            getCallsign = data.getString(DialogSelectFlightPlain.INTENT_PLAN_DATA);
-            this.viewType = data.getInt(DialogSelectFlightPlain.INTENT_PLAN_TYPE, VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_ALL);
+            }
 
-        }
+            if (null != getCallsign && getCallsign.length() > 0) {
+                mFlightPlanInfo = new FlightPlanInfo().find(getCallsign);
+                if (null != mFlightPlanInfo) {
 
-        if (null != getCallsign && getCallsign.length() > 0) {
-            mFlightPlanInfo = new FlightPlanInfo().find(getCallsign);
-            if (null != mFlightPlanInfo) {
-
-                try {
-                    if (mFlightPlanInfo.getFlightId() == null) {
+                    try {
+                        if (mFlightPlanInfo.getFlightId() == null) {
+                            setFlightData(mFlightPlanInfo);
+                        } else {
+                            this.flightId = mFlightPlanInfo.getFlightId();
+                        }
+                    } catch (Exception ex) {
                         setFlightData(mFlightPlanInfo);
-                    } else {
-                        this.flightId = mFlightPlanInfo.getFlightId();
                     }
-                } catch (Exception ex) {
-                    setFlightData(mFlightPlanInfo);
                 }
             }
+        } catch (Exception e){
+            Log.d("JeLib","ex:::::::::::::"+e.getMessage());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 
     /**
@@ -199,16 +210,17 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
 
                         String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
-
+                        Log.d("JeLib","dec:"+dec);
                         FlightPlanModel flightPlanModel = new Gson().fromJson(dec, FlightPlanModel.class);
 
                         if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
-
                             mFlightPlanInfo = flightPlanModel.getFplDetail();
                             route = flightPlanModel.getRoute();
                             mFlightPlanInfo.setFlightId(flightId);
                             setFlightData(mFlightPlanInfo);
-
+                            for(FlightRouteModel m : route){
+                                Log.d("JeLib",""+m.getLat()+":::"+m.getLon());
+                            }
                         } else {
                             new ToastUtile().showCenterText(mContext, flightPlanModel.getResult_msg());
                         }
@@ -372,9 +384,6 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             return;
         }
 
-        this.planArrival = model.getPlanArrival();
-        this.planDeparture = model.getPlanDeparture();
-
         ((EditTextEx) findViewById(R.id.et_mode_0_4)).setText(model.getMessageType());
 
         String callsign = this.mFlightPlanInfo.getCallsign();
@@ -405,21 +414,21 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             ((EditTextEx) findViewById(R.id.et_3_1)).setText(model.getPlanEquipment());//.getEquipment());
         }
 
-        if (!this.planDeparture.isEmpty()) {
-            try {
+        String planArrival = model.getPlanArrival();
+        String planDeparture = model.getPlanDeparture();
 
-                ((TextViewEx) findViewById(R.id.et_3_2)).setText("ZZZZ");//.getDepartureAerodrome());
-
-                this.planDeparture = route.get(0).getLat() + " " + route.get(0).getLon();//.getDepartureAerodrome());
-
-
-            } catch (Exception ex) {
-
-            }
+        if (planDeparture!=null && !planDeparture.isEmpty()) {
+            ((TextViewEx) findViewById(R.id.et_3_2)).setText(planDeparture);
         }
+        /*
         if (null != model.getPlanAtd()) {
             ((EditTextEx) findViewById(R.id.et_3_3)).setText(model.getPlanAtd());
         }
+        */
+        if (null != model.getPlanEtd()) {
+            ((EditTextEx) findViewById(R.id.et_3_3)).setText(model.getPlanEtd());
+        }
+
         if (null != model.getCruisingSpeed()) {
             ((EditTextEx) findViewById(R.id.et_4_1)).setText(model.getCruisingSpeed());//.getCrusingSpeed());
         }
@@ -433,16 +442,10 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             ((EditText) findViewById(R.id.ed_route)).setText(model.getPlanRoute());
         }
 
-        if (!this.planArrival.isEmpty()) {
-            try {
-                ((TextViewEx) findViewById(R.id.et_6_1)).setText("ZZZZ");
-
-                this.planArrival = route.get(route.size() - 1).getLat() + " " + route.get(route.size() - 1).getLon();
-
-            } catch (Exception ex) {
-
-            }
+        if (planArrival!=null && !planArrival.isEmpty()) {
+            ((TextViewEx) findViewById(R.id.et_6_1)).setText(planArrival);
         }
+
         if (null != model.getPlanTeet()) {
             ((EditTextEx) findViewById(R.id.et_6_2)).setText(model.getPlanTeet());
         }
@@ -550,15 +553,17 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         if (null != model.getPlanPresent()) {
             ((EditTextEx) findViewById(R.id.et_14_3)).setText(model.getPlanPresent());
         }
-
-        String doccd = model.getPlanDoccd();
-        if (doccd != null && doccd.trim().equals("01")) {
+        if (isSuperLight) {
+            layoutSuperLight.setVisibility(View.VISIBLE);
             ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
         } else {
-            ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
+            String doccd = model.getPlanDoccd();
+            if (doccd != null && doccd.trim().equals("01")) {
+                ((CheckBox) findViewById(R.id.cb_light)).setChecked(true);
+            } else {
+                ((CheckBox) findViewById(R.id.cb_light)).setChecked(false);
+            }
         }
-
-
     }
 
 
@@ -585,28 +590,41 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                 break;
 
             // departure aerodrome
-            case R.id.ll_3_2:
+            case R.id.ll_3_2: {
+                String planDeparture = "";
+                String planArrival = "";
+                if (route != null && route.size() > 0) {
+                    planDeparture = route.get(0).getLat() + " " + route.get(0).getLon();
+                    if (route.size() > 1) {
+                        planArrival = route.get(route.size() - 1).getLat() + " " + route.get(route.size() - 1).getLon();
+                    }
+                }
                 Intent departurePointIntent = new Intent(this, NhsSelectPointActivity.class);
                 departurePointIntent.putExtra(NhsSelectPointActivity.KEY_MODE, NhsSelectPointActivity.MODE_DEPARTURE);
-//        departurePointIntent.putExtra(DATA_START, ((TextViewEx) findViewById(R.id.et_3_2)).getText().toString());
-//        departurePointIntent.putExtra(DATA_END, ((TextViewEx) findViewById(R.id.et_6_1)).getText().toString());
-                departurePointIntent.putExtra(DATA_START, this.planDeparture);
-                departurePointIntent.putExtra(DATA_END, this.planArrival);
+                departurePointIntent.putExtra(DATA_START, planDeparture);
+                departurePointIntent.putExtra(DATA_END, planArrival);
                 departurePointIntent.putExtra(DATA_ROUTE, ((EditText) findViewById(R.id.ed_route)).getText().toString());
                 startActivityForResult(departurePointIntent, NhsSelectPointActivity.MODE_DEPARTURE);
                 break;
-
+            }
             // arrival aerodrome
-            case R.id.ll_6_1:
+            case R.id.ll_6_1: {
+                String planDeparture = "";
+                String planArrival = "";
+                if (route != null && route.size() > 0) {
+                    planDeparture = route.get(0).getLat() + " " + route.get(0).getLon();
+                    if (route.size() > 1) {
+                        planArrival = route.get(route.size() - 1).getLat() + " " + route.get(route.size() - 1).getLon();
+                    }
+                }
                 Intent arrivalPointIntent = new Intent(this, NhsSelectPointActivity.class);
                 arrivalPointIntent.putExtra(NhsSelectPointActivity.KEY_MODE, NhsSelectPointActivity.MODE_ARRIVAL);
-//        arrivalPointIntent.putExtra(DATA_START, ((TextViewEx) findViewById(R.id.et_3_2)).getText().toString());
-//        arrivalPointIntent.putExtra(DATA_END, ((TextViewEx) findViewById(R.id.et_6_1)).getText().toString());
-                arrivalPointIntent.putExtra(DATA_START, this.planDeparture);
-                arrivalPointIntent.putExtra(DATA_END, this.planArrival);
+                arrivalPointIntent.putExtra(DATA_START, planDeparture);
+                arrivalPointIntent.putExtra(DATA_END, planArrival);
                 arrivalPointIntent.putExtra(DATA_ROUTE, ((EditText) findViewById(R.id.ed_route)).getText().toString());
                 startActivityForResult(arrivalPointIntent, NhsSelectPointActivity.MODE_ARRIVAL);
                 break;
+            }
       /*case R.id.bt_edit:
         setCheckSumData();
         Toast.makeText(this, "수정을 완료하였습니다.", Toast.LENGTH_SHORT).show();
@@ -625,15 +643,23 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                 break;
 
             case R.id.fl_new_route:
-            case R.id.ed_route:
-//        startActivityForResult(new Intent(NhsFlightWriteActivity.this, NhsWayPointActivity.class), REQUEST_ROUTE);
+            case R.id.ed_route: {
+                String planDeparture = "";
+                String planArrival = "";
+                if (route != null && route.size() > 0) {
+                    planDeparture = route.get(0).getLat() + " " + route.get(0).getLon();
+                    if (route.size() > 1) {
+                        planArrival = route.get(route.size() - 1).getLat() + " " + route.get(route.size() - 1).getLon();
+                    }
+                }
                 Intent routePointIntent = new Intent(this, NhsSelectPointActivity.class);
                 routePointIntent.putExtra(NhsSelectPointActivity.KEY_MODE, NhsSelectPointActivity.MODE_ROUTE);
                 routePointIntent.putExtra(DATA_START, planDeparture);
-                routePointIntent.putExtra(DATA_END, this.planArrival);
+                routePointIntent.putExtra(DATA_END, planArrival);
                 routePointIntent.putExtra(DATA_ROUTE, ((EditText) findViewById(R.id.ed_route)).getText().toString());
                 startActivityForResult(routePointIntent, NhsSelectPointActivity.MODE_ROUTE);
                 break;
+            }
             case R.id.bt_edit:
 
                 if (viewType == VIEWTYPE_NHS_FLIGHT_PLAN_LIST_ACT_TMP) {
@@ -720,15 +746,22 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                             fpl.put("planEquipment", mFlightPlanInfo.getPlanEquipment());
                             //fpl.put("planDeparture",mFlightPlanInfo.getPlanDeparture());
 
-                            fpl.put("planEtd", mFlightPlanInfo.getPlanAtd());
+                            fpl.put("planEtd", findViewById(R.id.et_3_3).toString());
+                            fpl.put("planAtd", mFlightPlanInfo.getPlanAtd());
                             fpl.put("cruisingSpeed", mFlightPlanInfo.getCruisingSpeed());
                             fpl.put("flightLevel", mFlightPlanInfo.getFlightLevel());
                             fpl.put("planRoute", mFlightPlanInfo.getPlanRoute());
                             //fpl.put("planArrival",mFlightPlanInfo.getPlanArrival());
                             fpl.put("planTeet", mFlightPlanInfo.getPlanTeet());
 
-                            fpl.put("planDeparture", "ZZZZ");
-                            fpl.put("planArrival", "ZZZZ");
+                            String departure = ((TextViewEx) findViewById(R.id.et_3_2)).getText().toString();
+                            String arrival = ((TextViewEx) findViewById(R.id.et_6_1)).getText().toString();
+
+                            Log.d("JeLib","getPlanDeparture:"+departure);
+                            Log.d("JeLib","getPlanArrival:"+arrival);
+
+                            fpl.put("planDeparture", departure);
+                            fpl.put("planArrival", arrival);
 
                             fpl.put("oneAltn", mFlightPlanInfo.getOneAltn());
                             fpl.put("twoAltn", mFlightPlanInfo.getTwoAltn());
@@ -766,12 +799,12 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                                 Calendar planatdCal = null;
                                 Calendar planteetCal = null;
 
-                                if (!mFlightPlanInfo.getPlanAtd().isEmpty()) {
+                                if (mFlightPlanInfo.getPlanAtd()!=null && !mFlightPlanInfo.getPlanAtd().isEmpty()) {
                                     String planatd = String.format("%04d", Integer.parseInt(mFlightPlanInfo.getPlanAtd()));
                                     planatdCal = DateTimeUtil.toCalendar(planatd, "HHmm");
                                 }
 
-                                if (!mFlightPlanInfo.getPlanTeet().isEmpty()) {
+                                if (mFlightPlanInfo.getPlanTeet()!=null && !mFlightPlanInfo.getPlanTeet().isEmpty()) {
                                     String planteet = String.format("%04d", Integer.parseInt(mFlightPlanInfo.getPlanTeet()));
                                     planteetCal = DateTimeUtil.toCalendar(planteet, "HHmm");
                                 }
@@ -799,14 +832,26 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                             // 경로 데이터를 형식에 맞게 저장한다.
                             ArrayList routeList = new ArrayList();
                             Map<String, Object> routeMap = new HashMap<String, Object>();
-
+                            for(FlightRouteModel r : route){
+                                routeMap = new HashMap<String, Object>();
+                                routeMap.put("stepNum", r.getStepNum());
+                                routeMap.put("areaId", r.getAreaId());
+                                routeMap.put("areaNm", r.getAreaNm());
+                                routeMap.put("lat", r.getLat());
+                                routeMap.put("lon", r.getLon());
+                                routeMap.put("elev", r.getElev());
+                                routeMap.put("heading", r.getHeading());
+                                Log.d("JeLib",""+r.getLat()+":::"+r.getLon());
+                                routeList.add(routeMap);
+                            }
+                            /*
                             String[] start = mFlightPlanInfo.getPlanDeparture().split(" ");
                             String[] end = mFlightPlanInfo.getPlanArrival().split(" ");
                             int step = 0;
 
                             // 출발지
                             if (!mFlightPlanInfo.getPlanDeparture().isEmpty()) {
-
+                                Log.d("JeLib","=============="+start[1]+"  "+start[0]);
                                 step += 1;
                                 routeMap = new HashMap<String, Object>();
                                 routeMap.put("stepNum", step + "");
@@ -862,6 +907,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                                 routeMap.put("heading", "0");
                                 routeList.add(routeMap);
                             }
+                            */
 
                             params.put("route", routeList);
 
@@ -1151,7 +1197,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
         mFlightPlanInfo.setPlanEquipment(((EditTextEx) findViewById(R.id.et_3_1)).getText().toString());
         mFlightPlanInfo.setPlanDeparture(((TextViewEx) findViewById(R.id.et_3_2)).getText().toString());
-        mFlightPlanInfo.setPlanAtd(((EditTextEx) findViewById(R.id.et_3_3)).getText().toString());
+        //mFlightPlanInfo.setPlanAtd(((EditTextEx) findViewById(R.id.et_3_3)).getText().toString());
+        mFlightPlanInfo.setPlanEtd(((EditTextEx) findViewById(R.id.et_3_3)).getText().toString());
 
         mFlightPlanInfo.setCruisingSpeed(((EditTextEx) findViewById(R.id.et_4_1)).getText().toString());
         mFlightPlanInfo.setFlightLevel(((EditTextEx) findViewById(R.id.et_4_2)).getText().toString());
@@ -1252,8 +1299,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             mFlightPlanInfo.setPlanDoccd("00");
         }
 
-        mFlightPlanInfo.setPlanDeparture(this.planDeparture);
-        mFlightPlanInfo.setPlanArrival(this.planArrival);
+        //mFlightPlanInfo.setPlanDeparture(this.planDeparture);
+        //mFlightPlanInfo.setPlanArrival(this.planArrival);
 
 
     /*
@@ -1332,7 +1379,11 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             ((EditTextEx) findViewById(R.id.et_3_1)).requestFocus();
             return false;
         }
-        if (TextUtils.isEmpty(((TextViewEx) findViewById(R.id.et_3_2)).getText().toString())) {
+        String departure = "";
+        if(mFlightPlanInfo!=null) {
+            departure = Util.NullString(mFlightPlanInfo.getPlanDeparture(), "");
+        }
+        if (TextUtils.isEmpty(((TextViewEx) findViewById(R.id.et_3_2)).getText().toString()) && departure.length() <= 0) {
             Toast.makeText(this, "Departure Aerodrome를 입력하세요.", Toast.LENGTH_SHORT).show();
             ((TextViewEx) findViewById(R.id.tve_3_2_e)).setVisibility(View.VISIBLE);
             ((TextViewEx) findViewById(R.id.et_3_2)).setFocusableInTouchMode(true);
@@ -1352,7 +1403,11 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             ((EditTextEx) findViewById(R.id.et_3_3)).requestFocus();
             return false;
         }
-        if (TextUtils.isEmpty(((TextViewEx) findViewById(R.id.et_6_1)).getText().toString())) {
+        String arrival = "";
+        if(mFlightPlanInfo!=null) {
+            arrival = Util.NullString(mFlightPlanInfo.getPlanArrival(),"");
+        }
+        if (TextUtils.isEmpty(((TextViewEx) findViewById(R.id.et_6_1)).getText().toString()) && arrival.length() <= 0) {
             Toast.makeText(this, "Arrival Aerodrome를 입력하세요.", Toast.LENGTH_SHORT).show();
             ((TextViewEx) findViewById(R.id.tve_6_1_e)).setVisibility(View.VISIBLE);
             ((TextViewEx) findViewById(R.id.et_6_1)).setFocusableInTouchMode(true);
@@ -1488,9 +1543,38 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         if (resultCode == RESULT_OK) {
 
             if (requestCode == NhsSelectPointActivity.MODE_DEPARTURE) { // 출발 검색 결과
-
-                planDeparture = data.getExtras().getString(DATA_START);
+                String planDeparture = data.getExtras().getString(DATA_START);
                 String[] start = planDeparture.split(" ");
+
+                // 출발지
+                if (route!=null && route.size() > 0) {
+                    int i = 0;
+                    for(FlightRouteModel m : route){
+                        if(m.getStepNum().equals("1")){
+                            m.setAreaId("0");
+                            m.setAreaNm("0");
+                            m.setLat(start[1]);
+                            m.setLon(start[0]);
+                            m.setElev("0");
+                            m.setHeading("0");
+                            m.setStepNum("1");
+                            route.set(i,m);
+                        }
+                        i++;
+                    }
+                    //routeList.add(routeMap);
+                } else {
+                    FlightRouteModel m = new FlightRouteModel();
+                    m.setAreaId("0");
+                    m.setAreaNm("0");
+                    m.setLat(start[1]);
+                    m.setLon(start[0]);
+                    m.setElev("0");
+                    m.setHeading("0");
+                    m.setStepNum("1");
+                    route.add(m);
+                }
+
                 StringBuffer strBuffer = new StringBuffer();
                 lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
                 String apCd = strBuffer.toString().split("@@")[0];
@@ -1498,14 +1582,72 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
             } else if (requestCode == NhsSelectPointActivity.MODE_ARRIVAL) {  // 도착지 검색 결과
 
-                planArrival = data.getExtras().getString(DATA_END);
+                String planArrival = data.getExtras().getString(DATA_END);
                 String[] start = planArrival.split(" ");
+
+                // 도착지
+                if (route!=null && route.size() > 1) {
+                    int i = 0;
+                    FlightRouteModel m = route.get(route.size()-1);
+                    m.setAreaId("0");
+                    m.setAreaNm("0");
+                    m.setLat(start[1]);
+                    m.setLon(start[0]);
+                    m.setElev("0");
+                    m.setHeading("0");
+                    m.setStepNum(""+route.size());
+                    route.set(i,m);
+                } else if(route!=null && route.size() == 1)
+                {
+                    FlightRouteModel m = new FlightRouteModel();
+                    m.setAreaId("0");
+                    m.setAreaNm("0");
+                    m.setLat(start[1]);
+                    m.setLon(start[0]);
+                    m.setElev("0");
+                    m.setHeading("0");
+                    m.setStepNum("2");
+                    route.add(m);
+                } else {
+                    return;
+                }
+
                 StringBuffer strBuffer = new StringBuffer();
                 lanGetPortCodeName(Double.parseDouble(start[0]), Double.parseDouble(start[1]), strBuffer);
                 String apCd = strBuffer.toString().split("@@")[0];
                 ((TextViewEx) findViewById(R.id.et_6_1)).setText(apCd);
 
             } else if (requestCode == NhsSelectPointActivity.MODE_ROUTE) {  // 경유지 검색 결과
+
+                String dataRoute = data.getExtras().getString(DATA_ROUTE);
+                String[] start = dataRoute.split(" ");
+
+                // 도착지
+                if (route!=null && route.size() > 2) {
+                    int i = route.size()-1;
+                    FlightRouteModel m = route.get(route.size()-2);
+                    m.setAreaId("0");
+                    m.setAreaNm("0");
+                    m.setLat(start[1]);
+                    m.setLon(start[0]);
+                    m.setElev("0");
+                    m.setHeading("0");
+                    m.setStepNum(""+i);
+                    route.add(i,m);
+                } else if(route!=null && route.size() == 1)
+                {
+                    FlightRouteModel m = new FlightRouteModel();
+                    m.setAreaId("0");
+                    m.setAreaNm("0");
+                    m.setLat(start[1]);
+                    m.setLon(start[0]);
+                    m.setElev("0");
+                    m.setHeading("0");
+                    m.setStepNum("2");
+                    route.add(m);
+                } else {
+                    return;
+                }
 
                 ((EditText) findViewById(R.id.ed_route)).setText(data.getExtras().getString(DATA_ROUTE));
 
