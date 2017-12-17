@@ -379,6 +379,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         this.tempSaveFileName = sdf.format(new Date()) + "_Loss_of_comm.dat";
 
+        if(mode == NONE_DRIVE){
+            sdf = new SimpleDateFormat("HH:mm:ss");
+            ((TextView) findViewById(R.id.tv_ete_eta)).setText(sdf.format(new Date()));
+        }
     }
 
     /**
