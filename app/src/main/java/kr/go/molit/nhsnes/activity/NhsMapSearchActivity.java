@@ -175,11 +175,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private FlightPlanInfo flightPlanInfo = null;
     private String flightId = "";
     private ArrayList<FlightRouteModel> route;  // 경로
-    private boolean isSimulStop = false;
 
-    private View v_overlay  =   null;
-    private DialogType1 mRoutePopup  = null;
+    private View v_overlay = null;
+    private DialogType1 mRoutePopup = null;
     private boolean isAskRouteMsg = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -313,7 +313,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         public void run() {
                             dismissProgress();
                         }
-                    },3000);
+                    }, 3000);
 
                 }
             }
@@ -378,17 +378,17 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             this.progressDialog.setCancelable(false);
             this.progressDialog.show();
             */
-            if(v_overlay == null) {
+            if (v_overlay == null) {
                 v_overlay = findViewById(R.id.v_overlay);
                 v_overlay.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        Log.d("JeLib","방지");
+                        Log.d("JeLib", "방지");
                         return true;
                     }
                 });
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -405,12 +405,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             if (this.progressDialog != null) {
                 this.progressDialog.dismiss();
             }*/
-            if(v_overlay != null) {
+            if (v_overlay != null) {
                 v_overlay.setVisibility(View.GONE);
                 v_overlay.setOnTouchListener(null);
                 v_overlay = null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -522,7 +522,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             this.mNlvView.clearRoutePosition();
 
 
-
         } catch (Exception e) {
 
         }
@@ -543,7 +542,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             @Override
             public void onClick(View view) {
                 try {
-                    isSimulStop = false;
 
                     if (mode == LOG_DRIVE) {
                         if (!mNative.lanLogIsPause()) {  // 로그 주행 중이면
@@ -553,7 +551,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                     if (mNative.lanSimulIsPause() != 1) {
                         mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
-                        isSimulStop = true;
                         mIvPlayState.setImageResource(R.drawable.btn_play_nor);
                     }
 
@@ -564,9 +561,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             if (mode == LOG_DRIVE) {
                                 mNative.lanLogStopTrajectory(); // 로그 주행 정지
                             } else {
-                                if (isSimulStop) {
-                                    mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
-                                }
+                                mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
                             }
 
                             new Handler().postDelayed(new Runnable() {
@@ -592,7 +587,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             messageDialog.hideDialog();
                         }
                     });
-                }catch(Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -661,7 +656,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     public void onClick(AirPoint curPos) {
 
         Log.d("clicklistener", "CLICK!");
-        if(vController.getVisibility() == View.VISIBLE)return;
+        if (vController.getVisibility() == View.VISIBLE) return;
         switch (this.mode) {
 
             // 경로탐색일 경우
@@ -747,7 +742,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
                                         }
                                     }
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -781,7 +776,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                     dialogFavorites.setStart(curPos.x + " " + curPos.y);
                                     dialogFavorites.setSingleMode("출발지");
                                     dialogFavorites.show();
-                                }catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -839,7 +834,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                             isAppedMapPin = true;
                                         }
                                     }
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -874,7 +869,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                     dialogFavorites.setEnd(curPos.x + " " + curPos.y);
                                     dialogFavorites.setSingleMode("도착지");
                                     dialogFavorites.show();
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -961,17 +956,17 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                     }
 
 
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
 
                             case R.id.btn_cancel:
-                                Log.d("JeLib","--------------------------");
-                                Log.d("JeLib","--------------------------");
-                                Log.d("JeLib","--------경로확정-------");
-                                Log.d("JeLib","--------------------------");
-                                Log.d("JeLib","--------------------------");
+                                Log.d("JeLib", "--------------------------");
+                                Log.d("JeLib", "--------------------------");
+                                Log.d("JeLib", "--------경로확정-------");
+                                Log.d("JeLib", "--------------------------");
+                                Log.d("JeLib", "--------------------------");
                                 try {
                                     // 경로 확정
                                     int resultCode = mNlvView.executeRP(NhsMapSearchActivity.this, 0, 0, new View.OnClickListener() {
@@ -1054,7 +1049,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                         }
 
                                     }
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -1086,7 +1081,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                     dialogFavorites.setSingleMode("경유지");
                                     dialogFavorites.show();
 
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -1113,7 +1108,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
      * @author FIESTA
      * @since 오후 15:390
      **/
-    private void selectPointRoute(AirPoint curPos){
+    private void selectPointRoute(AirPoint curPos) {
 
         int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, curPos.x, curPos.y, "watpoint name", new View.OnClickListener() {
             @Override
@@ -1128,7 +1123,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             } else {
 
                 // 마지막에 \n이 없으면 붙인다.
-                if (routeData.lastIndexOf("\n") != routeData.length()-1) {
+                if (routeData.lastIndexOf("\n") != routeData.length() - 1) {
                     routeData += "\n";
                 }
 
@@ -1476,7 +1471,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                         if (flightPlanModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
 
                             flightPlanInfo = flightPlanModel.getFplDetail();
-                            route = (ArrayList)flightPlanModel.getRoute();
+                            route = (ArrayList) flightPlanModel.getRoute();
                             flightPlanInfo.setFlightId(flightId);
 
                             // 비행을 시작한다.
@@ -1717,11 +1712,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             // 모의비행 종료버튼튼
             else if (R.id.tv_controll_close == v.getId()) {
 
-                isSimulStop = false;
-
                 if (mNative.lanSimulIsPause() != 1) {
                     mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
-                    isSimulStop= true;
                     mIvPlayState.setImageResource(R.drawable.btn_play_nor);
                 }
 
@@ -1730,9 +1722,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     public void onClick(View v) {
                         //mNative.lanSimulStartTrajectory();
 
-                        if (isSimulStop) {
-                            mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
-                        }
+                        mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
 
                         messageDialog.hideDialog();
 
@@ -1958,11 +1948,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                 NhsMapSearchActivity.super.setGpsListener(new OnGpsListener() {
                                     @Override
                                     public void onLocationChanged(Location location) {
-                                        Log.d("JeLib","-------------onLocationChanged---------");
-                                        Log.d("JeLib","-------------onLocationChanged---------");
-                                        Log.d("JeLib","-------------onLocationChanged---------");
-                                        Log.d("JeLib","-------------onLocationChanged---------");
-                                        Log.d("JeLib","-------------onLocationChanged---------");
+                                        Log.d("JeLib", "-------------onLocationChanged---------");
+                                        Log.d("JeLib", "-------------onLocationChanged---------");
+                                        Log.d("JeLib", "-------------onLocationChanged---------");
+                                        Log.d("JeLib", "-------------onLocationChanged---------");
+                                        Log.d("JeLib", "-------------onLocationChanged---------");
 
                                         NhsMapSearchActivity.super.setGpsListener(null);
 
@@ -2115,7 +2105,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     }
                 });
                 mDialog = dTpye2.getDialog();
-            } catch(Exception e){
+            } catch (Exception e) {
                 mDialog = null;
             }
         } else {
