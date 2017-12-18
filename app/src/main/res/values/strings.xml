@@ -6,6 +6,7 @@
     <string name="btn_confirm">확인</string>
     <string name="btn_cancel">취소</string>
     <string name="btn_delete">삭제</string>
+    <string name="btn_add">추가</string>
 
     <!-- 개인정보 수집, 이용 동의 -->
     <string name="dialog_agree_title">개인정보 수집, 이용 동의</string>
@@ -145,4 +146,5 @@
     <string name="rp_error_msg_7">RP_START_MATCHING_FAIL_1(경유지 시작 링크 설정 실패)</string>
 
     <string name="ete">ETE : %s Hour</string>
+
 </resources>

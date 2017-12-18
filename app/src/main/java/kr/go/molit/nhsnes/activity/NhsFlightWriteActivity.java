@@ -395,7 +395,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         findViewById(R.id.fl_new_route).setOnClickListener(this);
 
         tvRoute = (EditText) findViewById(R.id.ed_route);
-        tvRoute.setOnClickListener(this);
+//        tvRoute.setOnClickListener(this);
         tvRoute.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
