@@ -77,8 +77,8 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
 //                x = (int) (Float.parseFloat(spritStart[0]) * 10000000);
 //                y = (int) (Float.parseFloat(spritStart[1]) * 10000000);
 
-                x = Double.parseDouble(spritStart[0]);
-                y = Double.parseDouble(spritStart[1]);
+                x = Double.parseDouble(spritStart[1]);
+                y = Double.parseDouble(spritStart[0]);
 
                 Log.d("JeLib", "start x is : "+x+"");
                 Log.d("JeLib", "start y is : "+y+"");
@@ -91,7 +91,11 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
                         });
                 //mNative.lanSetRoutePosition(Constants.NAVI_SETPOSITION_START, x, y);
 
+                if (result != 0) {
+                  finish();
+                }
               }
+
             }
 
           }catch (Exception ex) {
@@ -108,8 +112,8 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
 //                x = (int) (Float.parseFloat(spritStart[0]) * 10000000);
 //                y = (int) (Float.parseFloat(spritStart[1]) * 10000000);
 
-                x = Double.parseDouble(spritStart[0]);
-                y = Double.parseDouble(spritStart[1]);
+                x = Double.parseDouble(spritStart[1]);
+                y = Double.parseDouble(spritStart[0]);
 
                 Log.d("JeLib", "end x is : "+x+"");
                 Log.d("JeLib", "end y is : "+y+"");
@@ -120,6 +124,11 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
 
                   }
                 });
+
+                if (result != 0) {
+                  finish();
+                }
+
                 //mNative.lanSetRoutePosition(Constants.NAVI_SETPOSITION_GOAL, x, y);
               }
 
@@ -144,8 +153,8 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
 //                  x = (int) (Float.parseFloat(dataStart[0]) * 10000000);
 //                  y = (int) (Float.parseFloat(dataStart[1]) * 10000000);
 
-                  x = Double.parseDouble(dataStart[0]);
-                  y = Double.parseDouble(dataStart[1]);
+                  x = Double.parseDouble(dataStart[1]);
+                  y = Double.parseDouble(dataStart[0]);
 
                   Log.d("JeLib", "route x is : "+x+"");
                   Log.d("JeLib", "route y is : "+y+"");
@@ -156,6 +165,11 @@ public class NhsMapSearchWaypointActivity extends NhsBaseFragmentActivity {
 
                     }
                   });
+
+                  if (result != 0) {
+                    finish();
+                  }
+
                 }
 
               }

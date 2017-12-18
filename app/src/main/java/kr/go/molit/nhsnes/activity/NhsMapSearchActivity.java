@@ -1311,6 +1311,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 //            endData = "128.746608 35.504016";
 //            routeData = "128.344745 36.118153";
 
+            mNlvView.clearRoutePosition();
 
             // 시자 위치 지정
             try {

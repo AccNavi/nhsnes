@@ -198,6 +198,12 @@ public class NhsSelectPointActivity extends NhsBaseFragmentActivity implements V
 
     } else if (resultCode == RESULT_OK) {
 
+      if (this.mDialogSearchWaypoint != null) {
+        if (this.mDialogSearchWaypoint.isShowing()){
+          this.mDialogSearchWaypoint.dismiss();
+        }
+      }
+
       setResult(RESULT_OK, data);
       finish();
 

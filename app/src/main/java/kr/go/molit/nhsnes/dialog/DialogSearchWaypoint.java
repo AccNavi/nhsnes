@@ -391,7 +391,7 @@ public class DialogSearchWaypoint extends DialogBase implements View.OnClickList
 //          intent.putExtra(DATA, model);
 
                     this.act.startActivityForResult(intent, mode);
-                    dismiss();
+//                    dismiss();
                 }
 
                 break;
