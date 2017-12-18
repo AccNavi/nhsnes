@@ -1,6 +1,7 @@
 package kr.go.molit.nhsnes.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,6 +50,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
     // DEM 저장 경로
     private final static String DEM_DOWNLOAD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/DEM/";
+
+    // 실제 맵 경로
+    private final static String REAL_MAP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/";
 
     private DialogType1 newAppDialgo = null;
     private LinearLayout llBgNewApp = null;
@@ -535,12 +539,15 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
      * @author FIESTA
      * @since 오전 11:19
      **/
-    private void moveFile(String inputPath, String inputName, String reName, String outputPath) {
+    private boolean moveFile(String inputPath, String inputName, String reName, String outputPath) {
 
-        updateProgress(reName + "파일을 이동중입니다.");
+        boolean isSucc = false;
+
+        updateProgress(reName + " 파일을 이동중입니다.");
 
         InputStream in = null;
         OutputStream out = null;
+
         try {
 
             File dir = new File(outputPath);
@@ -568,11 +575,16 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
             // delete the original file
             new File(inputPath + inputName).delete();
 
+            isSucc = true;
 
         } catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
+            isSucc = false;
         } catch (Exception e) {
             Log.e("tag", e.getMessage());
+            isSucc = false;
+        } finally {
+            return isSucc;
         }
 
     }
@@ -596,7 +608,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                 @Override
                 protected void onPreExecute() {
-                    NhsAppInfoActivity.this.showProgress(8, "파일 병합 및 파일 이동을 합니다.");
+                    NhsAppInfoActivity.this.showProgress(9, "파일 병합 및 파일 이동을 합니다.");
                     super.onPreExecute();
                 }
 
@@ -604,6 +616,14 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
                 protected Void doInBackground(Void... voids) {
                     // DEM2-1.bin, DEM2-2.bin 을 합친다.
                     isComplate = combineFileDem("DemMain.dat", DEM_DOWNLOAD_PATH, DEM_DOWNLOAD_PATH);
+
+                    if (isComplate){
+
+                        // DemMain을 옮긴다.
+                        isComplate = moveFile(DEM_DOWNLOAD_PATH, "DemMain.dat", "DemMain.dat", REAL_MAP_PATH);
+
+                    }
+
                     return null;
                 }
 
@@ -611,9 +631,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     if (isComplate) {
-                        new ToastUtile().showCenterText(NhsAppInfoActivity.this, "DemMain.dat으로 파일 병합에 성공했습니다.");
-                    } else {
-                        new ToastUtile().showCenterText(NhsAppInfoActivity.this, "DemMain.dat으로 파일 병합에 실패했습니다.");
+                        new ToastUtile().showCenterText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.");
                     }
 
                     new Handler().postDelayed(new Runnable() {
@@ -621,6 +639,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
                         public void run() {
 
                             dismissProgress();
+                            finish();
 
                         }
                     }, 2000);

@@ -17,13 +17,12 @@ public class NativeImplement {
 
     public boolean mJNIInit = false;
     public static final String KML_DATA_PATH;     // KML 을 불러올 경로
-    public static String GPS_LOG_DATA_PATH;     // GPS LOG 을 불러올 경로
+    public static String GPS_LOG_DATA_PATH =  Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/GPSLog/";     // GPS LOG 을 불러올 경로
     public static String MAP_PATH="";     // 맵 경로
 
     static {
         System.loadLibrary("lanAndroidJni");
         KML_DATA_PATH = Environment.getExternalStorageDirectory() + "/ACC_NAVI/KML_Data/";
-//        GPS_LOG_DATA_PATH = Environment.getExternalStorageDirectory() + "/ACC_NAVI/GPSLog";
     }
 
     public NativeImplement(Context context) {
@@ -33,7 +32,6 @@ public class NativeImplement {
         // 외부 usb 저장 경로를 가져온다
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap";
         MAP_PATH = path;
-        GPS_LOG_DATA_PATH = "/GPSLog/";
         config.sRootDirectory = path;
 //        config.sRootDirectory = "/storage/0000-0000/LANMap"; // for Galuxy Wide ,  요놈은 외부 저장장치 이름이 틀리다.
 

@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StatFs;
 import android.support.annotation.RequiresApi;
 import android.text.Html;
 import android.text.InputFilter;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -40,6 +42,8 @@ import kr.go.molit.nhsnes.widget.EditTextEx;
 import kr.go.molit.nhsnes.widget.KeypadScroll;
 import kr.go.molit.nhsnes.widget.TextViewEx;
 
+import static com.modim.lan.lanandroid.NativeImplement.GPS_LOG_DATA_PATH;
+import static com.modim.lan.lanandroid.NativeImplement.KML_DATA_PATH;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_VECTOR;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
 
@@ -51,6 +55,9 @@ import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
  **/
 
 public class NhsLoginActivity extends NhsBaseFragmentActivity implements CompoundButton.OnCheckedChangeListener{
+
+  private static final long KILOBYTE = 1024;
+  private static final int REMAINING_PERSENT = 5; // 5퍼센트 미만 TRK 파일 삭제 요청
 
   public final static String LOGIN_MBR_ID = "mbrId";
   public final static String LOGIN_TOKEN_KEY = "tokenKey";
@@ -240,9 +247,67 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
 
 
         mPopup2.hideDialog();
-        Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
-        startActivity(intent);
-        finish();
+
+        // 남은 용량 퍼센트를 받는다.
+        int storagePersent = getStoragePersentRemaining();
+
+        // 내부 저장소 용량 일정 퍼센트 미만이면 사용자에게 삭제 다이얼로그를 보여준다.
+        if (storagePersent < REMAINING_PERSENT) {
+          mPopup1 = new DialogType1(_context, "", "여유공간이 5% 미만입니다.\n" +
+                  "과거 비행데이터를 삭제하시겠습니까?", "예", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+              try {
+                File file = new File(GPS_LOG_DATA_PATH);
+                File lists[] = file.listFiles();
+
+                int size = lists.length;
+                int i = 0;
+
+                // trk 파일 모두 삭제
+                for (i = 0; i < size; i++) {
+                  lists[i].delete();
+                }
+
+              }catch (Exception ex) {
+
+              } finally {
+
+                Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
+                startActivity(intent);
+                finish();
+
+              }
+
+              mPopup1.hideDialog();
+
+            }
+          }, "아니요", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+              mPopup1.hideDialog();
+
+              Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
+              startActivity(intent);
+              finish();
+
+            }
+          });
+
+        } else {
+
+          Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
+          startActivity(intent);
+          finish();
+
+        }
+
+
+
+
       }
     }, null, null);
   }
@@ -410,6 +475,37 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
       return null;
     }
   };
+
+  /**
+   * 내부 용량 퍼센트를 가져온다.
+   *
+   * @author FIESTA
+   * @since 오전 12:36
+   **/
+  private int getStoragePersentRemaining(){
+
+    StatFs internalStatFs = new StatFs( Environment.getRootDirectory().getAbsolutePath() );
+    long internalTotal;
+    long internalFree;
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+      internalTotal = ( internalStatFs.getBlockCountLong() * internalStatFs.getBlockSizeLong() ) / ( KILOBYTE * KILOBYTE );
+      internalFree = ( internalStatFs.getAvailableBlocksLong() * internalStatFs.getBlockSizeLong() ) / ( KILOBYTE * KILOBYTE );
+    }
+    else {
+      internalTotal = ( (long) internalStatFs.getBlockCount() * (long) internalStatFs.getBlockSize() ) / ( KILOBYTE * KILOBYTE );
+      internalFree = ( (long) internalStatFs.getAvailableBlocks() * (long) internalStatFs.getBlockSize() ) / ( KILOBYTE * KILOBYTE );
+    }
+
+    long total = internalTotal;
+    long free = internalFree;
+    long used = total - free;
+
+    int psersent = (int)(100-((float)used / (float)total * 100));
+
+    return psersent;
+
+  }
 
 }
 
