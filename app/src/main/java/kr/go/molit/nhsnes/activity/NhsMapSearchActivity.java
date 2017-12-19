@@ -177,8 +177,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     private ArrayList<FlightRouteModel> route;  // 경로
 
     private View v_overlay = null;
-    private DialogType1 mRoutePopup = null;
-    private boolean isAskRouteMsg = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -912,51 +910,27 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             // 경유지 추가
                             case R.id.btn_complate:
                                 try {
+                                    int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, curPos.x, curPos.y, "watpoint name", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                                    // 비행계획서 작성으로 경로 탐색으로 지정해서 들어왔다면 (경로 선택)
-                                    // 한번만 묻는다.
-                                    if (mode == NhsSelectPointActivity.MODE_ROUTE && !isAskRouteMsg) {
+                                        }
+                                    });
 
-                                        mRoutePopup = new DialogType1(NhsMapSearchActivity.this, "알림", "기존 좌표에 추가하시겠습니까?", getString(R.string.btn_add), new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
+                                    if (result == 0) {
+                                        if (routeData.isEmpty()) {
+                                            routeData = curPos.x + " " + curPos.y + "\n";
+                                        } else {
 
-                                                // 경유지 추가
-                                                selectPointRoute(curPos);
-
-                                                mRoutePopup.hideDialog();
-
+                                            // 마지막에 \n이 없으면 붙인다.
+                                            if (routeData.lastIndexOf("\n") != routeData.length()-1) {
+                                                routeData += "\n";
                                             }
-                                        }, getString(R.string.btn_delete), new View.OnClickListener() { // 기존 경로 삭제
 
-                                            @Override
-                                            public void onClick(View v) {
-
-                                                // 경로 초기화
-                                                routeData = "";
-
-                                                // 맵을 다시 그린다.
-                                                reloadMap();
-
-                                                // 경유지 추가
-                                                selectPointRoute(curPos);
-
-                                                mRoutePopup.hideDialog();
-
-                                            }
-                                        });
-
-                                        isAskRouteMsg = true;
-
-                                    } else {
-
-                                        // 경유지 추가
-                                        selectPointRoute(curPos);
-
+                                            routeData += (curPos.x + " " + curPos.y + "\n");
+                                        }
                                     }
-
-
-                                } catch (Exception e) {
+                                } catch(Exception e){
 
                                 }
                                 break;
@@ -1099,37 +1073,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
         this.mDialogConfirmSelectMap.setAddWayPointCnt(this.routeWaypointCnt);
         this.mDialogConfirmSelectMap.show();
-
-    }
-
-    /**
-     * 경유지를 추가한다.
-     *
-     * @author FIESTA
-     * @since 오후 15:390
-     **/
-    private void selectPointRoute(AirPoint curPos) {
-
-        int result = mNlvView.setRoutePosition(NhsMapSearchActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, curPos.x, curPos.y, "watpoint name", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        if (result == 0) {
-            if (routeData.isEmpty()) {
-                routeData = curPos.x + " " + curPos.y + "\n";
-            } else {
-
-                // 마지막에 \n이 없으면 붙인다.
-                if (routeData.lastIndexOf("\n") != routeData.length() - 1) {
-                    routeData += "\n";
-                }
-
-                routeData += (curPos.x + " " + curPos.y + "\n");
-            }
-        }
 
     }
 
