@@ -727,11 +727,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
-                                android:focusable="false"
+                                android:digits="1234567890.\n "
                                 android:gravity="left"
                                 android:imeOptions="actionNone"
                                 android:inputType="textMultiLine"
-                                android:maxLines="5"
                                 android:scrollbars="vertical"
                                 android:textColor="@color/white"
                                 android:textSize="14dp" />
