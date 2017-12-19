@@ -72,7 +72,7 @@ public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<Recyc
 
     public void setData(List<NhsDestinationSearchModel> destinationSearchModels) {
         this.destinationSearchModels = destinationSearchModels;
-        sort();
+//        sort();
         notifyDataSetChanged();
     }
 

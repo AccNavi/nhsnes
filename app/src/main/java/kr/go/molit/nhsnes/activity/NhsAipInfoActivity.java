@@ -115,7 +115,7 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
     /**
      * 리스트를 조회한다.
      *
-     * @author 임성진
+     * @author FIESTA
      * @version 1.0.0
      * @since 2017-09-08 오전 11:34
      **/

@@ -10,6 +10,8 @@ import android.view.View;
 
 import org.json.JSONObject;
 
+import java.io.File;
+
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import kr.go.molit.nhsnes.Network.NetworkProcess;
@@ -18,6 +20,7 @@ import kr.go.molit.nhsnes.common.NetworkParamUtil;
 import kr.go.molit.nhsnes.common.NetworkUrlUtil;
 import kr.go.molit.nhsnes.common.ToastUtile;
 import kr.go.molit.nhsnes.common.Util;
+import kr.go.molit.nhsnes.widget.CustomViewListType1;
 
 import static kr.go.molit.nhsnes.activity.NhsAipInfoActivity.CALL_CALSS_NAME;
 import static kr.go.molit.nhsnes.activity.NhsAipInfoActivity.SEARCH_TYPE;
@@ -71,6 +74,8 @@ public class NhsAirlineInquiryActivity extends NhsBaseFragmentActivity implement
         findViewById(R.id.runway_list).setOnClickListener(this);
         findViewById(R.id.heliport_list).setOnClickListener(this);
 
+        // 항공시보 정보를 갱신한다.
+        setNotamProcess();
 
     }
 
@@ -162,38 +167,99 @@ public class NhsAirlineInquiryActivity extends NhsBaseFragmentActivity implement
                 startActivity(intent);
                 break;
 
-            // 항공 시보
-            case R.id.notam_list:
-                NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
-                NetworkParamUtil networkParamUtil = new NetworkParamUtil();
+        }
 
-                // 노탐
-                StringEntity param = networkParamUtil.notamParam(NhsAirlineInquiryActivity.this);
+    }
 
-                NetworkProcess networkProcess = new NetworkProcess(NhsAirlineInquiryActivity.this,
-                        "http://211.107.29.58:8181/NIF/nis/list/notamList.do",
-                        param,
-                        new NetworkProcess.OnResultListener() {
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+    /**
+     * 항공시보 프로세스를 실행한다..
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 2017-09-08 오전 11:34
+     **/
+    private void setNotamProcess(){
 
-                            }
+        final File file = new File(Environment.getExternalStorageDirectory() +"/ACC_NAVI/Flight_Info/Notam.dat");
+        CustomViewListType1 view1 = (CustomViewListType1)findViewById(R.id.notam_list);
 
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        boolean isExits = file.exists();
 
-                            }
+        if (isExits) {
+            view1.setImageViewPostVisible(true);
+        } else {
+            view1.setImageViewPostVisible(false);
+        }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        view1.setImageViewPreVisible(true);
 
-                                Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_NAVI/Flight_Info", "Notam.dat", response.toString());
-                                new ToastUtile().showCenterText(NhsAirlineInquiryActivity.this, "다운로드가 완료되었습니다.");
+        if (!isExits) { // 파일이 없으면 다운로드 리스너를 등록한다.
 
-                            }
-                        }, true);
-                networkProcess.sendEmptyMessage(0);
-                break;
+            findViewById(R.id.notam_list).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
+                    NetworkParamUtil networkParamUtil = new NetworkParamUtil();
+
+                    // 노탐
+                    StringEntity param = networkParamUtil.notamParam(NhsAirlineInquiryActivity.this);
+
+                    NetworkProcess networkProcess = new NetworkProcess(NhsAirlineInquiryActivity.this,
+                            new NetworkUrlUtil().getNotam(),
+                            param,
+                            new NetworkProcess.OnResultListener() {
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                    Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_NAVI/Flight_Info", "Notam.dat", response.toString());
+                                    new ToastUtile().showCenterText(NhsAirlineInquiryActivity.this, "다운로드가 완료되었습니다.");
+
+                                    // ui를 갱신한다.
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setNotamProcess();
+                                        }
+                                    });
+
+
+                                }
+                            }, true);
+                    networkProcess.sendEmptyMessage(0);
+                }
+            });
+
+        } else {
+
+            // 파일이 있으면삭제한다.
+            findViewById(R.id.notam_list).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    file.delete();
+
+
+                    // ui를 갱신한다.
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setNotamProcess();
+                        }
+                    });
+
+                }
+            });
+
 
         }
 

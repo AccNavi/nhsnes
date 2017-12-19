@@ -105,7 +105,6 @@
                     android:id="@+id/notam_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:postIcon="@drawable/icon_download_nor"
                     app:text="항공시보" />
 
 
