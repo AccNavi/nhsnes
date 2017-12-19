@@ -57,7 +57,7 @@ import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
 public class NhsLoginActivity extends NhsBaseFragmentActivity implements CompoundButton.OnCheckedChangeListener{
 
   private static final long KILOBYTE = 1024;
-  private static final int REMAINING_PERSENT = 5; // 5퍼센트 미만 TRK 파일 삭제 요청
+  private static final int REMAINING_PERSENT = 15; // 5퍼센트 미만 TRK 파일 삭제 요청
 
   public final static String LOGIN_MBR_ID = "mbrId";
   public final static String LOGIN_TOKEN_KEY = "tokenKey";

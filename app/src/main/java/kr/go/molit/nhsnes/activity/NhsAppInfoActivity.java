@@ -1,7 +1,6 @@
 package kr.go.molit.nhsnes.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,6 +66,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     private LinkedList<NetworkProcessWithFile> downloadQueue;
     private ProgressDialog progressDialog;
     private boolean isDownloadDem = false;
+    private boolean isDownloadVector = false;
+    private boolean isDownloadPOI = false;
+
     private int currentProgress = 0;
 
     @Override
@@ -142,6 +144,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                         // 벡터 데이터를 큐에 넣는다.
                         addDownloadQueue("4", DEFAULT_DOWNLOAD_PATH, "MapMain.dat");
+                        isDownloadVector = true;
 
                     }
 
@@ -149,19 +152,21 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
                     if (!(demVersion.equals(newestDemVersion))) {
 
                         addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM2-1.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM2-2.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM3.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM4.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM5.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM6.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM7.bin");
-                        addDownloadQueue("6", DEM_DOWNLOAD_PATH,"DEM8.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM2-2.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM3.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM4.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM5.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM6.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM7.bin");
+                        addDownloadQueue("6", DEM_DOWNLOAD_PATH, "DEM8.bin");
 
                         isDownloadDem = true;
+
                     }
 
                     // LAN_POI를 다운로드 큐에 넣는다.
-                    addDownloadQueue("7", DEFAULT_DOWNLOAD_PATH, "LAN_POI");
+                    addDownloadQueue("7", DEFAULT_DOWNLOAD_PATH, "LANPOI.dat");
+                    isDownloadPOI = true;
 
                     // 다운로드를 시작한다.
                     startDownloadQueue();
@@ -187,7 +192,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
         if (downloadQueue != null) {
 
             // 프로그래스바를 보여준다.
-            showProgress(this.downloadQueue.size()-1, "다운로드 중입니다..");
+            showProgress(this.downloadQueue.size() - 1, "다운로드 중입니다..");
 
             // 처음부터 큐 스탭을 시작한다.
             this.downloadStep = 0;
@@ -599,40 +604,100 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
         dismissProgress();
 
-        // dem 다운로드가 되었다면
-        if (isDownloadDem) {
 
-            new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Void>() {
 
-                boolean isComplate = false;
+            private boolean isComplate = false;
+            String failStateMsg = "";
 
-                @Override
-                protected void onPreExecute() {
-                    NhsAppInfoActivity.this.showProgress(9, "파일 병합 및 파일 이동을 합니다.");
-                    super.onPreExecute();
+            @Override
+            protected void onPreExecute() {
+
+                int count = 0;
+
+                if (isDownloadDem) {
+                    count += 9;
                 }
 
-                @Override
-                protected Void doInBackground(Void... voids) {
+                if (isDownloadPOI) {
+                    count += 1;
+                }
+
+                if (isDownloadPOI) {
+                    count += 1;
+                }
+
+                NhsAppInfoActivity.this.showProgress(count, "파일 병합 및 파일 이동을 합니다.");
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                // dem 다운로드가 되었다면
+                if (isDownloadDem) {
+
                     // DEM2-1.bin, DEM2-2.bin 을 합친다.
                     isComplate = combineFileDem("DemMain.dat", DEM_DOWNLOAD_PATH, DEM_DOWNLOAD_PATH);
 
-                    if (isComplate){
+                    // DemMain.dat을 맵 폴더로 옮긴다.
+                    if (isComplate) {
 
                         // DemMain을 옮긴다.
                         isComplate = moveFile(DEM_DOWNLOAD_PATH, "DemMain.dat", "DemMain.dat", REAL_MAP_PATH);
 
+                        if (!isComplate) {
+                            failStateMsg = "DemMain.dat 옮기던 중, 실패했습니다.";
+                            return null;
+                        }
+
+                    } else {
+                        failStateMsg = "DEM2-1.bin, DEM2-2.bin 을 합치던 중, 실패했습니다.";
+                        return null;
                     }
 
-                    return null;
                 }
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-                    if (isComplate) {
-                        new ToastUtile().showCenterText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.");
+                if (isDownloadVector) {
+
+                    // DemMain을 옮긴다.
+                    isComplate = moveFile(DEFAULT_DOWNLOAD_PATH, "MapMain.dat", "MapMain.dat", REAL_MAP_PATH);
+
+                    if (!isComplate) {
+                        failStateMsg = "MapMain.dat 옮기던 중, 실패했습니다.";
+                        return null;
                     }
+
+                }
+
+                if (isDownloadPOI) {
+
+                    // DemMain을 옮긴다.
+                    isComplate = moveFile(DEFAULT_DOWNLOAD_PATH, "LANPOI.dat", "LANPOI.dat", REAL_MAP_PATH);
+
+                    if (!isComplate) {
+                        failStateMsg = "LANPOI.dat 옮기던 중, 실패했습니다.";
+                        return null;
+                    }
+
+                }
+
+                // 임시 DEM 폴더의 파일들을 삭제
+                removeAllFile(DEM_DOWNLOAD_PATH);
+
+                // 임시 DEFAULT DOWNLOAD 폴더의 파일들을 삭제
+                removeAllFile(DEFAULT_DOWNLOAD_PATH);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                if (isComplate) {
+
+                    new ToastUtile().showCenterText(NhsAppInfoActivity.this, "지도 업데이트가 완료되었습니다.");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -643,8 +708,47 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
                         }
                     }, 2000);
+
+                } else {
+
+                    dismissProgress();
+                    new ToastUtile().showCenterText(NhsAppInfoActivity.this, failStateMsg);
+
+
                 }
-            }.execute();
+
+
+            }
+        }.execute();
+
+
+    }
+
+    /**
+     * 임시 저장 폴더에 있는 파일들을 모두 삭제한다.
+     *
+     * @author FIESTA
+     * @since 오전 10:14
+     **/
+    private void removeAllFile(String directoryPath) {
+
+        try {
+
+            File file = new File(directoryPath);
+            File lists[] = file.listFiles();
+
+            int size = lists.length;
+            int i = 0;
+
+            // 파일 모두 삭제
+            for (i = 0; i < size; i++) {
+                lists[i].delete();
+            }
+
+        } catch (Exception ex) {
+
+        } finally {
+
 
         }
 
