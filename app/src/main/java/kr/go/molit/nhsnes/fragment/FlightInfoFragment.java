@@ -123,8 +123,8 @@ public class FlightInfoFragment extends BaseFragment implements TextToggleButton
 
         sbLowestFlightAltitude.setUnit("ft");
         sbLowestFlightAltitude.setSelect0("500");
-        sbLowestFlightAltitude.setSelect1("600");
-        sbLowestFlightAltitude.setSelect2("700");
+        sbLowestFlightAltitude.setSelect1("800");
+        sbLowestFlightAltitude.setSelect2("1000");
 
         sbSetTheMapDownloadScope.setUnit("nm");
         sbSetTheMapDownloadScope.setSelect0("3");
