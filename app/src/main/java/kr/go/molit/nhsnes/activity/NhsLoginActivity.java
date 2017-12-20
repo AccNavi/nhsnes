@@ -484,7 +484,7 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
    **/
   private int getStoragePersentRemaining(){
 
-    StatFs internalStatFs = new StatFs( Environment.getRootDirectory().getAbsolutePath() );
+    StatFs internalStatFs = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath() );
     long internalTotal;
     long internalFree;
 
