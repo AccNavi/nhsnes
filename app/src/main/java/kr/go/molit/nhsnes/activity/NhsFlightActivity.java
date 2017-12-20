@@ -3091,7 +3091,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         sb.append("Km");
         sb.append("\n");
         sb.append("총 소요시간 : ");
-        sb.append(String.format("%d", routeStatus.uTotalTime / 60));
+        sb.append(String.format("%d", routeStatus.uTotalPredictTime / 60));
         sb.append("분");
         sb.append("\n");
 
@@ -4022,6 +4022,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         // 총 거리
                         nhsFlightHistoryModel.setTotalDistanc(routeStatus.uTotalDist);
+                        Log.d("totaldist","dist" + routeStatus.uTotalDist + "");
 
                     }
 
