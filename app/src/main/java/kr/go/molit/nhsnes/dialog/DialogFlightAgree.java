@@ -242,7 +242,7 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
                                     if (result != -1) {
 
                                         AirRouteStatus routeStatus = nativeImplement.lanGetRouteInfo();
-                                        final String convertDistance = String.format("%.1f", (float)routeStatus.uTotalDist / (float)1000);
+                                        final String convertDistance = String.format("%.1f", (float)routeStatus.uTotalPredictDist / (float)1000);
                                         ((TextViewEx)findViewById(R.id.tve_distance)).post(new Runnable() {
                                             @Override
                                             public void run() {

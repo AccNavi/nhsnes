@@ -3087,7 +3087,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         StringBuilder sb = new StringBuilder();
         sb.append("총 거리 : ");
-        sb.append(String.format("%.1f", ((float) routeStatus.uTotalDist / (float) 1000)));
+        sb.append(String.format("%.1f", ((float) routeStatus.uTotalPredictDist / (float) 1000)));
         sb.append("Km");
         sb.append("\n");
         sb.append("총 소요시간 : ");
