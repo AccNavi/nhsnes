@@ -379,7 +379,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         this.tempSaveFileName = sdf.format(new Date()) + "_Loss_of_comm.dat";
 
-        if(mode == NONE_DRIVE){
+        if (mode == NONE_DRIVE) {
             sdf = new SimpleDateFormat("HH:mm:ss");
             this.startDate = sdf.format(new Date());
             ((TextView) findViewById(R.id.tv_ete_eta)).setText(sdf.format(new Date()));
@@ -505,7 +505,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             case 1:
                 title = "기상(TAF) 조회";
                 url = nuu.getWeatherTaf();
-                startDate = todaydate.substring(0,8)+"0000";
+                startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
 
 //                startDate = "201708150000";
@@ -515,29 +515,29 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             case 2:
                 title = "기상(WRNG) 조회";
                 url = nuu.getWeatherWrng();
-                startDate = todaydate.substring(0,8)+"0000";
+                startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
             case 3:
                 title = "기상(SIGMET) 조회";
                 apCd = "";
                 url = nuu.getWeatherSigmet();
-                startDate = todaydate.substring(0,8)+"0000";
+                startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
             case 4:
                 title = "기상(AIRMET) 조회";
                 apCd = "";
                 url = nuu.getWeatherAirmet();
-                startDate = todaydate.substring(0,8)+"0000";
+                startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
             case 5:
                 title = "항공고시보(SNOWTAM) 조회";
                 url = nuu.getSnotam();
-                startDate = todaydate.substring(0,8)+"0000";
+                startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
-                isuYear = todaydate.substring(0,4);
+                isuYear = todaydate.substring(0, 4);
                 break;
             case 6:
                 title = "항공고시보(NOTAM)조회";
@@ -641,7 +641,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
     }
 
-    private StringBuilder getJsonData(StringBuilder sb, JSONArray resultData){
+    private StringBuilder getJsonData(StringBuilder sb, JSONArray resultData) {
 
         int size = resultData.length();
         int i = 0;
@@ -905,7 +905,6 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 airGPSData.fGyroY = gyroValues[1];
                                                 airGPSData.fGyroZ = gyroValues[2];
                                             }
-
 
 
                                             if (callsign.equals("fplwon") &&    // 시나리오2 이고, 좌표 값이 같다면, 시나리오 종료
@@ -1334,33 +1333,25 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             int curHash = strGuide.hashCode();
 
                             // 이전 텍스트와 현재 텍스트가 다르거나 3초이상 시간이 지나갔으면 발성한다.
-                            if(curHash == lastHashcode)
-                            {
-                                if(diffTime >= 3000)
-                                {
+                            if (curHash == lastHashcode) {
+                                if (diffTime >= 3000) {
                                     playTTS(strGuide);
                                     d1 = new Date();
                                 }
 
                                 // 이벤트 큐 삭제
-                                while(true)
-                                {
+                                while (true) {
                                     int uTypeDummy = LanStorage.mNative.lanNaviEventType();
-                                    if(uTypeDummy == Constants.NAVI_EVT_ALARM)
-                                    {
+                                    if (uTypeDummy == Constants.NAVI_EVT_ALARM) {
                                         AlarmType alarmDummy = new AlarmType();
                                         LanStorage.mNative.lanNaviEvent(alarmDummy);
-                                    }
-                                    else if(uTypeDummy == Constants.NAVI_EVT_GUIDE) {
+                                    } else if (uTypeDummy == Constants.NAVI_EVT_GUIDE) {
                                         GuideType guideDummy = new GuideType();
                                         LanStorage.mNative.lanNaviEvent(guideDummy);
-                                    }
-                                    else
+                                    } else
                                         break;
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 playTTS(strGuide);
                                 d1 = new Date();
                             }
@@ -2141,16 +2132,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                     airGPSData.fGyroZ = gyroValues[2];
                                 }
 
-                                boolean isMobileDataEnabled = Util.isMobileDataEnabled(NhsFlightActivity.this);
-                                boolean isWifiConnected = Util.isWifiConnected(NhsFlightActivity.this);
+                                // 1초에 한번씩 gps 정보를 맵에게 전달한다.
+                                lanReceiveGPSData(airGPSData);
+                                lanExceuteGuide();
 
-
-                                if (isMobileDataEnabled || isWifiConnected) { // 통신이 끊겼으면 중지
-//                                            } else if (isWifiConnected) {
-                                    // 1초에 한번씩 gps 정보를 맵에게 전달한다.
-                                    lanReceiveGPSData(airGPSData);
-                                    lanExceuteGuide();
-                                }
 
                             }
 
@@ -4022,7 +4007,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         // 총 거리
                         nhsFlightHistoryModel.setTotalDistanc(routeStatus.uTotalDist);
-                        Log.d("totaldist","dist" + routeStatus.uTotalDist + "");
+                        Log.d("totaldist", "dist" + routeStatus.uTotalDist + "");
 
                     }
 
