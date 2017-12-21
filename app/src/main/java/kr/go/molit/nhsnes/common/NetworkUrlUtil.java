@@ -36,8 +36,8 @@ public class NetworkUrlUtil {
   private String acrftInformation = BASE_URL+"/NIF/user/acrft/AcrftInformation.do";   // 항공기정보
   private String weatherTaf = BASE_URL+"/NIF/nis/list/weatherTaf.do";   // 기상 taf
   private String weatherWrng = BASE_URL+"/NIF/nis/list/weatherWrng.do";   // 공항경보(Wrng) 조회
-  private String weatherAirmet = BASE_URL+"/NIF/nis/list/weatherSigmet.do";   // 저고도 위험기상(Airmet) 조회
-  private String weatherSigmet = BASE_URL+"/NIF/nis/list/weatherAirmet.do";   // 고고도 위험기상(Sigmet) 조회
+  private String weatherAirmet = BASE_URL+"/NIF/nis/list/weatherAirmet.do";   // 저고도 위험기상(Airmet) 조회
+  private String weatherSigmet = BASE_URL+"/NIF/nis/list/weatherSigmet.do";   // 고고도 위험기상(Sigmet) 조회
   private String weatherPoint = BASE_URL+"/NIF/nis/list/weatherPoint.do";   // 지점기상정보
 
   //정제영(암호화)

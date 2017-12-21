@@ -1645,9 +1645,9 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                     mNative.lanSimulResumeTrajectory(); // 일시정지를 다시 복귀시킴
                     mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
                     //test
-                    String kml = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/test.kml";
+//                    String kml = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LANMap/test.kml";
                     //mNlvView.setKMLDataPath(kml);
-                    Log.d("JeLib", kml);
+//                    Log.d("JeLib", kml);
                 } else {
                     mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
                     mIvPlayState.setImageResource(R.drawable.btn_play_nor);

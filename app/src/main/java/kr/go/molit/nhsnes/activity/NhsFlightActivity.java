@@ -284,7 +284,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 1;
+    private int testDrivePlus = 5;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -465,6 +465,30 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 } else if (this.flightPlanInfo.getCallsign().equals("fplnow")) {  // 시나리오 4
 
                     lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc01")) {  // 시나리오 5(속초 --> 울릉도)
+
+                    lanGetPortCodeName(128.593109, 38.176086, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc02")) {  // 시나리오 6(군산 --> 논산 --> 청주)
+
+                    lanGetPortCodeName(126.615671, 35.926372, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc03")) {  // 시나리오 7(대구 --> 경주 --> 울산)
+
+                    lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc04")) {  // 시나리오 8(부산 --> 제주)
+
+                    lanGetPortCodeName(129.039032, 35.115795, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc05")) {  // 시나리오 9(광주 --> 무안 --> 목포)
+
+                    lanGetPortCodeName(126.811009, 35.140062, strBuffer);
+
+                } else if (this.flightPlanInfo.getCallsign().equals("fplc06")) {  // 시나리오 10(제주 --> 추자도 --> 목포)
+
+                    lanGetPortCodeName(126.491364, 33.510646, strBuffer);
 
                 }
 
@@ -732,9 +756,18 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
          콜사인이 fplwon 이면 input1.txt 를 거꾸로 읽어서 호출
          콜사인이 fplkdw 이면 input2.txt 를 호출
          콜사인이 fplnow 이면 input3.txt 를 호출
+         콜사인이 fplc01 이면 scene1.txt 를 호출
+         콜사인이 fplc02 이면 scene2.txt 를 호출
+         콜사인이 fplc03 이면 scene3.txt 를 호출
+         콜사인이 fplc04 이면 scene4.txt 를 호출
+         콜사인이 fplc05 이면 scene5.txt 를 호출
+         콜사인이 fplc06 이면 scene6.txt 를 호출
          **/
         if (callsign.equals("fplccw") || callsign.equals("fplwon") ||
-                callsign.equals("fplkdw") || callsign.equals("fplnow")) {
+                callsign.equals("fplkdw") || callsign.equals("fplnow") ||
+                callsign.equals("fplc01") || callsign.equals("fplc02") ||
+                callsign.equals("fplc03") || callsign.equals("fplc04") ||
+                callsign.equals("fplc05") || callsign.equals("fplc06")) {
 
             // 현재 상태, 테스트 주행 중
             this.isTestDrive = true;
@@ -755,6 +788,18 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input2.txt", " ", true);
                 } else if (callsign.equals("fplnow")) {
                     testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "input3.txt", " ", true);
+                } else if (callsign.equals("fplc01")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene1.txt", " ", true);
+                } else if (callsign.equals("fplc02")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene2.txt", " ", true);
+                } else if (callsign.equals("fplc03")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene3.txt", " ", true);
+                } else if (callsign.equals("fplc04")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene4.txt", " ", true);
+                } else if (callsign.equals("fplc05")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene5.txt", " ", true);
+                } else if (callsign.equals("fplc06")) {
+                    testDrivePointList = Util.readFileTexts(Environment.getExternalStorageDirectory() + "/ACC_NAVI/", "scene6.txt", " ", true);
                 }
 
             } catch (IOException e) {
@@ -919,6 +964,24 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
+                                            } else if (callsign.equals("fplc03") &&    // 신규 시나리오3 이고, 좌표 값이 같다면, 시나리오 종료
+                                                    pos[0].equals("129.234344") &&
+                                                    pos[1].equals("35.980221")) {
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+
+                                            } else if (callsign.equals("fplc05") &&    // 신규 시나리오5 이고, 좌표 값이 같다면, 시나리오 종료
+                                                    pos[0].equals("129.234344") &&
+                                                    pos[1].equals("35.980221")) {
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+
+                                            } else if (callsign.equals("fplc06") &&    // 신규 시나리오6 이고, 좌표 값이 같다면, 시나리오 종료
+                                                    pos[0].equals("129.234344") &&
+                                                    pos[1].equals("35.980221")) {
+                                                stopTestDriveTimer();
+                                                stopTtsTimer();
+
                                             }
 
 //                                            int lvl = getZoomLevel((int) airGPSData.uAltitude, (int) airGPSData.uSpeed);
@@ -958,7 +1021,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
                                             }
-                                        }, 5000);
+                                        }, 8000);
 
                                     }
 
@@ -1194,8 +1257,159 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                     });
 
 
-        }
+        } else if (callsign.equals("fplc01")) {  // 시나리오 scene1
 
+            // 시작 위치 (속초항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 38.176086,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (울릉도)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 130.905207, 37.487112,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+        } else if (callsign.equals("fplc02")) {  // 시나리오 scene2
+
+            // 시작 위치 (군산공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 126.615671, 35.926372,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (청주공항)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 127.495716, 36.722220,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 경유지 (논산)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 127.126671, 36.136520,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+        } else if (callsign.equals("fplc03")) {  // 시나리오 scene3
+
+            // 시작 위치 (대구)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 35.894373,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (울산)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 129.311338, 35.538914,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 경유지 (경주)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 129.224228, 35.792652,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+        } else if (callsign.equals("fplc04")) {  // 시나리오 scene4
+
+            // 시작 위치 (부산)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 129.039032, 35.115795,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (제주)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 126.491364, 33.510646,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+        } else if (callsign.equals("fplc05")) {  // 시나리오 scene5
+
+            // 시작 위치 (광주)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 126.811009, 35.140062,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (목포)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 126.383535, 34.763274,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 경유지 (무안)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 126.387543, 34.987972,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+        } else if (callsign.equals("fplc06")) {  // 시나리오 scene6
+
+            // 시작 위치 (제주)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 126.491364, 33.510646,
+                    "start name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 종료 위치 (목포)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_GOAL, 126.383535, 34.763274,
+                    "goal name", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+            // 경유지 (추자도)
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, 126.319914, 33.947995,
+                    "waypoint name1", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+        }
 
     }
 
@@ -1359,7 +1573,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
                             if (strGuide.indexOf("목적지 부근입니다") > -1) {
-                                stopTestDriveTimer();
+/*                                stopTestDriveTimer();
                                 stopTtsTimer();
 
                                 runOnUiThread(new Runnable() {
@@ -1368,7 +1582,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         showExitDialog();
                                     }
                                 });
-
+*/
                             }
 
                             break;
