@@ -183,7 +183,16 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
 
     if (connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 
-      syncAgreeDialog();
+      // 동의 파일이 있다면, 다음 스탭으로,.
+      if (new File(Environment.getExternalStorageDirectory() + "/ACC_Navi/private_agree_info.dat").exists()) {
+
+        showStorageWrring();
+
+      } else {
+
+        // 동의 기록이 없다면, 동의 화면을 보여주도록 한다.
+        syncAgreeDialog();
+      }
 
     } else {
       mPopup1 = new DialogType1(_context, getString(R.string.dialog_data_notice_title), getString(R.string.dialog_data_notice_msg), getString(R.string.btn_agree), new View.OnClickListener() {
@@ -219,6 +228,28 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
                 "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
                 "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
 
+        // GPS 위치 및 고도에 대한 기술적인 오차범위 안내
+        String gpsDate = "agree_dat= " +
+                strNowTime +
+                "|agree_content=gps_agree_info" +
+                "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
+                "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
+
+        // 비행참고보조수단
+        String refer = "agree_dat= " +
+                strNowTime +
+                "|agree_content=refer_agree_info" +
+                "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
+                "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
+
+        // 데이터통신료 부가 수단
+        String pay = "agree_dat= " +
+                strNowTime +
+                "|agree_content=pay_agree_info" +
+                "|userID=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_MBR_ID) +
+                "|acrftCd=" + StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_ACRFTCD);
+
+
         // 아이디와 비행정보 연동 동의
         String idFlightDate = "agree_dat= " +
                 strNowTime +
@@ -229,12 +260,14 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
         String tokenKey = StorageUtil.getStorageModeEx(NhsLoginActivity.this, LOGIN_TOKEN_KEY, "");
         String saveUserValue = et_id.getText().toString() + "\n" + et_pass.getText().toString() + "\n" + tokenKey;
 
-
         // 암호화 한다.
         try {
           agreeDate = Util.aesEncode(agreeDate, Util.aesKey);
-          idFlightDate = Util.aesEncode(agreeDate, Util.aesKey);
+          idFlightDate = Util.aesEncode(idFlightDate, Util.aesKey);
           saveUserValue = Util.aesEncode(saveUserValue, Util.aesKey);
+          gpsDate = Util.aesEncode(gpsDate, Util.aesKey);
+          refer = Util.aesEncode(refer, Util.aesKey);
+          pay = Util.aesEncode(pay, Util.aesKey);
         }catch (Exception ex) {
 
         }
@@ -243,75 +276,84 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
         // 저장한다.
         Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "private_agree_info.dat", agreeDate);
         Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "IDWithFlyInfoMapping.dat", idFlightDate);
+        Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "gps_agree_info.dat", gpsDate);
         Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "session.dat", saveUserValue);
+        Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "refer_agree_info.dat", refer);
+        Util.writeStringAsFile(Environment.getExternalStorageDirectory() + "/ACC_Navi", "pay_agree_info.dat", pay);
 
 
         mPopup2.hideDialog();
 
-        // 남은 용량 퍼센트를 받는다.
-        int storagePersent = getStoragePersentRemaining();
+        // 용량 관련 팝업 출력
+        showStorageWrring();
 
-        // 내부 저장소 용량 일정 퍼센트 미만이면 사용자에게 삭제 다이얼로그를 보여준다.
-        if (storagePersent < REMAINING_PERSENT) {
-          mPopup1 = new DialogType1(_context, "", "여유공간이 5% 미만입니다.\n" +
-                  "과거 비행데이터를 삭제하시겠습니까?", "예", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+      }
+    }, null, null);
+  }
+  /**
+   * 용량 관련 팝업
+   *
+   * @author FIESTA
+   * @since 오전 12:36
+   **/
+  private void showStorageWrring(){
+    // 남은 용량 퍼센트를 받는다.
+    int storagePersent = getStoragePersentRemaining();
 
-              try {
-                File file = new File(GPS_LOG_DATA_PATH);
-                File lists[] = file.listFiles();
+    // 내부 저장소 용량 일정 퍼센트 미만이면 사용자에게 삭제 다이얼로그를 보여준다.
+    if (storagePersent < REMAINING_PERSENT) {
+      mPopup1 = new DialogType1(_context, "", "여유공간이 5% 미만입니다.\n" +
+              "과거 비행데이터를 삭제하시겠습니까?", "예", new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
-                int size = lists.length;
-                int i = 0;
+          try {
+            File file = new File(GPS_LOG_DATA_PATH);
+            File lists[] = file.listFiles();
 
-                // trk 파일 모두 삭제
-                for (i = 0; i < size; i++) {
-                  lists[i].delete();
-                }
+            int size = lists.length;
+            int i = 0;
 
-              }catch (Exception ex) {
-
-              } finally {
-
-                Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
-                startActivity(intent);
-                finish();
-
-              }
-
-              mPopup1.hideDialog();
-
+            // trk 파일 모두 삭제
+            for (i = 0; i < size; i++) {
+              lists[i].delete();
             }
-          }, "아니요", new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+          }catch (Exception ex) {
 
-              mPopup1.hideDialog();
+          } finally {
 
-              Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
-              startActivity(intent);
-              finish();
+            Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
+            startActivity(intent);
+            finish();
 
-            }
-          });
+          }
 
-        } else {
+          mPopup1.hideDialog();
+
+        }
+      }, "아니요", new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+          mPopup1.hideDialog();
 
           Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
           startActivity(intent);
           finish();
 
         }
+      });
 
+    } else {
 
+      Intent intent = new Intent(NhsLoginActivity.this, NhsMainActivity.class);
+      startActivity(intent);
+      finish();
 
-
-      }
-    }, null, null);
+    }
   }
-
   //날씨 정보
   private void weatherDialog() {
 //        mPopup2 = new DialogType2(_context, getString(R.string.dialog_weather_title), getString(R.string.dialog_weather_msg), getString(R.string.btn_confirm), new View.OnClickListener() {
