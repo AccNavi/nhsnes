@@ -1260,7 +1260,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         } else if (callsign.equals("fplc01")) {  // 시나리오 scene1
 
             // 시작 위치 (속초항)
-            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.703004, 38.176086,
+            mNlvView.setRoutePosition(NhsFlightActivity.this, Constants.NAVI_SETPOSITION_START, 128.593109, 38.176086,
                     "start name", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
