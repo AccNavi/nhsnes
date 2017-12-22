@@ -2234,7 +2234,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                         default:
 
                             // test
-//                            setSaveTimer();
+                            setSaveTimer();
                             break;
 
                     }
