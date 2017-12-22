@@ -284,7 +284,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 5;
+    private int testDrivePlus = 3;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -862,7 +862,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                     int size = testDrivePointList.length;
 
-                                    if (testDriveIndex < size) {
+                                    if (testDriveIndex < size) {  //여기에 목적지 부근 삽입하면?
 
                                         try {
 
@@ -965,20 +965,20 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc03") &&    // 신규 시나리오3 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.234344") &&
-                                                    pos[1].equals("35.980221")) {
+                                                    pos[0].equals("129.260040") &&
+                                                    pos[1].equals("35.758778")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc05") &&    // 신규 시나리오5 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.234344") &&
-                                                    pos[1].equals("35.980221")) {
+                                                    pos[0].equals("126.412720") &&
+                                                    pos[1].equals("34.906948")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc06") &&    // 신규 시나리오6 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.234344") &&
-                                                    pos[1].equals("35.980221")) {
+                                                    pos[0].equals("126.370506") &&
+                                                    pos[1].equals("34.331295")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
@@ -997,17 +997,15 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         Log.d("test5", "start");
                                     } else {
 
-                                        // 시나리오가 끝났으면 tts를 중지한다.
-                                        stopTtsTimer();
-
                                         // 항적 종료
                                         stopSaveTimer();
 
                                         // 시나리오 종료
-                                        stopTestDriveTimer();
-                                        Log.d("test6", "start");
+//                                        stopTestDriveTimer();
+//                                        Log.d("test6", "start");
 
                                         // 시나리오가 끝나면 5초 뒤에 종료 팝업창을 띄운다.
+ /*
                                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
@@ -1022,7 +1020,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                             }
                                         }, 8000);
-
+*/
                                     }
 
                                 }
@@ -1572,8 +1570,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                             lastHashcode = curHash;
 
 
-                            if (strGuide.indexOf("목적지 부근입니다") > -1) {
-/*                                stopTestDriveTimer();
+                            if (strGuide.indexOf("안내를 종료") > -1) {
+//                                stopTestDriveTimer();
                                 stopTtsTimer();
 
                                 runOnUiThread(new Runnable() {
@@ -1582,7 +1580,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         showExitDialog();
                                     }
                                 });
-*/
+
                             }
 
                             break;
@@ -2339,6 +2337,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 airGPSData.uSpeed = Float.parseFloat(pos[4]);
                                 airGPSData.uBear = Float.parseFloat(pos[3]);
                                 airGPSData.uAltitude = Integer.parseInt(pos[2]);
+                                Log.d("uLat", "uLat : " + airGPSData.uLat + "");
+                                Log.d("uLon", "uLon : " + airGPSData.uLon + "");
+
 
                                 if (gyroValues != null) {
                                     airGPSData.fGyroX = gyroValues[0];
