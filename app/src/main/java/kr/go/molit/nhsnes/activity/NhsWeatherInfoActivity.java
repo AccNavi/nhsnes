@@ -309,7 +309,7 @@ public class NhsWeatherInfoActivity extends NhsBaseFragmentActivity implements V
         vis = (Integer.parseInt(data.optString("VIS", "0"))/(float)1000)+"km";
 
         // 온도를 구한다.
-        tempt = data.optString("TEMPT", "0") + "C";
+        tempt = data.optString("TEMPT", "0") + "℃";
 
         // 운고를 구한다.
         if (data.isNull("CLDALT")){

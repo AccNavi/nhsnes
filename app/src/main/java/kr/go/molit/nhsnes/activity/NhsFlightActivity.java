@@ -69,7 +69,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.os.Build;
@@ -439,6 +441,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         String isuYear = "";
         boolean isCustomParam = false;
         String apCd = "";   // 공항코드
+        String locationName = "";
 
         NetworkParamUtil networkParamUtil = new NetworkParamUtil();
         StringEntity param = null;
@@ -451,51 +454,58 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 if (this.flightPlanInfo.getCallsign().equals("fplccw")) {    // 시나리오 1
 
                     lanGetPortCodeName(126.794442, 37.558825, strBuffer);
-
+                    locationName = getLocationName(126.794442, 37.558825);
                 } else if (this.flightPlanInfo.getCallsign().equals("fplwon")) {  // 시나리오 2
 
                     lanGetPortCodeName(127.013864, 37.281467, strBuffer);
-
+                    locationName = getLocationName(127.013864, 37.281467);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplkdw")) {  // 시나리오 3
 
                     lanGetPortCodeName(127.733290, 37.882018, strBuffer);
-
+                    locationName = getLocationName(127.733290, 37.882018);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplnow")) {  // 시나리오 4
 
                     lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+                    locationName = getLocationName(128.703004, 35.894373);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc01")) {  // 시나리오 5(속초 --> 울릉도)
 
                     lanGetPortCodeName(128.593109, 38.176086, strBuffer);
+                    locationName = getLocationName(128.593109, 38.176086);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc02")) {  // 시나리오 6(군산 --> 논산 --> 청주)
 
                     lanGetPortCodeName(126.615671, 35.926372, strBuffer);
+                    locationName = getLocationName(126.615671, 35.926372);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc03")) {  // 시나리오 7(대구 --> 경주 --> 울산)
 
                     lanGetPortCodeName(128.703004, 35.894373, strBuffer);
+                    locationName = getLocationName(128.703004, 35.894373);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc04")) {  // 시나리오 8(부산 --> 제주)
 
                     lanGetPortCodeName(129.039032, 35.115795, strBuffer);
+                    locationName = getLocationName(129.039032, 35.115795);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc05")) {  // 시나리오 9(광주 --> 무안 --> 목포)
 
                     lanGetPortCodeName(126.811009, 35.140062, strBuffer);
+                    locationName = getLocationName(126.811009, 35.140062);
 
                 } else if (this.flightPlanInfo.getCallsign().equals("fplc06")) {  // 시나리오 10(제주 --> 추자도 --> 목포)
 
                     lanGetPortCodeName(126.491364, 33.510646, strBuffer);
+                    locationName = getLocationName(126.491364, 33.510646);
 
                 }
 
             } else {
 
                 lanGetPortCodeName(Double.parseDouble(this.route.get(0).getLon()), Double.parseDouble(this.route.get(0).getLat()), strBuffer);
-
+                locationName = getLocationName(Double.parseDouble(this.route.get(0).getLon()), Double.parseDouble(this.route.get(0).getLat()));
             }
             apCd = strBuffer.toString().split("@@")[0];
 
@@ -508,25 +518,33 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         switch (type) {
             case 0:
-//                title = "관측기상";
-//                url = nuu.getWeatherMetar();
+                title = "기상특보";
+                url = nuu.getWeatherPoint();
+                startDate = todaydate.substring(0, 8) + "0000";
+                endDate = todaydate;
 
-                weatherDialog = new DialogType1(NhsFlightActivity.this,
-                        "기상특보", "풍량NW 350.1\n풍속 5.1 노트\n시점 6.2 킬로미터\n기온 8.9도씨\n운고 1500 피트", "확인",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                weatherDialog.hideDialog();
-
-                                //차례대로 보여준다.
-                                int tempType = type + 1;
-                                showWeather(tempType);
-
-
-                            }
-                        }, "", null);
-                return;
+                break;
             case 1:
+                title = "관측기상";
+                url = nuu.getWeatherMetar();
+
+//                weatherDialog = new DialogType1(NhsFlightActivity.this,
+//                        "기상특보", "풍량NW 350.1\n풍속 5.1 노트\n시점 6.2 킬로미터\n기온 8.9도씨\n운고 1500 피트", "확인",
+//                        new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                weatherDialog.hideDialog();
+//
+//                                //차례대로 보여준다.
+//                                int tempType = type + 1;
+//                                showWeather(tempType);
+//
+//
+//                            }
+//                        }, "", null);
+//                return;
+                break;
+            case 2:
                 title = "기상(TAF) 조회";
                 url = nuu.getWeatherTaf();
                 startDate = todaydate.substring(0, 8) + "0000";
@@ -536,34 +554,34 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 //                endDate = "201708150600";
 
                 break;
-            case 2:
+            case 3:
                 title = "기상(WRNG) 조회";
                 url = nuu.getWeatherWrng();
                 startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
-            case 3:
+            case 4:
                 title = "기상(SIGMET) 조회";
                 apCd = "";
                 url = nuu.getWeatherSigmet();
                 startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
-            case 4:
+            case 5:
                 title = "기상(AIRMET) 조회";
                 apCd = "";
                 url = nuu.getWeatherAirmet();
                 startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 break;
-            case 5:
+            case 6:
                 title = "항공고시보(SNOWTAM) 조회";
                 url = nuu.getSnotam();
                 startDate = todaydate.substring(0, 8) + "0000";
                 endDate = todaydate;
                 isuYear = todaydate.substring(0, 4);
                 break;
-            case 6:
+            case 7:
                 title = "항공고시보(NOTAM)조회";
                 url = nuu.getNotam();
                 param = networkParamUtil.notamParam(getContext());
@@ -579,6 +597,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         }
 
         final String finalTitle = title;
+        final String finalLocationName = locationName;
         NetworkProcess networkProcess = new NetworkProcess(NhsFlightActivity.this,
                 url,
                 param,
@@ -612,31 +631,127 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                         StringBuilder sb = new StringBuilder();
 
-                        try {
+                        if (type != 0) {
+
+                            try {
+
+                                String msg = response.optString("result_msg");
+                                String resultCode = response.optString("result_code");
+
+
+                                if (resultCode.equalsIgnoreCase("Y")) {
+
+                                    try {
+                                        JSONArray resultData = response.optJSONArray("result_data");
+
+                                        sb = getJsonData(sb, resultData);
+
+                                    } catch (Exception ex) {
+                                        sb.append("데이터가 없습니다.");
+                                    }
+
+                                } else {
+
+                                    sb.append("데이터가 없습니다.");
+
+                                }
+
+                            } catch (Exception ex) {
+                                sb.append("데이터가 없습니다.");
+                            }
+
+                        } else {
 
                             String msg = response.optString("result_msg");
                             String resultCode = response.optString("result_code");
 
-
                             if (resultCode.equalsIgnoreCase("Y")) {
 
                                 try {
-                                    JSONArray resultData = response.optJSONArray("result_data");
+                                    JSONArray list = response.optJSONArray("result_data");
 
-                                    sb = getJsonData(sb, resultData);
+                                    int size = list.length();
+                                    int i = 0;
+                                    JSONObject data = null;
+                                    String koName = "";
+
+                                    boolean isFound = false;
+                                    String wd = "";           // 풍향
+                                    String wspd = "";         // 풍속
+                                    String vis = "";          // 시정
+                                    String tempt = "";        // 기온
+                                    String cldalt = "";       // 운고
+                                    int convertWd = 0;        // 풍량
+
+                                    sb.append("풍량 정보없음\n");
+                                    sb.append("풍속 정보없음\n");
+                                    sb.append("시정 정보없음\n");
+                                    sb.append("기온 정보없음\n");
+                                    sb.append("운고 정보없음\n");
+
+                                    for (i = 0; i < size; i++) {
+
+                                        try {
+
+                                            data = list.getJSONObject(i);
+                                            koName = data.optString("POINT_NM_KOR");
+
+                                            // 지명이 같은게 있다면 날씨 파싱해서 보여준다.
+                                            if (finalLocationName.indexOf(koName) >= 0) {
+
+                                                // 풍량을 구한다.
+                                                convertWd = Integer.parseInt(data.optString("WD", "0"));
+
+                                                // 풍속을 구한다.
+                                                wspd = data.optString("WSPD", "0.0") + data.optString("WSPD_UNIT", "0.0");
+
+                                                // 시정을 구한다.
+                                                vis = (Integer.parseInt(data.optString("VIS", "0"))/(float)1000)+"";
+
+                                                // 온도를 구한다.
+                                                tempt = data.optString("TEMPT", "0");
+
+                                                // 운고를 구한다.
+                                                if (data.isNull("CLDALT")){
+                                                    cldalt = "정보없음";
+                                                } else {
+                                                    cldalt = data.optString("CLDALT", "정보없음");
+                                                }
+
+                                                isFound = true;
+
+                                                // 검색 중지
+                                                break;
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                    }
+
+                                    if (isFound) {
+
+                                        sb = new StringBuilder();
+                                        sb.append("풍량 NW " + convertWd + "\n");
+                                        sb.append("풍속 " + wspd + "\n");
+                                        sb.append("시정 " + vis + "\n");
+                                        sb.append("기온 " + tempt + "℃\n");
+                                        sb.append("운고 " + cldalt + "ft\n");
+
+                                    }
 
                                 } catch (Exception ex) {
-                                    sb.append("데이터가 없습니다.");
+
                                 }
 
                             } else {
 
-                                sb.append("데이터가 없습니다.");
-
                             }
 
-                        } catch (Exception ex) {
-                            sb.append("데이터가 없습니다.");
+
+
                         }
 
                         weatherDialog = new DialogType1(NhsFlightActivity.this,
@@ -649,7 +764,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         //차례대로 보여준다.
                                         int tempType = type + 1;
 
-                                        if (tempType <= 6) {
+                                        if (tempType <= 7) {
                                             showWeather(tempType);
                                         } else {
                                             showNotams();
@@ -659,9 +774,73 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                 }, "", null);
 
                     }
-
                 }, true);
         networkProcess.sendEmptyMessage(0);
+
+    }
+
+    /**
+     * 지명을 가져온다.
+     *
+     * @author FIESTA
+     * @since 오전 12:36
+     **/
+
+    private String getLocationName(double lon, double lat) {
+
+        String name = "";
+
+        List<Address> list = null;
+        try {
+
+
+            Geocoder geocoder = new Geocoder(NhsFlightActivity.this);
+
+            list = geocoder.getFromLocation(
+                    lat, // 위도
+                    lon, // 경도
+                    1); // 얻어올 값의 개수
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (list != null) {
+
+            if (list.size() > 0) {
+
+                // 지명을 가져온다.
+                name = list.get(0).getLocality();
+
+                if (name == null || name.length() <= 0) {
+                    name = "";
+                } else {
+                    if (name.equals("전라북도"))
+                        name = "전북";
+                    else if (name.equals("전라남도"))
+                        name = "전남";
+                    else if (name.equals("충청북도"))
+                        name = "충북";
+                    else if (name.equals("충청남도"))
+                        name = "충남";
+                    else if (name.equals("경상북도"))
+                        name = "경북";
+                    else if (name.equals("경상남도"))
+                        name = "경남";
+                    else
+                        name = name.substring(0, 2);
+                }
+
+
+            } else {
+
+                // 주소 없음
+                name = "";
+            }
+
+        }
+
+        return name;
 
     }
 
