@@ -123,7 +123,7 @@ public class DialogFlightAgree extends DialogBase implements View.OnClickListene
 //        date.setTime(date.getTime() + ((1000 * 60) * 60) * Integer.parseInt(result.getPlanTeet()));
         convertStrDate = std.format(date);
         tveArriveTime.setText(convertStrDate);
-        result.setPlanStatus("01");
+//        result.setPlanStatus("01");
         // 상황에 맞게 타이틀 및 버튼 비/활성화를 한다.
         if (result.getPlanStatus().equalsIgnoreCase("01")) {    // 승인
 
