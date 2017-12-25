@@ -5,13 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -117,6 +112,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
     //private String planDeparture = "";
     //private String planArrival = "";
+    private  boolean isFirstRoutClick = true;  // 최초 경로 클릭 여부
+
 
     private boolean isFailed = true; //비행계획서 전송실패 후 재전송 확인을 위한 플래그 값
 
@@ -751,6 +748,19 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
             // departure aerodrome
             case R.id.ll_3_2: {
+
+                if (this.isFirstRoutClick) {
+
+                    if (this.route != null) {
+                        this.route.clear();
+                        ((EditText) findViewById(R.id.ed_route)).setText("");
+                        ((EditText) findViewById(R.id.et_3_2)).setText("");
+                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                    }
+
+                    this.isFirstRoutClick = false;
+                }
+
                 String planDeparture = "";
                 String planArrival = "";
                 if (route != null && route.size() > 0) {
@@ -770,6 +780,19 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
             }
             // arrival aerodrome
             case R.id.ll_6_1: {
+
+                if (this.isFirstRoutClick) {
+
+                    if (this.route != null) {
+                        this.route.clear();
+                        ((EditText) findViewById(R.id.ed_route)).setText("");
+                        ((EditText) findViewById(R.id.et_3_2)).setText("");
+                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                    }
+
+                    this.isFirstRoutClick = false;
+                }
+
                 String planDeparture = "";
                 String planArrival = "";
                 if (route != null && route.size() > 0) {
@@ -806,6 +829,18 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
             case R.id.fl_new_route:
             case R.id.ed_route: {
+
+                if (this.isFirstRoutClick) {
+
+                    if (this.route != null) {
+                        this.route.clear();
+                        ((EditText) findViewById(R.id.ed_route)).setText("");
+                        ((EditText) findViewById(R.id.et_3_2)).setText("");
+                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                    }
+                    this.isFirstRoutClick = false;
+                }
+
                 String planDeparture = "";
                 String planArrival = "";
 

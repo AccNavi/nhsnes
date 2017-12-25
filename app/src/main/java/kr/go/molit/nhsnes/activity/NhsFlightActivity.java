@@ -3566,6 +3566,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     @Override
     public void onLocationChanged(final Location location) {
         super.onLocationChanged(location);
+        super.currentLocation = location;
 //        getLocationManager().get();
 //        getLocation();
         try {
