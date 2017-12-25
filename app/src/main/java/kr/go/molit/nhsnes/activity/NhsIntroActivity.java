@@ -47,6 +47,7 @@ import kr.go.molit.nhsnes.common.NetworkUrlUtil;
 import kr.go.molit.nhsnes.common.SharedData;
 import kr.go.molit.nhsnes.common.StorageUtil;
 import kr.go.molit.nhsnes.common.ToastUtile;
+import kr.go.molit.nhsnes.common.Util;
 import kr.go.molit.nhsnes.dialog.DialogSelectStorage;
 import kr.go.molit.nhsnes.dialog.DialogType1;
 import kr.go.molit.nhsnes.dialog.DialogType2;
@@ -143,7 +144,6 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         requestPermission();
 
 //        String test = "{\"result_code\":\"data\"}";
-
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {
@@ -527,16 +527,6 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODE_WRITE_SETTINGS_PERMISSION && Settings.System.canWrite(this)){
-            Log.d("TAG", "CODE_WRITE_SETTINGS_PERMISSION success");
-            showLoadingBar(mContext);
-            startInit();
-        }
-    }
 
     /**
      * 정제영(암호화)
