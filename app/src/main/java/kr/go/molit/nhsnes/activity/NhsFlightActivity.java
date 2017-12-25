@@ -286,7 +286,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private Timer testDriveTimer = null;           // 테스트 드라이브 타이머
 
     private int testDriveIndex = 0;                 // 테스트 드라이브 주소 위치
-    private int testDrivePlus = 2;
+    private int testDrivePlus = 1;
     private int testDriveToggle = -1;
     private boolean testDriveDir = false;
     private int testSpeedMin = 300;
@@ -1132,8 +1132,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
                                             if (callsign.equals("fplwon") &&    // 시나리오2 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.772003") &&
-                                                    pos[1].equals("37.356934")) {
+                                                    pos[0].equals("126.769974") &&
+                                                    pos[1].equals("37.357567")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
@@ -1144,20 +1144,20 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc03") &&    // 신규 시나리오3 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.260040") &&
-                                                    pos[1].equals("35.758778")) {
+                                                    pos[0].equals("129.263916") &&
+                                                    pos[1].equals("35.763081")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc05") &&    // 신규 시나리오5 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.412720") &&
-                                                    pos[1].equals("34.906948")) {
+                                                    pos[0].equals("126.412170") &&
+                                                    pos[1].equals("34.908302")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc06") &&    // 신규 시나리오6 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.370506") &&
-                                                    pos[1].equals("34.331295")) {
+                                                    pos[0].equals("126.374733") &&
+                                                    pos[1].equals("34.330421")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
@@ -1169,8 +1169,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         } catch (Exception ex) {
 
                                         } finally {
-
-                                            testDriveIndex += testDrivePlus;
+                                            if (callsign.equals("fplc05") || callsign.equals("fplc06")) {
+//                                                testDriveIndex += testDrivePlus;
+                                                testDriveIndex += testDrivePlus;
+                                            } else if (callsign.equals("fplc01"))  {
+                                                testDriveIndex += 4;
+                                            } else {
+                                                testDriveIndex += 3;
+                                            }
 
                                         }
                                         Log.d("test5", "start");
@@ -4341,6 +4347,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
             @Override
             public void onClick(View v) {
                 exitDialog.hideDialog();
+
                 // TODO: 2017. 4. 24. 수정 기능 추가
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
