@@ -722,6 +722,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                                 // 검색 중지
                                                 break;
+
                                             }
 
                                         } catch (JSONException e) {
@@ -740,10 +741,12 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                         sb.append("기온 " + tempt + "℃\n");
                                         sb.append("운고 " + cldalt + "ft\n");
 
+                                    } else {
+                                        sb.append("데이터가 없습니다.");
                                     }
 
                                 } catch (Exception ex) {
-
+                                    sb.append("데이터가 없습니다.");
                                 }
 
                             } else {
@@ -3149,7 +3152,10 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     private void settingSensors() {
 
         // GPS 위치 얻기 시작
-        getLocationManager().get();
+        if(!Build.MODEL.equals("SM-T825N0")){
+            getLocationManager().get();
+        }
+        Log.d("JeLib","Build.MODEL::"+Build.MODEL);
 
         // GPS 로그 여부
         LocationManager.enableLog(true);
