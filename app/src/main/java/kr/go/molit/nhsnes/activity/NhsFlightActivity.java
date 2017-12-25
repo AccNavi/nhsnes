@@ -335,7 +335,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         super.onCreate(savedInstanceState);
         this.mContext = this;
         setContentView(R.layout.act_nhs_flight);
-
+        getLocation();
         this.objStartDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         this.startDate = sdf.format(this.objStartDate);
@@ -345,6 +345,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
         // 프로그래스바를 보여준다.
 //        showProgress();
+
 
         Bundle data = getIntent().getExtras();
 
@@ -2584,6 +2585,16 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                } finally {
+
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            getLocationManager().get();
+                        }
+                    });
+
+
                 }
             }
         };
@@ -3543,21 +3554,27 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
     @Override
     public void onLocationChanged(final Location location) {
         super.onLocationChanged(location);
-        getLocationManager().get();
-
-        if (!this.isTestDrive) {
-            updateAtltitude(location.getAltitude());
-        }
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String eData = String.format(getResources().getString(R.string.e_data), location.getLongitude() + "");
-                String nData = String.format(getResources().getString(R.string.n_data), location.getLatitude() + "");
-                tvN.setText(nData);
-                tvE.setText(eData);
+//        getLocationManager().get();
+//        getLocation();
+        try {
+            if (!this.isTestDrive) {
+                updateAtltitude(location.getAltitude());
             }
-        });
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String eData = String.format(getResources().getString(R.string.e_data), location.getLongitude() + "");
+                    String nData = String.format(getResources().getString(R.string.n_data), location.getLatitude() + "");
+                    tvN.setText(nData);
+                    tvE.setText(eData);
+                }
+            });
+        }catch (Exception ex) {
+
+        } finally {
+
+        }
     }
 
     @Override

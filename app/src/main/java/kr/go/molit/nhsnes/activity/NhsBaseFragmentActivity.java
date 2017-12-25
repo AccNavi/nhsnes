@@ -265,17 +265,18 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                 .keepTracking(false)
                 .askForPermission(new PermissionConfiguration.Builder()
                         .rationaleMessage(getString(R.string.GPS_PERMISSION_ERROR))
-                        .requiredPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE})
+                        .requiredPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                         .build())
                 .useDefaultProviders(new DefaultProviderConfiguration.Builder()
-                        .requiredTimeInterval(1000)
+                        .requiredTimeInterval(10000)
                         .requiredDistanceInterval(0)
-                        .acceptableAccuracy(5.0f)
-                        .acceptableTimePeriod(((1000 * 3600) * 365))
+                        .acceptableAccuracy(5000.0f)
+                        .acceptableTimePeriod(1000)
                         .gpsMessage(getString(R.string.GPS_TURN_ON))
-                        .setWaitPeriod(ProviderType.GPS, 1000)
+                        .setWaitPeriod(ProviderType.GPS, 500)
                         .build())
                 .build();
+
     }
 
     /**
@@ -289,6 +290,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     public void onLocationChanged(Location location) {
         this.currentLocation = location;
 
+        Log.d("gpstest", this.currentLocation.getLatitude() + " "  + this.currentLocation.getLongitude());
         if (this.gpsListener != null) {
             this.gpsListener.onLocationChanged(location);
         }
