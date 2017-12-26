@@ -332,7 +332,7 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
      */
     private void onSearchListClick(NhsDestinationSearchModel model) {
 
-        switch (this.routeSearchStep) {
+        switch (this.mode) {
 
             case ROUTE_SEARCH_STEP_START:
                 Log.d("JeLib", "ROUTE_SEARCH_STEP_START");
