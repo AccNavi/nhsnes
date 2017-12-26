@@ -4726,7 +4726,14 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
 
             switch (keyboard) {
-                // 줌인
+                // 메인화면 전환
+                case KeyEvent.KEYCODE_F1:
+                    if (this.isDrive) {
+                        showExitDialog();
+                    } else {
+                        finish();
+                    }
+                    return false;
                 case KeyEvent.KEYCODE_F2:
                     lanZoomByPosition(1, 0, 0);
                     return false;
