@@ -347,6 +347,26 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
                 setWaypoint(model);
                 break;
 
+            case MODE_SEARCH_IN_ROUTE_SEARCH:
+
+                switch (this.routeSearchStep) {
+
+                    case ROUTE_SEARCH_STEP_START:
+                        setStart(model);
+                        break;
+
+                    case ROUTE_SEARCH_STEP_END:
+                        setGoal(model);
+                        break;
+
+                    case ROUTE_SEARCH_STEP_ROUTE:
+                        setWaypoint(model);
+                        break;
+
+                }
+
+                break;
+
         }
     }
 
