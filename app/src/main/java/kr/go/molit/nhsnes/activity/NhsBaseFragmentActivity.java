@@ -37,6 +37,7 @@ import com.yayandroid.locationmanager.constants.ProviderType;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import kr.go.molit.nhsnes.NhsApplication;
 import kr.go.molit.nhsnes.R;
@@ -488,7 +489,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
             switch (keyboard)
             {
-                case KeyEvent.KEYCODE_F1:
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
 
                     event.startTracking();
 
@@ -633,7 +634,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      */
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_F1) {   // 홈 길게 눌렀을떄 설정 화면으로
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {   // 홈 길게 눌렀을떄 설정 화면으로
 
             shortPress = false;
 
@@ -664,7 +665,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
         switch (keyCode)
         {
-            case KeyEvent.KEYCODE_F1:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
 
                 if(shortPress){
 
@@ -767,16 +768,10 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
             if (this.activityArrayList.size() > 0) {
 
-                int i = 0;
-                int size = this.activityArrayList.size();
-
-                for (i=0; i<size; i++) {
-                    try {
-                        this.activityArrayList.get(i).finish();
-                        this.activityArrayList.remove(i);
-                    }catch (Exception ex) {
-
-                    }
+                ListIterator<Activity> listIterator = this.activityArrayList.listIterator();
+                while (listIterator.hasNext()) {
+                    listIterator.next().finish();
+                    listIterator.remove();
                 }
 
             }
