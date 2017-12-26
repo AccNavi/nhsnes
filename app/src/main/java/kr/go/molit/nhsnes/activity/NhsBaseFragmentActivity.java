@@ -41,6 +41,7 @@ import java.util.ListIterator;
 
 import kr.go.molit.nhsnes.NhsApplication;
 import kr.go.molit.nhsnes.R;
+import kr.go.molit.nhsnes.common.ActivityStack;
 import kr.go.molit.nhsnes.common.StorageUtil;
 import kr.go.molit.nhsnes.common.Util;
 import kr.go.molit.nhsnes.dialog.LoadingDialog;
@@ -85,6 +86,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityStack.getInstance().regOnCreateState(this);
 
         this.gpsPresenterService = new GpsPresenterService(this, this);   // gps 서비스
 
@@ -115,7 +117,9 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
     @Override
     protected void onDestroy() {
+        ActivityStack.getInstance().regOnDestroyState(this);
         super.onDestroy();
+
         setUnUsbRecevier();
 
         try {
@@ -204,10 +208,15 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         }
         ft.commitAllowingStateLoss();
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityStack.getInstance().regOnPauseState(this);
+    }
     @Override
     protected void onResume() {
         super.onResume();
+        ActivityStack.getInstance().regOnResumeState(this);
 
         boolean iskeepScreen = StorageUtil.getStorageMode(this, "keepScreen");
 
@@ -641,6 +650,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
             if (!this.getClass().getName().equals(NhsSettingtActivity.class.getName())) {
                 Intent intent = new Intent(this, NhsSettingtActivity.class);
                 startActivity(intent);
+                System.gc();
             }
 
             return true;
@@ -648,7 +658,27 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         return super.onKeyLongPress(keyCode, event);
     }
 
+    /**
+     * 메인화면으로 이동
+     *
+     */
+    public static void goMain(){
+        ActivityStack activityStack =  ActivityStack.getInstance();
+        String[] taskIds = activityStack.getAliveIDs();
+        for(String ids : taskIds){
+            String[] arr = ids.split(":");
+            if(!arr[1].equals("kr.go.molit.nhsnes.activity.NhsMainActivity"))
+            {
+                Activity act = activityStack.getActivity(ids);
+                try {
+                    act.finish();
+                } catch (Exception e){
 
+                }
+            }
+        }
+        System.gc();
+    }
     /**
      * 단축키를 떼었을 때 발생하는 콜백함수.
      *
@@ -672,17 +702,21 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                     if (!this.getClass().getName().equals(NhsMainActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsIntroActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsLoginActivity.class.getName())) {
-                        finish();
+                        //finish();
                         try {
-                            Intent homeIntent = new Intent(this, NhsMainActivity.class);
-                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            goMain();
+                            /*
+                            Intent homeIntent = new Intent(NhsBaseFragmentActivity.this, NhsMainActivity.class);
+                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             //homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             //homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeIntent);
                             overridePendingTransition(0, 0);
+                            */
                         } catch (Exception e){
 
                         }
+                        System.gc();
                         return false;
                     }
 

@@ -1,7 +1,10 @@
 package kr.go.molit.nhsnes.activity;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -44,6 +47,7 @@ import java.util.TreeMap;
 import io.realm.Realm;
 import kr.go.molit.nhsnes.R;
 import kr.go.molit.nhsnes.adapter.RecyclerDestinationSearchAdapter;
+import kr.go.molit.nhsnes.common.ActivityStack;
 import kr.go.molit.nhsnes.common.StorageUtil;
 import kr.go.molit.nhsnes.common.Util;
 import kr.go.molit.nhsnes.dialog.DialogAddFavorites;
@@ -132,7 +136,7 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
             this.routeData = data.getString(DATA_ROUTE, "");
         }
 
-        setLayout();
+        //setLayout();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -1120,7 +1124,7 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
         Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
     }
-
+    /*
     @Override
     public boolean onKeyDown(int keyboard, KeyEvent event) {
         //super.onKeyDown(keyboard, event);
@@ -1128,7 +1132,24 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
             switch (keyboard) {
                 case KeyEvent.KEYCODE_F1:
-                    finish();
+                    //goMain();
+
+                    Log.d("JeLib","size:::"+ActivityStack.getInstance().size());
+                    ActivityStack activityStack =  ActivityStack.getInstance();
+                    String[] taskIds = activityStack.getAliveIDs();
+                    for(String ids : taskIds){
+                        String[] arr = ids.split(":");
+                        if(!arr[1].equals("kr.go.molit.nhsnes.activity.NhsMainActivity"))
+                        {
+                            Activity act = activityStack.getActivity(ids);
+                            Log.d("JeLib","ids:"+ids);
+                            try {
+                                act.finish();
+                            } catch (Exception e){
+                                Log.d("JeLib","ex:::"+e.getMessage());
+                            }
+                        }
+                    }
                     return false;
                 default:
                     super.onKeyDown(keyboard, event);
@@ -1136,5 +1157,5 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
             }
         }
         return false;
-    }
+    }*/
 }

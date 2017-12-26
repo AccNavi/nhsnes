@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import kr.go.molit.nhsnes.activity.NhsBaseFragmentActivity;
 import kr.go.molit.nhsnes.activity.NhsIntroActivity;
 import kr.go.molit.nhsnes.activity.NhsLoginActivity;
 import kr.go.molit.nhsnes.activity.NhsMainActivity;
@@ -299,7 +300,13 @@ public class DialogBase extends AppCompatDialog {
         switch (keyCode)
         {
             case KeyEvent.KEYCODE_F1:
-//                    showMessage("F1 Touch!");
+                if(shortPress) {
+                    //showMessage("F1 Touch!" + getClass().getSimpleName());
+                    if (this.getClass().getName().equals(DialogSearchWaypoint.class.getName())) {
+                        dismiss();
+                        NhsBaseFragmentActivity.goMain();
+                    }
+                }
                 return true;
             case KeyEvent.KEYCODE_F2:
 //                    showMessage("F2 Touch!");

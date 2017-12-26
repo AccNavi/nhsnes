@@ -4720,7 +4720,196 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
         lanSetDisplayLayer(convertInt);
 
     }
+    private void showExitMainDialog(){
+        exitDialog = new DialogType1(getContext(), "비행 종료 확인", "비행을 종료하시겠습니까?", getContext().getString(R.string.btn_confirm), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitDialog.hideDialog();
 
+                // TODO: 2017. 4. 24. 수정 기능 추가
+
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+                try {
+
+//                    stopSenderTimer();
+//                    stopSaveTimer();
+
+                    // Realm을 초기화합니다.
+                    Realm.init(mContext);
+                    Realm realm = Realm.getDefaultInstance();
+
+                    NhsFlightHistoryModel nhsFlightHistoryModel = new NhsFlightHistoryModel();
+                    nhsFlightHistoryModel.setAcrftCd(flightPlanInfo.getAcrftCd());
+                    nhsFlightHistoryModel.setPlanDeparture(flightPlanInfo.getPlanDeparture());
+                    nhsFlightHistoryModel.setPlanArrival(flightPlanInfo.getPlanArrival());
+                    nhsFlightHistoryModel.setPlanTeet(flightPlanInfo.getPlanTeet());
+                    nhsFlightHistoryModel.setPlanDate(flightPlanInfo.getPlanDate());
+                    nhsFlightHistoryModel.setPlanRoute(flightPlanInfo.getPlanRoute());
+                    nhsFlightHistoryModel.setPlanId(flightPlanInfo.getPlanId());
+                    nhsFlightHistoryModel.setCallsign(flightPlanInfo.getCallsign());
+                    nhsFlightHistoryModel.setAcrftType(flightPlanInfo.getAcrftType());
+                    nhsFlightHistoryModel.setDepartureAerodrome(flightPlanInfo.getPlanDeparture());
+                    nhsFlightHistoryModel.setRegDate(new Date().getTime());
+                    nhsFlightHistoryModel.setPlanSn(flightPlanInfo.getPlanSn());
+                    nhsFlightHistoryModel.setGpsLogDate(gpsLogDate);
+                    nhsFlightHistoryModel.setFlightId(flightPlanInfo.getFlightId());
+                    nhsFlightHistoryModel.setPlanDoccd(flightPlanInfo.getPlanDoccd());
+
+                    // 총 비행 시간
+                    long totalFlightTime = new Date().getTime() - objStartDate.getTime();
+
+
+                    endTime = sdf.format(new Date());
+
+                    int avgSpeed = 0;
+
+                    // 평균 속도
+                    if (totalSpeed > 0 && totalSpeedCount > 0) {
+                        avgSpeed = (int) (totalSpeed / totalSpeedCount);
+                    }
+
+                    int avgAlitu = 0;
+
+                    // 평균 고도
+                    if (totalAltitude > 0 && totalAltitudeCount > 0) {
+                        avgAlitu = (int) (totalAltitude / totalAltitudeCount);
+                    }
+
+                    nhsFlightHistoryModel.setAvgSpeed(avgSpeed);
+                    nhsFlightHistoryModel.setAvgAltitude(avgAlitu);
+                    nhsFlightHistoryModel.setTotalFlightTime(totalFlightTime);
+                    nhsFlightHistoryModel.setStartTime(startTime);
+                    nhsFlightHistoryModel.setEndTime(endTime);
+
+                    if (routeStatus != null) {
+
+                        // 총 거리
+                        nhsFlightHistoryModel.setTotalDistanc(routeStatus.uTotalDist);
+                        Log.d("totaldist", "dist" + routeStatus.uTotalDist + "");
+
+                    }
+
+                    nhsFlightHistoryModel.realmSave(realm);
+
+                } catch (Exception ex) {
+
+                }
+
+                FlightDriverService service = FlightDriverService.retrofit.create(FlightDriverService.class);
+
+                // 유저 정보를 가져온다.
+                String mbrId = StorageUtil.getStorageModeEx(NhsFlightActivity.this, LOGIN_MBR_ID);
+
+                Map<String, Object> mainParams = new HashMap<String, Object>();
+                Map<String, Object> subParams = new HashMap<String, Object>();
+
+                try {
+                    subParams.put("planId", flightPlanInfo.getPlanId());          // 비행계획서 ID
+                    subParams.put("planSn", flightPlanInfo.getPlanSn());          // 비행계획서 일련번호
+                    subParams.put("messageType", "ARR");     // 전문타입
+                    subParams.put("acrftCd", flightPlanInfo.getAcrftCd());        // 항공기식별부호
+                    subParams.put("planDeparture", flightPlanInfo.getPlanDeparture()); // 출발비행장
+
+                    sdf = new SimpleDateFormat("HHmm");
+                    subParams.put("planAta", sdf.format(new Date()));        // 도착시간
+
+                    subParams.put("planArrival", flightPlanInfo.getPlanArrival());    // 비도착비행장
+                    subParams.put("mbrId", mbrId);           // 회원일련번호
+                    subParams.put("callsign", flightPlanInfo.getCallsign());       // 콜사인
+
+                    mainParams.put("fpl", subParams);
+                } catch (Exception ex) {
+
+                }
+
+                try {
+                    mainParams.put("flgtlog", Util.readFileTextToJsonArray(Environment.getExternalStorageDirectory() + "/ACC_NAVI",
+                            tempSaveFileName));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                RequestBody body = NetUtil.mapToJsonBody(NhsFlightActivity.this, mainParams);
+//TpmArrivalModel
+                Call<NetSecurityModel> callback = service.repoFpmArrival(body);
+                callback.enqueue(new Callback<NetSecurityModel>() {
+                    @Override
+                    public void onResponse(Call<NetSecurityModel> call, Response<NetSecurityModel> response) {
+
+                        try {
+                            NetSecurityModel netSecurityModel = response.body();
+
+                            if (response.code() == 200) {
+
+
+                                if (netSecurityModel.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
+
+                                    String dec = new MagicSE_Util(getContext()).getDecData(netSecurityModel.getResult_data());
+
+                                    TpmArrivalModel model = new Gson().fromJson(dec, TpmArrivalModel.class);
+
+                                    if (model.getResult_code().trim().equals(NetConst.RESPONSE_SUCCESS)) {
+
+                                        new ToastUtile().showCenterText(mContext, model.getResult_msg());
+
+                                        /**
+                                         dialogSendReportFlight = new DialogSendReportFlight(getContext(), new View.OnClickListener() {
+                                        @Override public void onClick(View view) {
+
+                                        dialogSendReportFlight.dismiss();
+                                        NhsFlightActivity.this.finish();
+                                        }
+                                        });
+                                         dialogSendReportFlight.show();
+                                         **/
+
+                                    } else {
+
+                                        new ToastUtile().showCenterText(mContext, model.getResult_msg());
+
+                                    }
+
+                                }
+
+                            } else {
+                                Log.d("JeLib", "----------1-----------");
+//                                new ToastUtile().showCenterText(mContext, getString(R.string.error_network));
+
+                            }
+                        } catch (Exception ex) {
+
+                        } finally {
+
+                            if (exitDialog != null) {
+                                exitDialog.hideDialog();
+
+                            }
+
+                            goMain();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<NetSecurityModel> call, Throwable t) {
+//                            Toast.makeText(mContext, R.string.error_network, Toast.LENGTH_SHORT).show();
+//            new ToastUtile().showCenterText(mContext, getString(R.string.error_network) );
+
+                        if (exitDialog.isShowDialog()) {
+                            exitDialog.hideDialog();
+                        }
+                    }
+                });
+            }
+        }, getContext().getString(R.string.btn_cancel), new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                exitDialog.hideDialog();
+            }
+        });
+    }
     @Override
     public boolean onKeyDown(int keyboard, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -4729,9 +4918,9 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                 // 메인화면 전환
                 case KeyEvent.KEYCODE_F1:
                     if (this.isDrive) {
-                        showExitDialog();
+                        showExitMainDialog();
                     } else {
-                        finish();
+                        goMain();
                     }
                     return false;
                 case KeyEvent.KEYCODE_F2:

@@ -2255,7 +2255,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
             switch (keyboard) {
                 case KeyEvent.KEYCODE_F1:
                     if(vController2.getVisibility() == View.GONE){
-                        Log.d("JeLib","모의주행");
                         if (mNative.lanSimulIsPause() != 1) {
                             mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
                             mIvPlayState.setImageResource(R.drawable.btn_play_nor);
@@ -2273,7 +2272,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                 vController2.setVisibility(View.VISIBLE);
                                 vController.setVisibility(View.GONE);
 
-                                finish();
+                                goMain();
                             }
                         }, getString(R.string.btn_cancel), new View.OnClickListener() {
 
@@ -2288,8 +2287,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             }
                         });
                     } else {
-                        Log.d("JeLib","종료");
-                        finish();
+                        goMain();
                     }
                     return false;
                 default:
