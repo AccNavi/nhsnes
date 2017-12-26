@@ -136,7 +136,7 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
             this.routeData = data.getString(DATA_ROUTE, "");
         }
 
-        //setLayout();
+        setLayout();
 
         new Handler().postDelayed(new Runnable() {
             @Override

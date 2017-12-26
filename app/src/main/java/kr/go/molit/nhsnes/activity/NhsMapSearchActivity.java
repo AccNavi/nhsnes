@@ -2264,9 +2264,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             @Override
                             public void onClick(View v) {
                                 //mNative.lanSimulStartTrajectory();
-
-                                mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
-
+                                if(mNative.lanSimulIsTrajectory() == 1) {
+                                    Log.d("JeLib","===================================");
+                                    Log.d("JeLib","===================================");
+                                    Log.d("JeLib","===================================");
+                                 //   mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                                }
                                 messageDialog.hideDialog();
 
                                 vController2.setVisibility(View.VISIBLE);
@@ -2287,7 +2290,50 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             }
                         });
                     } else {
-                        goMain();
+                        try {
+                            /*
+                            if (mode == LOG_DRIVE) {
+                                if (!mNative.lanLogIsPause()) {  // 로그 주행 중이면
+                                    mNative.lanLogPauseTrajectory(); // 정지
+                                }
+                            }
+
+                            if (mNative.lanSimulIsPause() != 1) {
+                                mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                                mIvPlayState.setImageResource(R.drawable.btn_play_nor);
+                            }
+                            */
+                            messageDialog = new DialogType1(NhsMapSearchActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    /*
+                                    if (mode == LOG_DRIVE) {
+                                        mNative.lanLogStopTrajectory(); // 로그 주행 정지
+                                    } else {
+                                        mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                                    }
+                                     */
+                                    goMain();
+
+                                }
+                            }, getString(R.string.btn_cancel), new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+                                    /*
+                                    // 재기동
+                                    if (mode == LOG_DRIVE) {
+                                        mNative.lanLogResumeTrajectory();
+                                    } else {
+                                        mNative.lanSimulResumeTrajectory();
+                                    }
+                                       */
+                                    messageDialog.hideDialog();
+                                }
+                            });
+                        } catch (Exception e) {
+
+                        }
                     }
                     return false;
                 default:
