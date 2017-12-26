@@ -1800,6 +1800,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     m.setElev("0");
                     m.setHeading("0");
                     m.setStepNum("1");
+                    m.setrType("s");
                     route.add(m);
                 }
 
@@ -1838,6 +1839,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     m.setElev("0");
                     m.setHeading("0");
                     m.setStepNum("1");
+                    m.setrType("e");
                     route.add(m);
                 }
 
@@ -1902,6 +1904,7 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     m.setElev("0");
                     m.setHeading("0");
                     m.setStepNum("1");
+                    m.setrType("w");
                     route.add(m);
                 } catch (Exception ex) {
                     ex.printStackTrace();
