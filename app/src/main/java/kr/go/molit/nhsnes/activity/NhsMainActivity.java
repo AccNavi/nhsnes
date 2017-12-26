@@ -289,7 +289,12 @@ public class NhsMainActivity extends NhsBaseFragmentActivity implements View.OnC
         messageDialog = new DialogType1(NhsMainActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
+
+                // 모두 종료
+                allFlinishAllActivity();
+
             }
         }, getString(R.string.btn_cancel), new View.OnClickListener() {
 

@@ -35,6 +35,8 @@ import com.yayandroid.locationmanager.constants.ProcessType;
 import com.yayandroid.locationmanager.constants.ProviderType;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
 
 import kr.go.molit.nhsnes.NhsApplication;
 import kr.go.molit.nhsnes.R;
@@ -58,7 +60,7 @@ import static kr.go.molit.nhsnes.fragment.SystemSettingFragment.SCREEN_VALUE;
 
 public class NhsBaseFragmentActivity extends LocationBaseActivity implements GpsPresenterService.GpsPresenter {
 
-    protected static ArrayList<Activity> activityArrayList = new ArrayList<>();
+    protected static LinkedList<Activity> activityArrayList = new LinkedList<>();
     private boolean shortPress = false;         //롱프레스 플래그
 
     //USB Serial
@@ -114,6 +116,16 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     protected void onDestroy() {
         super.onDestroy();
         setUnUsbRecevier();
+
+        try {
+            if (this.activityArrayList != null) {
+                if (this.activityArrayList.size() > 0) {
+                    this.activityArrayList.remove(this);
+                }
+            }
+        } catch (Exception ex) {
+
+        }
     }
 
     /**
@@ -659,11 +671,12 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                     if (!this.getClass().getName().equals(NhsMainActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsIntroActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsLoginActivity.class.getName())) {
-                        Intent homeIntent = new Intent(this, NhsMainActivity.class);
-                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(homeIntent);
                         finish();
+                        Intent homeIntent = new Intent(this, NhsMainActivity.class);
+//                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(homeIntent);
+
                         return false;
                     }
 
@@ -740,4 +753,36 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
             }
         }
     };
+
+
+    /**
+     * 모든 엑티비티 종료 결과
+     *
+     * @author FIESTA
+     * @since 오전 18:18
+     **/
+    protected void allFlinishAllActivity(){
+
+        if (this.activityArrayList != null){
+
+            if (this.activityArrayList.size() > 0) {
+
+                int i = 0;
+                int size = this.activityArrayList.size();
+
+                for (i=0; i<size; i++) {
+                    try {
+                        this.activityArrayList.get(i).finish();
+                        this.activityArrayList.remove(i);
+                    }catch (Exception ex) {
+
+                    }
+                }
+
+            }
+
+        }
+
+
+    }
 }
