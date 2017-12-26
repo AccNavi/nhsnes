@@ -673,11 +673,15 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                             !this.getClass().getName().equals(NhsIntroActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsLoginActivity.class.getName())) {
                         finish();
-                        Intent homeIntent = new Intent(this, NhsMainActivity.class);
+                        try {
+                            Intent homeIntent = new Intent(this, NhsMainActivity.class);
+                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(homeIntent);
-
+                            startActivity(homeIntent);
+                        } catch (Exception e){
+                            
+                        }
                         return false;
                     }
 
