@@ -1121,4 +1121,20 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onKeyDown(int keyboard, KeyEvent event) {
+        //super.onKeyDown(keyboard, event);
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            switch (keyboard) {
+                case KeyEvent.KEYCODE_F1:
+                    finish();
+                    return false;
+                default:
+                    super.onKeyDown(keyboard, event);
+                    break;
+            }
+        }
+        return false;
+    }
 }

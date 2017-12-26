@@ -489,7 +489,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
             switch (keyboard)
             {
-                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                case KeyEvent.KEYCODE_F1:
 
                     event.startTracking();
 
@@ -634,7 +634,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      */
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {   // 홈 길게 눌렀을떄 설정 화면으로
+        if (keyCode == KeyEvent.KEYCODE_F1) {   // 홈 길게 눌렀을떄 설정 화면으로
 
             shortPress = false;
 
@@ -665,7 +665,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
         switch (keyCode)
         {
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            case KeyEvent.KEYCODE_F1:
 
                 if(shortPress){
 
@@ -675,12 +675,13 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                         finish();
                         try {
                             Intent homeIntent = new Intent(this, NhsMainActivity.class);
-                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            //homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeIntent);
+                            overridePendingTransition(0, 0);
                         } catch (Exception e){
-                            
+
                         }
                         return false;
                     }

@@ -1892,11 +1892,6 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                 NhsMapSearchActivity.super.setGpsListener(new OnGpsListener() {
                                     @Override
                                     public void onLocationChanged(Location location) {
-                                        Log.d("JeLib", "-------------onLocationChanged---------");
-                                        Log.d("JeLib", "-------------onLocationChanged---------");
-                                        Log.d("JeLib", "-------------onLocationChanged---------");
-                                        Log.d("JeLib", "-------------onLocationChanged---------");
-                                        Log.d("JeLib", "-------------onLocationChanged---------");
 
                                         NhsMapSearchActivity.super.setGpsListener(null);
 
@@ -2253,54 +2248,52 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
     @Override
     public boolean onKeyDown(int keyboard, KeyEvent event) {
-        super.onKeyDown(keyboard, event);
+        //super.onKeyDown(keyboard, event);
 
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
 
             switch (keyboard) {
-                // 줌인
-                case KeyEvent.KEYCODE_F2:
-                    lanZoomByPosition(1, 0, 0);
-//                    showMessage("F2 Touch!");
-                    break;
+                case KeyEvent.KEYCODE_F1:
+                    if(vController2.getVisibility() == View.GONE){
+                        Log.d("JeLib","모의주행");
+                        if (mNative.lanSimulIsPause() != 1) {
+                            mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
+                            mIvPlayState.setImageResource(R.drawable.btn_play_nor);
+                        }
 
-                // 줌 아웃
-                case KeyEvent.KEYCODE_F3:
-                    lanZoomByPosition(0, 0, 0);
-//                    showMessage("F3 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_F4:
-//                    showMessage("F4 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_F5:
-//                    showMessage("F5 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_F6:
-//                    showMessage("F6 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_F7:
-//                    showMessage("F7 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_F8:
-//                    showMessage("F8 Touch!");
-                    break;
-                case KeyEvent.KEYCODE_ALT_LEFT:
-//                    showMessage("alt left Touch!");
-                    break;
-                case KeyEvent.KEYCODE_ALT_RIGHT:
-//                    showMessage("alt right Touch!");
-                    break;
-                case KeyEvent.KEYCODE_SPACE:
-//                    showMessage("space Touch!");
-                    break;
-                case KeyEvent.KEYCODE_ENTER:
-//                    showMessage("enter Touch!");
-                    break;
-                case KeyEvent.KEYCODE_CTRL_LEFT:
-//                    showMessage("ctrl left Touch!");
-                    break;
-                case KeyEvent.KEYCODE_CTRL_RIGHT:
-//                    showMessage("ctrl right Touch!");
+                        messageDialog = new DialogType1(NhsMapSearchActivity.this, "모의 비행 종료", "모의 비행을 종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //mNative.lanSimulStartTrajectory();
+
+                                mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+
+                                messageDialog.hideDialog();
+
+                                vController2.setVisibility(View.VISIBLE);
+                                vController.setVisibility(View.GONE);
+
+                                finish();
+                            }
+                        }, getString(R.string.btn_cancel), new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+
+                                // 재기동
+                                mNative.lanSimulResumeTrajectory();
+                                mIvPlayState.setImageResource(R.drawable.btn_pause_nor);
+
+                                messageDialog.hideDialog();
+                            }
+                        });
+                    } else {
+                        Log.d("JeLib","종료");
+                        finish();
+                    }
+                    return false;
+                default:
+                    super.onKeyDown(keyboard, event);
                     break;
             }
         }
