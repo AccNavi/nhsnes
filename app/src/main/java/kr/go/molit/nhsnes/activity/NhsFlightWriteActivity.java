@@ -754,8 +754,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     if (this.route != null) {
                         this.route.clear();
                         ((EditText) findViewById(R.id.ed_route)).setText("");
-                        ((EditText) findViewById(R.id.et_3_2)).setText("");
-                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_3_2)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_6_1)).setText("");
                     }
 
                     this.isFirstRoutClick = false;
@@ -786,8 +786,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     if (this.route != null) {
                         this.route.clear();
                         ((EditText) findViewById(R.id.ed_route)).setText("");
-                        ((EditText) findViewById(R.id.et_3_2)).setText("");
-                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_3_2)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_6_1)).setText("");
                     }
 
                     this.isFirstRoutClick = false;
@@ -835,8 +835,8 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
                     if (this.route != null) {
                         this.route.clear();
                         ((EditText) findViewById(R.id.ed_route)).setText("");
-                        ((EditText) findViewById(R.id.et_3_2)).setText("");
-                        ((EditText) findViewById(R.id.et_6_1)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_3_2)).setText("");
+                        ((TextViewEx) findViewById(R.id.et_6_1)).setText("");
                     }
                     this.isFirstRoutClick = false;
                 }
