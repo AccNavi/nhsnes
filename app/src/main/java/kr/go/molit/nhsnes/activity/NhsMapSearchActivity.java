@@ -2260,14 +2260,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             mIvPlayState.setImageResource(R.drawable.btn_play_nor);
                         }
 
-                        messageDialog = new DialogType1(NhsMapSearchActivity.this, "모의 비행 종료", "모의 비행을 종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
+                        messageDialog = new DialogType1(NhsMapSearchActivity.this, "", "종료하시겠습니까?", getString(R.string.btn_confirm), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 //mNative.lanSimulStartTrajectory();
                                 if(mNative.lanSimulIsTrajectory() == 1) {
-                                    Log.d("JeLib","===================================");
-                                    Log.d("JeLib","===================================");
-                                    Log.d("JeLib","===================================");
                                  //   mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
                                 }
                                 messageDialog.hideDialog();
