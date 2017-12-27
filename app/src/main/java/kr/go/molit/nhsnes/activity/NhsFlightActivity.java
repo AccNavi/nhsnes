@@ -1136,32 +1136,32 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
 
                                             if (callsign.equals("fplwon") &&    // 시나리오2 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.769974") &&
-                                                    pos[1].equals("37.357567")) {
+                                                    pos[0].equals("126.766632") &&
+                                                    pos[1].equals("37.358612")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplnow") &&    // 시나리오4 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.234344") &&
-                                                    pos[1].equals("35.980221")) {
+                                                    pos[0].equals("129.193970") &&
+                                                    pos[1].equals("36.027733")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc03") &&    // 신규 시나리오3 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("129.263916") &&
-                                                    pos[1].equals("35.763081")) {
+                                                    pos[0].equals("129.259140") &&
+                                                    pos[1].equals("35.757767")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc05") &&    // 신규 시나리오5 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.412170") &&
-                                                    pos[1].equals("34.908302")) {
+                                                    pos[0].equals("126.525719") &&
+                                                    pos[1].equals("35.037598")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
                                             } else if (callsign.equals("fplc06") &&    // 신규 시나리오6 이고, 좌표 값이 같다면, 시나리오 종료
-                                                    pos[0].equals("126.374733") &&
-                                                    pos[1].equals("34.330421")) {
+                                                    pos[0].equals("126.329445") &&
+                                                    pos[1].equals("33.923679")) {
                                                 stopTestDriveTimer();
                                                 stopTtsTimer();
 
