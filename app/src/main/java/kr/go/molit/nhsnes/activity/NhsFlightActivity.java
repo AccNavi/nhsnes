@@ -2782,6 +2782,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                         public void run() {
 
                                                             try {
+
                                                                 if (model.getMsgsendContent() != null &&
                                                                         !model.getMsgsendContent().isEmpty()) {
 
@@ -2811,11 +2812,13 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                                     });
 
+
                                                     try {
 
-                                                        if (model.getList() != null) {
+                                                        if (model.getAlmostAcrft() != null) {
                                                             // 맵에 데이터를 넘겨준다.
-                                                            int size = model.getList().size();
+
+                                                            int size = model.getAlmostAcrft().size();
                                                             int i = 0;
 
                                                             AroundAviation av = new AroundAviation(size);
@@ -2825,12 +2828,17 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                                                 try {
 
-                                                                    almostAcrftModel = model.getList().get(i);
+                                                                    almostAcrftModel = model.getAlmostAcrft().get(i);
 
                                                                     av.item[i].strCallSign = flightPlanInfo.getCallsign();
 
                                                                     av.item[i].lon = (float) Double.parseDouble(almostAcrftModel.getLon());
                                                                     av.item[i].lat = (float) Double.parseDouble(almostAcrftModel.getLat());
+
+//                                                                    av.item[i].lon = 128.595154f;
+//                                                                    av.item[i].lat = 38.175480f;
+//                                                                    Log.d("aviation1","lon::"+av.item[i].lon);
+//                                                                    Log.d("aviation2","lat::"+av.item[i].lat);
 
                                                                     if (almostAcrftModel.getElev().isEmpty()) {
                                                                         av.item[i].elev = 0;
@@ -2841,7 +2849,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                                     if (almostAcrftModel.getHeading().isEmpty()) {
                                                                         av.item[i].heading = 27;
                                                                     } else {
-                                                                        av.item[i].heading = Integer.parseInt(almostAcrftModel.getHeading());
+                                                                        // 맵 라이브러리는 int 형으로 받는데, 서버에서는 float형으로 내려줘서 int로 캐스팅 시킴..
+                                                                        av.item[i].heading = (int)Float.parseFloat(almostAcrftModel.getHeading());
                                                                     }
                                                                     av.item[i].uState = 0;
                                                                 } catch (Exception ex) {
@@ -2853,7 +2862,7 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
                                                             }
 
                                                             lanReceiveAroundAviation(av);
-
+                                                            Log.d("flightTest", "call lanReceiveAroundAviation size : " + av.item.length);
                                                         }
 
                                                     } catch (Exception ex) {
