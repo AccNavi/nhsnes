@@ -17,7 +17,7 @@ public class FlightDriveModel {
   private String msgsendContent;
   private String eegcmsgIdx;
   private String eegcmsgMemo;
-  private List<AlmostAcrftModel> list;
+  private List<AlmostAcrftModel> AlmostAcrft;
 
   public String getMsgsendSn() {
     return msgsendSn;
@@ -67,18 +67,18 @@ public class FlightDriveModel {
     this.result_msg = result_msg;
   }
 
-  public List<AlmostAcrftModel> getList() {
-    if(list.getClass().equals(String.class)){
+  public List<AlmostAcrftModel> getAlmostAcrft() {
+    if(AlmostAcrft.getClass().equals(String.class)){
       Log.d("JeLib","--------String--------");
       Log.d("JeLib","--------String--------");
       Log.d("JeLib","--------String--------");
       return null;
     }
-    return list;
+    return AlmostAcrft;
   }
 
   public void setList(List<AlmostAcrftModel> list) {
-    this.list = list;
+    this.AlmostAcrft = list;
   }
 
 
