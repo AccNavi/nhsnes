@@ -2830,8 +2830,8 @@ public class NhsFlightActivity extends NhsBaseFragmentActivity implements Sensor
 
                                                                     almostAcrftModel = model.getAlmostAcrft().get(i);
 
-                                                                    av.item[i].strCallSign = flightPlanInfo.getCallsign();
-
+//                                                                    av.item[i].strCallSign = flightPlanInfo.getCallsign();
+                                                                    av.item[i].strCallSign = flightPlanInfo.getAcrftCd();
                                                                     av.item[i].lon = (float) Double.parseDouble(almostAcrftModel.getLon());
                                                                     av.item[i].lat = (float) Double.parseDouble(almostAcrftModel.getLat());
 
