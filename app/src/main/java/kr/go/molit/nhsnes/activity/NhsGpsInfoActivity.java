@@ -43,6 +43,12 @@ public class NhsGpsInfoActivity extends NhsBaseFragmentActivity implements Compo
 
   }
 
+  /**
+  * 레이아웃을 설정한다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:19
+  **/
   private void setLayout() {
 
     this.scBluetooth = (SwitchCompat) this.findViewById(R.id.sc_bluetooth);

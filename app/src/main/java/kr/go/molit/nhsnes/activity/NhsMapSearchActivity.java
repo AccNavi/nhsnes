@@ -319,6 +319,13 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     }
 
 
+    /**
+     * 테스트 함수
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:21
+     **/
     private void test() {
 
         ArrayList<NhsFavoriteModel> list = NhsFavoriteModel.findAll();
@@ -439,6 +446,13 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         }
     }
 
+    /**
+     * tts 타이머 시작
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:21
+     **/
     private void startTtsTimer() {
 
         this.ttsTimer = new Timer();
@@ -923,14 +937,14 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                                         } else {
 
                                             // 마지막에 \n이 없으면 붙인다.
-                                            if (routeData.lastIndexOf("\n") != routeData.length()-1) {
+                                            if (routeData.lastIndexOf("\n") != routeData.length() - 1) {
                                                 routeData += "\n";
                                             }
 
                                             routeData += (curPos.x + " " + curPos.y + "\n");
                                         }
                                     }
-                                } catch(Exception e){
+                                } catch (Exception e) {
 
                                 }
                                 break;
@@ -1439,6 +1453,13 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         });
     }
 
+    /**
+     * 경로를 그린다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:22
+     **/
     private void setDrive() {
 
         mNlvView.clearRoutePosition();
@@ -1824,7 +1845,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
     /**
      * 타입별 레이아웃 초기화
-     */
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:22
+     **/
     private void initTypeView() {
 
         Log.i("TEST", "mType:::" + mType);
@@ -2026,7 +2051,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
     /**
      * 모의 주행 실행
-     */
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:22
+     **/
     private void setSimulateDriving() {
         // 경로 생성 안됬을 경우
         if (mNative.lanIsRoute() == 0) {
@@ -2090,6 +2119,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
     }
 
 
+    /**
+    * tts 출력
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:22
+    **/
     @SuppressWarnings("deprecation")
     private void ttsUnder20(String text) {
         if (!mTts.isSpeaking()) {
@@ -2099,6 +2134,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         }
     }
 
+    /**
+    * tts 출력
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:22
+    **/
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void ttsGreater21(String text) {
         if (!mTts.isSpeaking()) {
@@ -2127,8 +2168,11 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
 
     /**
-     * RP 에러 메세지 보여주는 함수
-     */
+    *  RP 에러 메세지 보여주는 함수
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:22
+    **/
     private void rpErrorMsg(int resultCode) {
 
         if (0 == resultCode) {
@@ -2164,6 +2208,12 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
         Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+    * 결과값 설정
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:23
+    **/
     private void resultData(boolean isSucc) {
         Intent intent = getIntent();
         intent.putExtra(DATA_START, startData);
@@ -2254,7 +2304,7 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
 
             switch (keyboard) {
                 case KeyEvent.KEYCODE_F1:
-                    if(vController2.getVisibility() == View.GONE){
+                    if (vController2.getVisibility() == View.GONE) {
                         if (mNative.lanSimulIsPause() != 1) {
                             mNative.lanSimulPauseTrajectory();  // 일시정지 시킴
                             mIvPlayState.setImageResource(R.drawable.btn_play_nor);
@@ -2264,8 +2314,8 @@ public class NhsMapSearchActivity extends NhsBaseFragmentActivity implements Vie
                             @Override
                             public void onClick(View v) {
                                 //mNative.lanSimulStartTrajectory();
-                                if(mNative.lanSimulIsTrajectory() == 1) {
-                                 //   mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
+                                if (mNative.lanSimulIsTrajectory() == 1) {
+                                    //   mNative.lanSimulStopTrajectory(); //   시뮬레이션 정지
                                 }
                                 messageDialog.hideDialog();
 

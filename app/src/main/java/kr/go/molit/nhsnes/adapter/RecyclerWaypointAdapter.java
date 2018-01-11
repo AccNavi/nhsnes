@@ -82,6 +82,12 @@ public class RecyclerWaypointAdapter extends RecyclerView.Adapter<RecyclerWaypoi
     notifyDataSetChanged();
   }
 
+  /**
+  * 모든 데이터 삭제
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:28
+  **/
   public void clearData(){
 
     if (this.currentSearchModels == null) {

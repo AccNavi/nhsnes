@@ -8,9 +8,12 @@ import kr.go.molit.nhsnes.R;
 import kr.go.molit.nhsnes.adapter.RecyclerDestinationSearchMapList;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+ * Destination search map 화면
+ *
+ * @author FIESTA
+ * @version 1.0.0
+ * @since 오후 5:11
+ **/
 public class NhsDestinationSearchMapActivity extends NhsBaseFragmentActivity {
     private RecyclerView mRecyclerViewDestinationSearchMap;
     private RecyclerDestinationSearchMapList mRecyclerDestinationSearchMapList;
@@ -22,6 +25,13 @@ public class NhsDestinationSearchMapActivity extends NhsBaseFragmentActivity {
         setLayout();
     }
 
+    /**
+     * 레이아웃 설정
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:11
+     **/
     private void setLayout() {
         mRecyclerViewDestinationSearchMap = (RecyclerView) findViewById(R.id.rv_search_destination_map);
         mRecyclerViewDestinationSearchMap.setLayoutManager(new LinearLayoutManager(this));

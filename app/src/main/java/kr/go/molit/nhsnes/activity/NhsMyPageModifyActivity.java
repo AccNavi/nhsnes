@@ -66,6 +66,12 @@ public class NhsMyPageModifyActivity extends NhsBaseFragmentActivity implements 
 
   }
 
+  /**
+  * 레이아웃 설정
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:23
+  **/
   private void setLayout() {
 
     this.tvId = (TextView) findViewById(R.id.tv_id);
@@ -525,6 +531,12 @@ public class NhsMyPageModifyActivity extends NhsBaseFragmentActivity implements 
 
   };
 
+  /**
+  * 이메일 유효성 체크
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:23
+  **/
   private boolean isValidEmail(CharSequence target) {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
   }

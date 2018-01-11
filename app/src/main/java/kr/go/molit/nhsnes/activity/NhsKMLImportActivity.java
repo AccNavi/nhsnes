@@ -40,6 +40,12 @@ public class NhsKMLImportActivity extends NhsBaseFragmentActivity implements Vie
     }
 
 
+    /**
+    * recyclerview 설정
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:20
+    **/
     private void setRecyclerView() {
 
         this.rvList = (RecyclerView)findViewById(R.id.rv_info_list);
@@ -80,6 +86,12 @@ public class NhsKMLImportActivity extends NhsBaseFragmentActivity implements Vie
     }
 
 
+    /**
+    * 레이아웃 설정
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:20
+    **/
     private void setLayout() {
         rvList = (RecyclerView) findViewById(R.id.rv_info_list);
         findViewById(R.id.btn_kml_import).setOnClickListener(this);

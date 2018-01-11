@@ -43,6 +43,12 @@ public class NhsAgreermentActivity extends NhsBaseFragmentActivity implements Vi
 
   }
 
+  /**
+  * 이용야관 요청
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 4:45
+  **/
   private void requestData() {
 
     NetworkUrlUtil networkUrlUtil = new NetworkUrlUtil();
@@ -56,6 +62,12 @@ public class NhsAgreermentActivity extends NhsBaseFragmentActivity implements Vi
 
   }
 
+  /**
+  * 레이아웃 설정
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 4:45
+  **/
   private void setLayout() {
 
     this.cbAgree1 = (CheckBox) this.findViewById(R.id.cb_check1);
@@ -96,7 +108,7 @@ public class NhsAgreermentActivity extends NhsBaseFragmentActivity implements Vi
   }
 
   /**
-   * 로그인
+   * 로그인 결과 리스너
    *
    * @author FIESTA
    * @since 오전 12:36

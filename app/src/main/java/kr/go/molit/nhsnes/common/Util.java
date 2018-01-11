@@ -574,6 +574,12 @@ public class Util {
         return mVold;
     }
 
+    /**
+    * MicroSDCard 검사
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:33
+    **/
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private static boolean checkMicroSDCard(String fileSystemName) {
         StatFs statFs = new StatFs(fileSystemName);

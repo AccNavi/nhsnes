@@ -1,9 +1,11 @@
 package com.modim.lan.lanandroid;
 
 /**
- * Created by jolie on 7/20/2017.
- */
-
+* 경로 정보
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 5:44
+**/
 public class AirRouteStatus {
     public int uAverSpeed;			// 평균 속도
     public int  uAverAltitude;			// 평균 고도

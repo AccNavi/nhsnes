@@ -122,6 +122,12 @@ public class RecyclerModifyRoute extends RecyclerView.Adapter<RecyclerModifyRout
     }
   }
 
+  /**
+  * 경로를 추가한다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:27
+  **/
   private void putRoutes(){
     if(null != mItems && mItems.size() > 0){
       String result = "";

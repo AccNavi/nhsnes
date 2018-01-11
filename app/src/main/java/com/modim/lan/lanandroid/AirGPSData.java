@@ -1,9 +1,11 @@
 package com.modim.lan.lanandroid;
 
 /**
- * Created by jolie on 8/18/2017.
- */
-
+* gps 정보
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 5:44
+**/
 public class AirGPSData {
     public float uLon;		// X
     public float uLat;		// Y

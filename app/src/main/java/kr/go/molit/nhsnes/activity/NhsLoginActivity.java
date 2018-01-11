@@ -176,7 +176,12 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     }
   };
 
-  //데이터 요금 안내
+  /**
+  * 데이터 요금 안내
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:20
+  **/
   private void dataDialog() {
 
     ConnectivityManager connect = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -212,7 +217,12 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     }
   }
 
-  //아이디와 비행정보 연동 정보
+  /**
+  * 아이디와 비행정보 연동 정보
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:20
+  **/
   private void syncAgreeDialog() {
     mPopup2 = new DialogType1(_context, "아이디와 비행정보 연동 동의", "내비게이션은 사용자의  ID와 비행계획서로 제출한 비행정보를  연동하여  단말기와  비행계획서를 관리하는  시스템에서 활용하도록  동의 합니다.", getString(R.string.btn_confirm), new View.OnClickListener() {
       @Override
@@ -496,7 +506,13 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     networkProcess.sendEmptyMessage(0);
   }
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+   * 
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:20
+  **/
   public InputFilter filterAlphaNum = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
@@ -507,7 +523,12 @@ public class NhsLoginActivity extends NhsBaseFragmentActivity implements Compoun
     }
   };
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:20
+  **/
   public InputFilter filterAlphaNumSpecial = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");

@@ -231,21 +231,46 @@ public class NhsSelectPointActivity extends NhsBaseFragmentActivity implements V
     finish();
   }
 
+  /**
+   * 완료되면 호출된다.
+   *
+   * @author FIESTA
+   * @version 1.0.0
+   * @since 오후 5:13
+   **/
   @Override
   public void onComplate() {
 
   }
 
+  /**
+  * 취소되면 호출된다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:25
+  **/
   @Override
   public void onCancel() {
 
   }
 
+  /**
+  * 다음 선택시 호축된다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:25
+  **/
   @Override
   public void onNextSelect() {
 
   }
 
+  /**
+  * 삭제시 호출된다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:25
+  **/
   @Override
   public void onDelete() {
 

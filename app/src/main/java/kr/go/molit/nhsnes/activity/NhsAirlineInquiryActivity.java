@@ -26,11 +26,13 @@ import static kr.go.molit.nhsnes.activity.NhsAipInfoActivity.CALL_CALSS_NAME;
 import static kr.go.molit.nhsnes.activity.NhsAipInfoActivity.SEARCH_TYPE;
 import static kr.go.molit.nhsnes.adapter.RecyclerNhsFlightInfoListAdapter.INTENT_ID;
 
-/**
- * 항공 정보
- * Created by jongrakmoon on 2017. 3. 31..
- */
 
+/**
+* 항공 정보 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:47
+**/
 public class NhsAirlineInquiryActivity extends NhsBaseFragmentActivity implements View.OnClickListener{
 
     public final static String AIRSPACE_LIST = "airspace_list";                // 공역

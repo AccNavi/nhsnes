@@ -136,6 +136,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * 로딩 dialog 시작
      *
+     * @param context context
      * @author 정제영
      * @version 1.0, 2017.03.04 최초 작성
      **/
@@ -154,6 +155,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * 로딩 dialog 멈춤
      *
+     * @param context context
      * @author 정제영
      * @version 1.0, 2017.03.04 최초 작성
      **/
@@ -170,6 +172,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * fragment 가져오기
      *
+     * @param tag 태그
      * @author 정제영
      * @version 1.0, 2017.03.04 최초 작성
      **/
@@ -182,6 +185,9 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * fragment 교체
      *
+     * @param content    fragment
+     * @param tag        태그
+     * @param resContent replace fragment
      * @author 정제영
      * @version 1.0, 2017.03.04 최초 작성
      **/
@@ -208,11 +214,13 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         }
         ft.commitAllowingStateLoss();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         ActivityStack.getInstance().regOnPauseState(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -259,6 +267,15 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
     }
 
+
+    /**
+     * 퍼미션 검사
+     *
+     * @param context context
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:54
+     **/
     public boolean checkSettingPermissionCode(Activity context) {
         boolean permission;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -273,6 +290,15 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         }
     }
 
+
+    /**
+     * Context 반환
+     *
+     * @return context
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:54
+     **/
     protected Context getContext() {
         return this;
     }
@@ -281,6 +307,13 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         onResume();
     }
 
+    /**
+     * gps 위치 config 한다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:55
+     **/
     @Override
     public LocationConfiguration getLocationConfiguration() {
         return new LocationConfiguration.Builder()
@@ -304,6 +337,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps 위치가 바뀌면 gps 서비스에게 전달한다.
      *
+     * @param location 위치 정보
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:31
@@ -312,7 +346,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     public void onLocationChanged(Location location) {
         this.currentLocation = location;
 
-        Log.d("gpstest", this.currentLocation.getLatitude() + " "  + this.currentLocation.getLongitude());
+        Log.d("gpstest", this.currentLocation.getLatitude() + " " + this.currentLocation.getLongitude());
         if (this.gpsListener != null) {
             this.gpsListener.onLocationChanged(location);
         }
@@ -323,6 +357,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps 실패 정보를 gps 서비스에 전달한다
      *
+     * @param failType 실패 정보
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:31
@@ -336,6 +371,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps 상태를 gps 서비스에 전달한다
      *
+     * @param processType processType
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:31
@@ -368,6 +404,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps 상태 text를 가져온다.
      *
+     * @return 공백
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:27
@@ -380,6 +417,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps 상태 text를 보낸다
      *
+     * @param text gps 상태
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:28
@@ -394,6 +432,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     /**
      * gps를 위한 프로그래스바 메세지를 보낸다
      *
+     * @param text progress 메세지
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-06-21 오전 8:28
@@ -420,6 +459,14 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     }
 
 
+    /**
+     * gps 리스너 반환
+     *
+     * @return OnGpsListener
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:56
+     **/
     public OnGpsListener getGpsListener() {
         return gpsListener;
     }
@@ -430,12 +477,12 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
     /**
      * USB 리시버 설정 (갤럭시 탭에 있는 키보드 연결)
+     *
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-10-30 오전 10:25
      **/
-    private void setUsbReceiver()
-    {
+    private void setUsbReceiver() {
         try {
             mSerial = new FTDriver((UsbManager) getSystemService(Context.USB_SERVICE));
             mUsbReceiver = new UsbReceiver(this, mSerial);
@@ -462,23 +509,24 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                 Log.d("usb", "FTDriver no connection");
 //            Toast.makeText(this, "no connection", Toast.LENGTH_SHORT).show();
             }
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
 
     /**
      * USB 리시버 설정 (갤럭시 탭에 있는 키보드 해제)
+     *
      * @author FIESTA
      * @version 1.0.0
      * @since 2017-10-30 오전 10:25
      **/
-    private void setUnUsbRecevier(){
+    private void setUnUsbRecevier() {
         try {
             if (this.mUsbReceiver != null) {
                 unregisterReceiver(this.mUsbReceiver);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -489,20 +537,17 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     }
 
     @Override
-    public boolean onKeyDown(int keyboard, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyboard, KeyEvent event) {
 
 
-        if (event.getAction() == KeyEvent.ACTION_DOWN)
-        {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
 
-            switch (keyboard)
-            {
+            switch (keyboard) {
                 case KeyEvent.KEYCODE_F1:
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 
@@ -511,7 +556,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F2 Touch!");
@@ -520,7 +565,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F3 Touch!");
@@ -529,7 +574,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F4 Touch!");
@@ -538,7 +583,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F5 Touch!");
@@ -547,7 +592,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F6 Touch!");
@@ -556,7 +601,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F7 Touch!");
@@ -565,7 +610,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("F8 Touch!");
@@ -574,7 +619,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("alt left Touch!");
@@ -583,7 +628,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("alt right Touch!");
@@ -592,7 +637,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("space Touch!");
@@ -601,7 +646,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("enter Touch!");
@@ -610,7 +655,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("ctrl left Touch!");
@@ -619,7 +664,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
 
                     event.startTracking();
 
-                    if(event.getRepeatCount() == 0) {
+                    if (event.getRepeatCount() == 0) {
                         shortPress = true;
                     }
 //                    showMessage("ctrl right Touch!");
@@ -638,8 +683,8 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      * 해당 단축키의 키코드를 확인하여 코딩 할 것.
      *
      * @param keyCode 입력한 키코드
-     * @param event 발생 이벤트 정보
-     * @return  super.onKeyLongPress
+     * @param event   발생 이벤트 정보
+     * @return super.onKeyLongPress
      */
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
@@ -658,46 +703,49 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         return super.onKeyLongPress(keyCode, event);
     }
 
+
     /**
-     * 메인화면으로 이동
+     * 메인화면 이동
      *
-     */
-    public static void goMain(){
-        ActivityStack activityStack =  ActivityStack.getInstance();
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:57
+     **/
+    public static void goMain() {
+        ActivityStack activityStack = ActivityStack.getInstance();
         String[] taskIds = activityStack.getAliveIDs();
-        for(String ids : taskIds){
+        for (String ids : taskIds) {
             String[] arr = ids.split(":");
-            if(!arr[1].equals("kr.go.molit.nhsnes.activity.NhsMainActivity"))
-            {
+            if (!arr[1].equals("kr.go.molit.nhsnes.activity.NhsMainActivity")) {
                 Activity act = activityStack.getActivity(ids);
                 try {
                     act.finish();
-                } catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
         }
         System.gc();
     }
+
     /**
      * 단축키를 떼었을 때 발생하는 콜백함수.
-     *
+     * <p>
      * onKeyDown 콜백함수에서 설정한 플래그값을 확인한 후 로직을 짜면 된다.
      * shortPress가 true면 shortPress 로직,
      * shortPress가 false면 LongPress 로직,
      *
      * @param keyCode 입력한 단축키의 keyCode
-     * @param event 발생한 이벤트 정보
+     * @param event   발생한 이벤트 정보
      * @return super.onKeyUp(keyCode, event);
      */
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        switch (keyCode)
-        {
+        switch (keyCode) {
             case KeyEvent.KEYCODE_F1:
 
-                if(shortPress){
+                if (shortPress) {
 
                     if (!this.getClass().getName().equals(NhsMainActivity.class.getName()) &&
                             !this.getClass().getName().equals(NhsIntroActivity.class.getName()) &&
@@ -713,7 +761,7 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
                             startActivity(homeIntent);
                             overridePendingTransition(0, 0);
                             */
-                        } catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                         System.gc();
@@ -771,6 +819,14 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
         return super.onKeyUp(keyCode, event);
     }
 
+    /**
+     * 메세지를 보여준다.
+     *
+     * @param strMsg 메세지
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:57
+     **/
     public void showMessage(String strMsg) {
         // 메시지 텍스트를 핸들러에 전달
         Message msg = Message.obtain(mHandler2, 0, strMsg);
@@ -779,16 +835,18 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
     }
 
     /**
-     * USB Serial Toast Handler
-     */
+    * USB Serial Toast Handler
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:58
+    **/
     Handler mHandler2 = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
-                String strMsg = (String)msg.obj;
+                String strMsg = (String) msg.obj;
                 Toast.makeText(NhsBaseFragmentActivity.this, strMsg, Toast.LENGTH_SHORT).show();
                 Log.v("usb", strMsg);
-                if (strMsg != null)
-                {
+                if (strMsg != null) {
                 }
             }
         }
@@ -801,9 +859,9 @@ public class NhsBaseFragmentActivity extends LocationBaseActivity implements Gps
      * @author FIESTA
      * @since 오전 18:18
      **/
-    protected void allFlinishAllActivity(){
+    protected void allFlinishAllActivity() {
 
-        if (this.activityArrayList != null){
+        if (this.activityArrayList != null) {
 
             if (this.activityArrayList.size() > 0) {
 

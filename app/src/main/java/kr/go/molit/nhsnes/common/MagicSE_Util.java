@@ -11,19 +11,25 @@ import com.dreamsecurity.e2e.MagicSE2;
 public class MagicSE_Util {
     Context mContext;
 
-    public MagicSE_Util(Context context){
+    public MagicSE_Util(Context context) {
         mContext = context;
     }
 
-    //암호화된 데이터
-    public String getEncData(String data){
+    /**
+     * 암호화된 데이터
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:30
+     **/
+    public String getEncData(String data) {
         MagicSE2 magicSE = null;
         String sessionKey = null;
         String result = null;
 
         try {
             magicSE = new MagicSE2(mContext);
-            sessionKey = (String)SharedData.getSharedData(mContext, SharedData.SESSION_KEY);
+            sessionKey = (String) SharedData.getSharedData(mContext, SharedData.SESSION_KEY);
             result = magicSE.MagicSE_EncData(sessionKey, data.getBytes("UTF-8"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,15 +39,21 @@ public class MagicSE_Util {
         return result;
     }
 
-    //복호화된 데이터
-    public String getDecData(String data){
+    /**
+     * 복호화된 데이터
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:30
+     **/
+    public String getDecData(String data) {
         MagicSE2 magicSE = null;
         String sessionKey = null;
         byte[] result = null;
 
         try {
             magicSE = new MagicSE2(mContext);
-            sessionKey = (String)SharedData.getSharedData(mContext, SharedData.SESSION_KEY);
+            sessionKey = (String) SharedData.getSharedData(mContext, SharedData.SESSION_KEY);
             result = magicSE.MagicSE_DecData(sessionKey, data);
         } catch (Exception e) {
             e.printStackTrace();

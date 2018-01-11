@@ -80,9 +80,12 @@ import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SIMULATION
 import static kr.go.molit.nhsnes.fragment.SystemSettingFragment.IS_TTS_SOUND;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+ * 명칭검색 화면
+ *
+ * @author FIESTA
+ * @version 1.0.0
+ * @since 오후 5:05
+ **/
 public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implements OnSearchWayPointListener {
 
     private final static int TTS_TIMER_INTERVAL = 1000;             // TTS 알람 체크 주기
@@ -167,6 +170,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     }
 
+    /**
+     * 프로그래스바를 보여준다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:05
+     **/
     private void showProgress() {
 
         try {
@@ -205,6 +215,14 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     private HashMap<String, NhsDestinationSearchModel> hashList = null;
 
+    /**
+     * 명칭을 검색한다.
+     *
+     * @param mPOIText 명칭
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:06
+     **/
     private void searchList(String mPOIText) {
         byte[] strKSC5601 = null;
         try {
@@ -248,12 +266,12 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
             } finally {
 
 
-                TreeMap<String,NhsDestinationSearchModel> tm = new TreeMap<String,NhsDestinationSearchModel>(this.hashList);
+                TreeMap<String, NhsDestinationSearchModel> tm = new TreeMap<String, NhsDestinationSearchModel>(this.hashList);
 
-                Iterator<String> iteratorKey = tm.keySet( ).iterator( );   //키값 오름차순 정렬(기본)
+                Iterator<String> iteratorKey = tm.keySet().iterator();   //키값 오름차순 정렬(기본)
                 //Iterator<String> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
 
-                while(iteratorKey.hasNext()){
+                while (iteratorKey.hasNext()) {
                     String key = iteratorKey.next();
                     models.add(this.hashList.get(key));
                 }
@@ -264,6 +282,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
     }
 
+    /**
+     * 레이아웃을 설정한다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:07
+     **/
     private void setLayout() {
 
         mNlvView = (NhsLanView) findViewById(R.id.nlv_view);
@@ -321,7 +346,11 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     /**
      * 검색 시작
-     */
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:07
+     **/
     private void onSearchStart() {
         if (et_search.getText().length() > 0) {
             searchList(et_search.getText().toString());
@@ -618,11 +647,26 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     }
 
+    /**
+     * 확정된 경로를 반환한다.
+     *
+     * @param type  경로 type (DialogSearchWaypoint 상수 참조 : ex) TYPE_NONE)
+     * @param model NhsWaypoinSearchModel 데이터
+     * @author FIESTA
+     * @since 오후 9:03
+     **/
     @Override
     public void onComplate(int type, Object model) {
 
     }
 
+    /**
+     * 완료시 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:07
+     **/
     @Override
     public void onComplate() {
 
@@ -635,6 +679,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
     }
 
 
+    /**
+     * 완료 여부를 설정한다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:07
+     **/
     private void resultData(boolean isSucc) {
         Intent intent = getIntent();
         intent.putExtra(DATA_START, startData);
@@ -651,21 +702,49 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
     }
 
 
+    /**
+     * 취소했을때 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:08
+     **/
     @Override
     public void onCancel() {
 
     }
 
+    /**
+     * 다음 눌렀을때 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:08
+     **/
     @Override
     public void onNextSelect() {
 
     }
 
+    /**
+     * 삭제시 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:08
+     **/
     @Override
     public void onDelete() {
 
     }
 
+    /**
+     * 경로 수정 다이얼로그를 보여준다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:08
+     **/
     private void onEditRouteDialog() {
         Log.i("TEST", "onEditRouteDialog");
 
@@ -770,6 +849,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
     }
 
+    /**
+     * tts 시작
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:08
+     **/
     private void startTtsTimer() {
 
         this.ttsTimer = new Timer();
@@ -979,6 +1065,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
     }
 
+    /**
+     * tts 출력
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:09
+     **/
     @SuppressWarnings("deprecation")
     private void ttsUnder20(String text) {
         if (!mTts.isSpeaking()) {
@@ -988,6 +1081,13 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         }
     }
 
+    /**
+     * tts 출력
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:09
+     **/
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void ttsGreater21(String text) {
         if (!mTts.isSpeaking()) {
@@ -1014,9 +1114,14 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         });
     }
 
+
     /**
-     * 모의 주행 실행
-     */
+     * 모의 주행 시작
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:09
+     **/
     private void setSimulateDriving() {
         // 경로 생성 안됬을 경우
         if (mNative.lanIsRoute() == 0) {
@@ -1041,7 +1146,11 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
 
     /**
      * 즐겨찾기 추가 팝업 생성
-     */
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:09
+     **/
     private void onDialogAddFavorites() {
         dialogFavorites = new DialogAddFavorites(mContext,
                 new DialogAddFavorites.IFavorite() {
@@ -1078,21 +1187,28 @@ public class NhsDestinationSearchActivity extends NhsBaseFragmentActivity implem
         this.routeSearchStep = 0;
     }
 
+
     /**
-     * 키보드 숨기기
+     * 키보드를 수정한다
      *
-     * @param et
-     */
+     * @param et eidttext
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:09
+     **/
     private void hideKeyboard(EditText et) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 
     /**
-     * RP 에러 메세지 보여주는 함수
+     * RP 에러 메세지 보여준다.
      *
-     * @param resultCode
-     */
+     * @param resultCode 에러 코드
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:10
+     **/
     private void rpErrorMsg(int resultCode) {
 
         if (0 == resultCode) {

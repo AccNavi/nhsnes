@@ -60,6 +60,12 @@ public class NhsLeaveActivity extends NhsBaseFragmentActivity implements View.On
 
     }
 
+    /**
+    * 레이아웃 설정
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:20
+    **/
     private void setLayout() {
 
         this.edPhoneNumber = (EditText) this.findViewById(R.id.ed_phone);

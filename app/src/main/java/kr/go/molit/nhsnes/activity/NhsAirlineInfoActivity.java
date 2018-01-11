@@ -50,10 +50,13 @@ import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.DATA_START;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.KEY_MODE;
 import static kr.go.molit.nhsnes.activity.NhsSelectPointActivity.MODE_SEARCH_IN_ROUTE_SEARCH;
 
-/**
- * Created by jongrakmoon on 2017. 3. 31..
- */
 
+/**
+* Airline info 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:47
+**/
 public class NhsAirlineInfoActivity extends NhsBaseFragmentActivity implements View.OnClickListener {
     private CustomViewListType1 layoutFlightInfo;
     private CustomViewListType1 layoutAIP;
@@ -105,6 +108,12 @@ public class NhsAirlineInfoActivity extends NhsBaseFragmentActivity implements V
 
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:47
+    **/
     private void setLayout() {
 
         layoutFlightInfo = (CustomViewListType1) findViewById(R.id.layout_flight_info);

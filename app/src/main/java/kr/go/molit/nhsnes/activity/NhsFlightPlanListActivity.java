@@ -216,7 +216,12 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
         setRecyclerView(this.currentTabSelected);
     }
 
-    //탭 선택 시 리스트 연동 부분
+    /**
+    * 탭 선택 시 리스트 연동 부분
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:16
+    **/
     public void setRecyclerView(int which_tab) {
         etSearch.setText("");
         int listSize = 0;
@@ -240,7 +245,12 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
         }
     }
 
-    //탭 선택 시 화면 연동 부분
+    /**
+    * 탭 선택 시 화면 연동 부분
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:16
+    **/
     private void setTabLayout(int which_tab) {
         tabAllParam = btAll.getLayoutParams();
         tabApprovedParam = btApproved.getLayoutParams();
@@ -477,6 +487,12 @@ public class NhsFlightPlanListActivity extends NhsBaseFragmentActivity implement
         }
     }
 
+    /**
+    * plan을 취소한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:17
+    **/
     private void cancelFlightPlan(final List<FlightPlanInfo> deletes) {
         if (deletes != null && deletes.size() > 0) {
 

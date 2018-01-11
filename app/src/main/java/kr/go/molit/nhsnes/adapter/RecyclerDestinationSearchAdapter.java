@@ -22,7 +22,7 @@ import kr.go.molit.nhsnes.model.NhsDestinationSearchModel;
  * Created by jongrakmoon on 2017. 4. 4..
  */
 
-public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<RecyclerDestinationSearchAdapter.DestinationHolder> implements View.OnClickListener{
+public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<RecyclerDestinationSearchAdapter.DestinationHolder> implements View.OnClickListener {
 
 
     private DateFormat dateFormat;
@@ -130,6 +130,13 @@ public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<Recyc
         return models;
     }
 
+    /**
+     * 정렬한다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:26
+     **/
     private void sort() {
         List<NhsDestinationSearchModel> sortedModel = new ArrayList<>();
 
@@ -153,7 +160,7 @@ public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onClick(View view) {
 
-        NhsDestinationSearchModel model = (NhsDestinationSearchModel)view.getTag();
+        NhsDestinationSearchModel model = (NhsDestinationSearchModel) view.getTag();
 
 //        double _x = Double.parseDouble(model.getLongitude());
 //        double _y = Double.parseDouble(model.getLatitude());
@@ -202,7 +209,11 @@ public class RecyclerDestinationSearchAdapter extends RecyclerView.Adapter<Recyc
 
     /**
      * 검색 데이터 전달
-     */
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:26
+     **/
     public interface ISearchClickListener {
         void onClick(NhsDestinationSearchModel model);
     }

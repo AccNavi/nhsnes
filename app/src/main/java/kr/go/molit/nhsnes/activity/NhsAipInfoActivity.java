@@ -70,16 +70,16 @@ import static kr.go.molit.nhsnes.activity.NhsLoginActivity.LOGIN_TOKEN_KEY;
 import static kr.go.molit.nhsnes.adapter.RecyclerNhsFlightInfoListAdapter.VIEWTYPE_TITLE_DATE_DOWNLOAD_DELETE;
 
 /**
- * z
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+* Aipo Info 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:46
+**/
 public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
 
     public static final String CALL_CALSS_NAME = "className";       // 호출한 클래스 이름
     public static final String SEARCH_TYPE = "searchType";           // 조회 타입
     public static final String DATA = "data";                           // 데이터
-
 
     private RecyclerView rvList;
     private String callCalssName = "";           // 호출한 클래스 이름
@@ -686,6 +686,12 @@ public class NhsAipInfoActivity extends NhsBaseFragmentActivity {
 
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:46
+    **/
     private void setLayout() {
         rvList = (RecyclerView) findViewById(R.id.rv_info_list);
         rvList.setLayoutManager(new LinearLayoutManager(NhsAipInfoActivity.this));

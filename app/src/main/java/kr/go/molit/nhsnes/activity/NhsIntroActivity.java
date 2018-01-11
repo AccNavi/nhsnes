@@ -229,7 +229,12 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         }
     }
 
-    //개인정보 수집, 이용동의 팝업
+    /**
+    * 개인정보 수집, 이용동의 팝업
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:19
+    **/
     private void agreeDialog() {
         mPopup = new DialogType1(mContext, getString(R.string.dialog_agree_title), getString(R.string.dialog_agree_msg), getString(R.string.btn_confirm), new View.OnClickListener() {
             @Override
@@ -247,7 +252,12 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         });
     }
 
-    //GPS 오차범위 안내
+    /**
+    * GPS 오차범위 안내
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:19
+    **/
     private void gpsDialog() {
 
         mAgreePopup = new DialogType2(mContext, getString(R.string.dialog_gps_notice_title), getString(R.string.dialog_gps_notice_msg), getString(R.string.btn_confirm), new View.OnClickListener() {
@@ -261,6 +271,12 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
 
     }
 
+    /**
+    * 저장 매체 다이얼록
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:19
+    **/
     private void selectStorageDialog() {
         /*
         if (!StorageUtil.isAvailableExternalStorage()) {
@@ -465,7 +481,12 @@ public class NhsIntroActivity extends NhsBaseFragmentActivity {
         networkProcess.sendEmptyMessage(0);
     }
 
-    //데이터 요금 안내
+    /**
+    * 데이터 요금 안내
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:19
+    **/
     private void dataDialog() {
 
         ConnectivityManager connect = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);

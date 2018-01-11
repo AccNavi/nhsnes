@@ -25,6 +25,12 @@ public class NhsSettingtActivity extends NhsBaseFragmentActivity implements View
     setLayout();
   }
 
+  /**
+  * 레이아웃을 설정한다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:25
+  **/
   private void setLayout() {
 
     findViewById(R.id.ll_flight_setting).setOnClickListener(this);

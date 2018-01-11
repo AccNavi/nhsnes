@@ -34,6 +34,12 @@ public class DateTimeUtil {
 	public static final int TYPE_SECONDS	= 1000;
 
 
+	/**
+	* 포맷에 맞게 날짜 변환
+	* @author FIESTA
+	* @version 1.0.0
+	* @since 오후 5:29
+	**/
 	public static String date(String format) {
 
 		try {
@@ -71,6 +77,12 @@ public class DateTimeUtil {
 	}
 
 
+	/**
+	* 포맷에 맞게 날짜 변환
+	* @author FIESTA
+	* @version 1.0.0
+	* @since 오후 5:29
+	**/
 	public static String date(String date, String format) {
 
 		if (date == null || date.length() != 8)
@@ -80,6 +92,12 @@ public class DateTimeUtil {
 				+ date.substring(6, 8);
 	}
 
+	/**
+	 * 포맷에 맞게 날짜 변환
+	 * @author FIESTA
+	 * @version 1.0.0
+	 * @since 오후 5:29
+	 **/
 	public static String dateParsing(String yyyyMMdd) {
 
 		if (yyyyMMdd == null || yyyyMMdd.length() != 8)

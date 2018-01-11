@@ -49,14 +49,32 @@ public class SharedData {
         return true;
     }
 
+    /**
+    * shareed 정보 반환
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:31
+    **/
     public static Object getSharedData(Context context, String strKey){
         return getSharedData(context,SHARED_NAME,strKey,new String());
     }
 
+    /**
+     * shareed 정보 반환
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:31
+     **/
     public static Object getSharedData(Context context, String strKey, Object objData){
         return getSharedData(context,SHARED_NAME,strKey, objData);
     }
 
+    /**
+     * shareed 정보 반환
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:31
+     **/
     public static Object getSharedData(Context context, String strPrefName, String strKey, Object objData){
         SharedPreferences prefs = context.getSharedPreferences(strPrefName, Activity.MODE_PRIVATE);
 

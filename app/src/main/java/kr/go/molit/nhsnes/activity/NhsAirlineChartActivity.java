@@ -38,9 +38,11 @@ import static kr.go.molit.nhsnes.adapter.RecyclerNhsFlightInfoListAdapter.VIEWTY
 import static kr.go.molit.nhsnes.adapter.RecyclerNhsFlightInfoListAdapter.VIEWTYPE_TITLE_DOWNLOAD;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+* Airline chart 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:46
+**/
 public class NhsAirlineChartActivity extends NhsBaseFragmentActivity {
     private RecyclerView rvList;
     private String infoId;

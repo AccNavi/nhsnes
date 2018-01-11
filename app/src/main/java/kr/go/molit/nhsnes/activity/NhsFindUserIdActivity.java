@@ -44,6 +44,12 @@ public class NhsFindUserIdActivity extends NhsBaseFragmentActivity implements Vi
 
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:15
+    **/
     private void setLayout(){
 
         this.edName = (EditText) this.findViewById(R.id.ed_name);

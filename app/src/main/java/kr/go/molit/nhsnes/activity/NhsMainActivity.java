@@ -217,8 +217,13 @@ public class NhsMainActivity extends NhsBaseFragmentActivity implements View.OnC
                 break;
         }
     }
-
-    //탭 선택 시 리스트 연동 부분
+    
+    /**
+    * 탭 선택 시 리스트 연동 부분
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:21
+    **/
     private void setRecyclerView(int which_tab) {
         if (which_tab == TAB_RECENT_SELECTED) {
             //rvList.setAdapter(new RecyclerMainNhsFlightPlanListAdapter(recentList, RecyclerMainNhsFlightPlanListAdapter.VIEWTYPE_NHS_MAIN_ACT_RECENT, this));
@@ -226,7 +231,12 @@ public class NhsMainActivity extends NhsBaseFragmentActivity implements View.OnC
 
     }
 
-    //탭 선택 시 화면 연동 부분
+    /**
+    * 탭 선택 시 화면 연동 부분
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:21
+    **/
     private void setTabLayout(int which_tab) {
 
         tabRecentParam = btRecent.getLayoutParams();

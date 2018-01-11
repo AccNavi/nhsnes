@@ -68,6 +68,12 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
 
   }
 
+  /**
+  * 레이아웃 설정
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:24
+  **/
   private void setLayout() {
 
     this.edPhoneNumber = (EditText) this.findViewById(R.id.ed_phone);
@@ -661,7 +667,12 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
   };
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:24
+  **/
   public InputFilter filterAlphaNum = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
@@ -672,7 +683,12 @@ public class NhsRegisterActivity extends NhsBaseFragmentActivity implements View
     }
   };
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:24
+  **/
   public InputFilter filterAlphaNumSpecial = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");

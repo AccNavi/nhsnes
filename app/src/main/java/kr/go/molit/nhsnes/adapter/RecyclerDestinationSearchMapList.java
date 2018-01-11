@@ -86,6 +86,12 @@ public class RecyclerDestinationSearchMapList extends RecyclerView.Adapter<Recyc
 
     }
 
+    /**
+    * 데이터 추가
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:26
+    **/
     public void setData(List<NhsDestinationSearchMapModel> destinationSearchMapModels) {
         this.destinationSearchMapModels = destinationSearchMapModels;
         notifyDataSetChanged();
@@ -100,6 +106,12 @@ public class RecyclerDestinationSearchMapList extends RecyclerView.Adapter<Recyc
         }
     }
 
+    /**
+    * 가상 데이터 반환
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:26
+    **/
     public List<NhsDestinationSearchMapModel> makeFakeData() {
         List<NhsDestinationSearchMapModel> models = new ArrayList<>();
         NhsDestinationSearchMapModel model = new NhsDestinationSearchMapModel();

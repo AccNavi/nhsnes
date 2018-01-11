@@ -115,6 +115,12 @@ public class NhsFlightHistoryActivity extends NhsBaseFragmentActivity implements
     }
 
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:16
+    **/
     private void setLayout() {
         rvList = (RecyclerView) findViewById(R.id.rv_plan_list);
         rvList.setLayoutManager(new LinearLayoutManager(this));

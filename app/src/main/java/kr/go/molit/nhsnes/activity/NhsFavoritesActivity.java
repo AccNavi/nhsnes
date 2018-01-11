@@ -56,9 +56,12 @@ import kr.go.molit.nhsnes.model.NhsFavoriteModel;
 import kr.go.molit.nhsnes.model.NhsWaypoinSearchModel;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+ * 즐겨찾기 화면
+ *
+ * @author FIESTA
+ * @version 1.0.0
+ * @since 오후 5:11
+ **/
 public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements RecyclerWaypointAdapter.OnClickListener, OnSearchWayPointListener, OnClickOptionMapMenu, OnLongClickOptionMapMenu {
 
     private RecyclerView mRecyclerViewFavorites;
@@ -106,6 +109,13 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
         }, 1000);
     }
 
+    /**
+     * 레이아웃을 설정한다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:11
+     **/
     private void setLayout() {
 
         Bundle data = getIntent().getExtras();
@@ -127,16 +137,39 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
 
     }
 
+    /**
+     * 선택된 데이터를 반환한다.
+     *
+     * @return NhsFavoriteModel 데이터
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:12
+     **/
     public NhsFavoriteModel getSelectedModel() {
         return selectedModel;
     }
 
 
+    /**
+     * 확정된 경로를 반환한다.
+     *
+     * @param type  경로 type (DialogSearchWaypoint 상수 참조 : ex) TYPE_NONE)
+     * @param model NhsWaypoinSearchModel 데이터
+     * @author FIESTA
+     * @since 오후 9:03
+     **/
     @Override
     public void onComplate(int type, Object model) {
 
     }
 
+    /**
+     * 완료되면 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:13
+     **/
     @Override
     public void onComplate() {
 
@@ -147,9 +180,15 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
         finish();
 
 
-
     }
 
+    /**
+     * 취소하면 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:13
+     **/
     @Override
     public void onCancel() {
 
@@ -158,11 +197,26 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
 
     }
 
+    /**
+     * 다음을 선택시 호출된다.
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:13
+     **/
     @Override
     public void onNextSelect() {
 
     }
 
+    /**
+     * 가상 데이터를 만든다.
+     *
+     * @return List<NhsWaypoinSearchModel> 가상 데이터
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:13
+     **/
     private List<NhsWaypoinSearchModel> makeFakeData() {
 
         Realm realm = Realm.getDefaultInstance();
@@ -187,10 +241,16 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
         return nhsWaypoinSearchModels;
     }
 
+    /**
+    * 삭제시 호출된다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:14
+    **/
     @Override
     public void onDelete() {
 
-        if (this.mode == NhsSelectPointActivity.MODE_ROUTE){
+        if (this.mode == NhsSelectPointActivity.MODE_ROUTE) {
 
 
             Realm realm = Realm.getDefaultInstance();
@@ -206,7 +266,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
                     NhsWaypoinSearchModel nhsWaypoinSearchModel = null;
                     RealmResults<NhsFavoriteModel> searchList = null;
 
-                    for (i=0; i<size; i++) {
+                    for (i = 0; i < size; i++) {
 
                         nhsWaypoinSearchModel = list.get(i);
                         searchList = realm.where(NhsFavoriteModel.class).equalTo("id", nhsWaypoinSearchModel.getId()).findAll();
@@ -218,7 +278,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
                 }
 
 
-            }, new Realm.Transaction.OnSuccess(){
+            }, new Realm.Transaction.OnSuccess() {
 
                 @Override
                 public void onSuccess() {
@@ -242,7 +302,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
                     updateList();
 
                 }
-            }, new Realm.Transaction.OnSuccess(){
+            }, new Realm.Transaction.OnSuccess() {
 
                 @Override
                 public void onSuccess() {
@@ -255,15 +315,15 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
         }
 
 
-
     }
 
     /**
-    * 리스트 업데이트
-    * @author FIESTA
-    * @since  오전 12:23
-    **/
-    private void updateList(){
+     * 리스트 업데이트
+     *
+     * @author FIESTA
+     * @since 오전 12:23
+     **/
+    private void updateList() {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -281,10 +341,10 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
     public void onClick(NhsWaypoinSearchModel model) {
 
         if (this.mode == MODE_ROUTE_SEARCH) {
-            Log.d("JeLib","------------------------"+model.getLatitude()+" y:"+model.getLongitude());
+            Log.d("JeLib", "------------------------" + model.getLatitude() + " y:" + model.getLongitude());
             if (this.startData.isEmpty()) {
 
-                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_START, Util.convertValue(model.getLongitude()),  Util.convertValue(model.getLatitude()),"start name", new View.OnClickListener() {
+                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_START, Util.convertValue(model.getLongitude()), Util.convertValue(model.getLatitude()), "start name", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -296,7 +356,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
                 }
             } else if (this.endData.isEmpty()) {
 
-                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_GOAL, Util.convertValue(model.getLongitude()),  Util.convertValue(model.getLatitude()),"goal name", new View.OnClickListener() {
+                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_GOAL, Util.convertValue(model.getLongitude()), Util.convertValue(model.getLatitude()), "goal name", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -309,7 +369,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
 
             } else {
 
-                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, Util.convertValue(model.getLongitude()),  Util.convertValue(model.getLatitude()),"waypoint name", new View.OnClickListener() {
+                int result = mNlvView.setRoutePosition(NhsFavoritesActivity.this, Constants.NAVI_SETPOSITION_WAYPOINT, Util.convertValue(model.getLongitude()), Util.convertValue(model.getLatitude()), "waypoint name", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -324,7 +384,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
 
             try {
 //                mNative.lanExecuteRP();
-            }catch (Exception ex) {
+            } catch (Exception ex) {
 
             }
 
@@ -341,67 +401,110 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
     public void onClick(AirPoint curPos) {
 
         this.dialogAddRoute = new DialogAddRoute(NhsFavoritesActivity.this,
-            this.mode,
-            new View.OnClickListener(){
+                this.mode,
+                new View.OnClickListener() {
 
-                @Override
-                public void onClick(View view) {
+                    @Override
+                    public void onClick(View view) {
 
-                    switch (view.getId()) {
+                        switch (view.getId()) {
 
-                        case R.id.btn_add:
-                            dialogAddRoute.dismiss();
-                            break;
-                        case R.id.btn_complate:
+                            case R.id.btn_add:
+                                dialogAddRoute.dismiss();
+                                break;
+                            case R.id.btn_complate:
 
-                            Intent searchMap = new Intent(NhsFavoritesActivity.this, NhsMapSearchActivity.class);
-                            searchMap.putExtra(KEY_MODE, NhsSelectPointActivity.MODE_SEARCH_IN_ROUTE_SEARCH);
-                            searchMap.putExtra(DATA_START, startData);
-                            searchMap.putExtra(DATA_END, endData);
-                            searchMap.putExtra(DATA_ROUTE, routeData);
-                            NhsFavoritesActivity.this.startActivity(searchMap);
+                                Intent searchMap = new Intent(NhsFavoritesActivity.this, NhsMapSearchActivity.class);
+                                searchMap.putExtra(KEY_MODE, NhsSelectPointActivity.MODE_SEARCH_IN_ROUTE_SEARCH);
+                                searchMap.putExtra(DATA_START, startData);
+                                searchMap.putExtra(DATA_END, endData);
+                                searchMap.putExtra(DATA_ROUTE, routeData);
+                                NhsFavoritesActivity.this.startActivity(searchMap);
 
-                            dialogAddRoute.dismiss();
-                            break;
-                        case R.id.btn_cancel:
-                            dialogAddRoute.dismiss();
-                            break;
+                                dialogAddRoute.dismiss();
+                                break;
+                            case R.id.btn_cancel:
+                                dialogAddRoute.dismiss();
+                                break;
 
 
+                        }
 
                     }
-
-                }
-            });
+                });
         this.dialogAddRoute.show();
 
     }
-
+    /**
+     * 시작지점 클릭시 호출된다
+     *
+     * @param curPos 맵에 선택된 정보
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void setStart(AirPoint curPos) {
 
     }
 
+    /**
+     * 도착지점 클릭시 호출된다
+     *
+     * @param curPos 맵에 선택된 정보
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void setGoal(AirPoint curPos) {
 
     }
 
+    /**
+     * 경유지지점 클릭시 호출된다
+     *
+     * @param curPos 맵에 선택된 정보
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void setWaypoint(AirPoint curPos) {
 
     }
 
+    /**
+     * 찾기 클릭시 호출된다
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void OnSearch() {
 
     }
 
+    /**
+     * 초기화 클릭시 호출된다
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void OnReset() {
 
     }
 
+    /**
+     * 길게 클릭시 호출된다
+     *
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:03
+     **/
     @Override
     public void onLongClick(AirPoint curPos) {
 
@@ -431,7 +534,7 @@ public class NhsFavoritesActivity extends NhsBaseFragmentActivity implements Rec
         }
 
         // 가상 정보 레이어
-        bitData[24] = (StorageUtil.getStorageMode(getContext(), IS_LAYOUT_NW) ? 1: 0);
+        bitData[24] = (StorageUtil.getStorageMode(getContext(), IS_LAYOUT_NW) ? 1 : 0);
 
         // NOTAM 정보 레이어
         bitData[26] = (StorageUtil.getStorageMode(getContext(), NOTAM_INFO_LAYER) ? 1 : 0);

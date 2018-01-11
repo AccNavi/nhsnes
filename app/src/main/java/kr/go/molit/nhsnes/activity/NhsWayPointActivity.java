@@ -27,6 +27,12 @@ public class NhsWayPointActivity extends NhsBaseFragmentActivity implements View
         setLayout();
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:26
+    **/
     private void setLayout() {
         mLayoutSearchPassage = findViewById(R.id.layout_search_passage);
         mLayoutSearchPoint = findViewById(R.id.layout_search_point);

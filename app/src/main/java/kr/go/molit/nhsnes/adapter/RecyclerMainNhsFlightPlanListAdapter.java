@@ -84,6 +84,13 @@ public class RecyclerMainNhsFlightPlanListAdapter extends RecyclerView.Adapter<R
         }
     }
 
+    /**
+    * 모두 아이템 삭제
+     *
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:27
+    **/
     public void Clear(){
         /*
         if(this.selectedIds!=null){

@@ -25,9 +25,11 @@ import retrofit2.Response;
 import static kr.go.molit.nhsnes.adapter.RecyclerNhsFlightInfoListAdapter.VIEWTYPE_TITLE_DATE_DOWNLOAD_DELETE;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+* Airline weather 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:47
+**/
 public class NhsAirlineWeatherActivity extends NhsBaseFragmentActivity {
 
     private RecyclerView rvList;
@@ -42,6 +44,12 @@ public class NhsAirlineWeatherActivity extends NhsBaseFragmentActivity {
     }
 
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:47
+    **/
     private void setLayout() {
         rvList = (RecyclerView) findViewById(R.id.rv_info_list);
         rvList.setLayoutManager(new LinearLayoutManager(NhsAirlineWeatherActivity.this));

@@ -64,6 +64,12 @@ public class StorageUtil {
         return saveDir;
     }
 
+    /**
+    * 외부 저장소가 있는지 확인
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:32
+    **/
     public static boolean isAvailableExternalStorage() {
         //String state = Environment.getExternalStorageState();
         //return state.equals(Environment.MEDIA_MOUNTED);
@@ -76,18 +82,36 @@ public class StorageUtil {
         return false;
     }
 
+    /**
+    * sotrage 저장
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:32
+    **/
     public static void setStorageMode(Context context, Storage storage) {
         context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
                 .edit().putString(FLAG_SAVE_MODE, storage.value)
                 .commit();
     }
 
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static void setStorageMode(Context context, String key, String value) {
         context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
             .edit().putString(key, value)
             .commit();
     }
 
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static void setStorageMode(Context context, String key, boolean value) {
         context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
             .edit().putBoolean(key, value)
@@ -98,23 +122,52 @@ public class StorageUtil {
     public static Storage getStorageMode(Context context) {
         return Storage.parse(context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(FLAG_SAVE_MODE, null));
     }
-
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static boolean getStorageMode(Context context, String key) {
         return context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getBoolean(key, false);
     }
 
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static boolean getStorageModeWithDefaultValue(Context context, String key, boolean defaultValue) {
         return context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getBoolean(key, defaultValue);
     }
 
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static String getStorageModeEx(Context context, String key) {
         return context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(key,"");
     }
 
+    /**
+     * sotrage 저장
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static String getStorageModeEx(Context context, String key, String defaultValue) {
         return context.getSharedPreferences(TAG, Context.MODE_PRIVATE).getString(key, defaultValue);
     }
-
+    /**
+     * 외부저장소 퍼미션 체크
+     * 
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 5:32
+     **/
     public static boolean checkStoragePermission(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)

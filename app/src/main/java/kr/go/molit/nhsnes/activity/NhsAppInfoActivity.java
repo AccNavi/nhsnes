@@ -40,9 +40,12 @@ import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_DEM;
 import static kr.go.molit.nhsnes.activity.NhsMainActivity.MAP_VERSION_VECTOR;
 
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
-
+ * 앱 정보 화면
+ *
+ * @author FIESTA
+ * @version 1.0.0
+ * @since 오후 4:48
+ **/
 public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.OnClickListener {
 
     private final static String DEFAULT_DOWNLOAD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ACC_Navi/Map_Data/";
@@ -206,6 +209,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     /**
      * 다운로드 큐에 삽입한다.
      *
+     * @param mapType      맵 타입
+     * @param downloadPath 다운로드 경로
+     * @param fileName     파일 이름
      * @author FIESTA
      * @since 오후 11:52
      **/
@@ -303,6 +309,15 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
     }
 
+    /**
+     * Assets 파일을 복사한다.
+     *
+     * @param filename 파일 이름
+     * @param savePath 저장 경로
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:49
+     **/
     private void copyAssets(String filename, String savePath) {
         AssetManager assetManager = getAssets();
         String[] files = null;
@@ -352,6 +367,15 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
 
     }
 
+    /**
+     * 파일을 복사한다.
+     *
+     * @param in  inputstream
+     * @param out OutputStream
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:50
+     **/
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;
@@ -390,6 +414,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     /**
      * 프로그래스바 업데이트한다.
      *
+     * @param msg 메세지
      * @author FIESTA
      * @since 오전 3:50
      **/
@@ -445,6 +470,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     /**
      * DEM 파일들을 합친다.
      *
+     * @param saveFileName 저장 파일 이름
+     * @param filePath     파일 경로
+     * @param createPth    저장할 파일 경로
      * @author FIESTA
      * @since 오전 11:21
      **/
@@ -541,6 +569,9 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     /**
      * 파일 이동
      *
+     * @param inputPath  파일 원본 경로
+     * @param reName     바꿀 이름
+     * @param outputPath 저장 경로
      * @author FIESTA
      * @since 오전 11:19
      **/
@@ -727,6 +758,7 @@ public class NhsAppInfoActivity extends NhsBaseFragmentActivity implements View.
     /**
      * 임시 저장 폴더에 있는 파일들을 모두 삭제한다.
      *
+     * @param directoryPath 파일 경로
      * @author FIESTA
      * @since 오전 10:14
      **/

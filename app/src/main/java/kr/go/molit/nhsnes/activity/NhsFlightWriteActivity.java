@@ -308,6 +308,12 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
     }
 
 
+    /**
+    * Spinner를 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:17
+    **/
     private void setSpinnerData() {
         list1 = new ArrayList<>();
         list1.add("S-정기항공");
@@ -360,6 +366,12 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:17
+    **/
     private void setLayout() {
 
         vDeparture = findViewById(R.id.ll_3_2);
@@ -520,6 +532,12 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
 //        }
 //    };
 
+    /**
+    * 기록된 정보를 화면에 표시한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:18
+    **/
     private void setFlightData(FlightPlanInfo model) {
         //NhsFlightPlainModel model = NhsFlightPlainModel.getOneById(planId);
 
@@ -1867,6 +1885,12 @@ public class NhsFlightWriteActivity extends NhsBaseFragmentActivity implements V
         }
     }
 
+    /**
+    * 경로를 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:18
+    **/
     private void setRoute(String dataRoute) {
 
         try {

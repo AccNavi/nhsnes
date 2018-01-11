@@ -35,6 +35,12 @@ public class DialogAppVersion extends DialogBase implements View.OnClickListener
         setLayout();
     }
 
+    /**
+    * 레이아웃 설정
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:33
+    **/
     private void setLayout() {
         findViewById(R.id.btn_no).setOnClickListener(this);
         findViewById(R.id.btn_close).setOnClickListener(this);

@@ -65,6 +65,12 @@ public class RecyclerFavoriteAdapter extends RecyclerView.Adapter<RecyclerFavori
         setWayPointData(models, false);
     }
 
+    /**
+    * 데이터 추가
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 5:27
+    **/
     public void setWayPointData(ArrayList<NhsSearchWayPointModel> models, boolean addState){
         if(null == currentMapModels){
             currentMapModels = new ArrayList<NhsMapModel>();

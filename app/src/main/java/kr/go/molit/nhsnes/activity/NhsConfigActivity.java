@@ -12,9 +12,13 @@ import kr.go.molit.nhsnes.fragment.FlightMarkFragment;
 import kr.go.molit.nhsnes.fragment.SystemSettingFragment;
 import kr.go.molit.nhsnes.widget.ButtonEx;
 
+
 /**
- * Created by jongrakmoon on 2017. 3. 31..
- */
+* Config 화면
+* @author FIESTA
+* @version 1.0.0
+* @since 오후 4:58
+**/
 
 public class NhsConfigActivity extends NhsBaseFragmentActivity implements View.OnClickListener {
     private static final String TAG_FLIGHT_INFO = "flight_info";
@@ -76,6 +80,12 @@ public class NhsConfigActivity extends NhsBaseFragmentActivity implements View.O
 
     }
 
+    /**
+    * 레이아웃을 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:58
+    **/
     private void setLayout() {
         selectedColor = Color.WHITE;
         unselectedColor = getResources().getColor(R.color.textColorTransparentWhite);
@@ -107,6 +117,12 @@ public class NhsConfigActivity extends NhsBaseFragmentActivity implements View.O
         }
     }
 
+    /**
+    * FlightInfo view를 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:58
+    **/
     private void setViewFlightInfo() {
 
 //        if (mFragmentFlightInfo == null) {
@@ -120,6 +136,12 @@ public class NhsConfigActivity extends NhsBaseFragmentActivity implements View.O
 
     }
 
+    /**
+     * FlightMark view를 설정한다.
+     * @author FIESTA
+     * @version 1.0.0
+     * @since 오후 4:58
+     **/
     private void setViewFlightMark() {
 //        if (mFragmentFlightMark == null) {
             mFragmentFlightMark = new FlightMarkFragment();
@@ -132,6 +154,12 @@ public class NhsConfigActivity extends NhsBaseFragmentActivity implements View.O
 
     }
 
+    /**
+    * SystemSetting view를 설정한다.
+    * @author FIESTA
+    * @version 1.0.0
+    * @since 오후 4:59
+    **/
     private void setViewSystemSetting() {
 //        if (mFragmentSystemSetting == null) {
             mFragmentSystemSetting = new SystemSettingFragment();

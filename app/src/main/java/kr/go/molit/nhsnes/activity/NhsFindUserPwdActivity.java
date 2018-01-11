@@ -49,6 +49,12 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
 
   }
 
+  /**
+  * 레이아웃을 설정한다.
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:16
+  **/
   private void setLayout() {
 
     this.edId = (EditText) this.findViewById(R.id.ed_id);
@@ -424,7 +430,12 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
     }
   };
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:16
+  **/
   public InputFilter filterAlphaNum = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9]*$");
@@ -435,7 +446,12 @@ public class NhsFindUserPwdActivity extends NhsBaseFragmentActivity implements V
     }
   };
 
-  // 영문 + 숫자 만 입력 되도록
+  /**
+  * 영문 + 숫자 만 입력 되도록
+  * @author FIESTA
+  * @version 1.0.0
+  * @since 오후 5:16
+  **/
   public InputFilter filterAlphaNumSpecial = new InputFilter() {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
       Pattern ps = Pattern.compile("^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]+$");
